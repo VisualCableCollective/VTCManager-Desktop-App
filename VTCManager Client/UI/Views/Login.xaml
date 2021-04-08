@@ -1,0 +1,17 @@
+﻿<Page x:Class="VTCManager_Client.Views.Login"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VTCManager_Client.Views"
+      xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="900"
+      Title="Login"
+      Background="Black"
+      Style="{StaticResource DefaultPage}">
+    <Grid Background="#0d0d0d">
+        <Label Content="Loading..." FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <wpf:ChromiumWebBrowser x:Name="LoginWebBrowser"/>
+    </Grid>
+</Page>
