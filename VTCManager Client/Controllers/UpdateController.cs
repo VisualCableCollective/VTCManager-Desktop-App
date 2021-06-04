@@ -70,6 +70,8 @@ namespace VTCManager_Client.Controllers
                         {
                             LoadingWindow.ChangeStatusText("Downloading new update");
                             LoadingWindow.UpdateProgressBar.Visibility = Visibility.Visible;
+                            LoadingWindow.TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.Normal;
+                            LoadingWindow.TaskbarItemInfo.ProgressValue = 0;
                         }));
                     try
                     {
@@ -102,8 +104,13 @@ namespace VTCManager_Client.Controllers
         private static void Ad_UpdateCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             if (e.Cancelled)
-            { 
-                if(e.Error != null)
+            {
+                LoadingWindow.Dispatcher.Invoke(DispatcherPriority.Normal,
+                        new Action(() =>
+                        {
+                            LoadingWindow.TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.Error;
+                        }));
+                if (e.Error != null)
                 {
                     MessageBox.Show("Cannot install the latest version of the application. \n\nPlease check your network connection, or try again later. Error: " + e.Error.Message);
                     LogController.Write(LogPrefix + "Cannot install the latest version of the application. Error: " + e.Error.Message, LogController.LogType.Error);
@@ -137,6 +144,7 @@ namespace VTCManager_Client.Controllers
                         new Action(() =>
                         {
                             LoadingWindow.UpdateProgressBar.Value = e.ProgressPercentage;
+                            LoadingWindow.TaskbarItemInfo.ProgressValue = e.ProgressPercentage;
                         }));
         }
 
