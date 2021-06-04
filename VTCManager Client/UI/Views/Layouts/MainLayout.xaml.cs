@@ -16,6 +16,7 @@ namespace VTCManager_Client.Views.Layouts
         private UI.Views.SettingsPage settingsPage = null;
         private string CurrentPage = "Dashboard";
         private bool isSideBarAnimationRunning = false;
+        private bool wasNavItemClicked = false;
         public MainLayout()
         {
             InitializeComponent();
@@ -33,6 +34,7 @@ namespace VTCManager_Client.Views.Layouts
             ContentOverlay.Visibility = Visibility.Collapsed;
             SideBar.Visibility = Visibility.Collapsed;
             isSideBarAnimationRunning = false;
+            wasNavItemClicked = false;
         }
 
         private void OpenSideBarCompleted(object sender, EventArgs e)
@@ -49,6 +51,8 @@ namespace VTCManager_Client.Views.Layouts
 
         private void SideBarContentOverlay_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (isSideBarAnimationRunning)
+                return;
             CloseSideBar();
         }
 
@@ -156,9 +160,12 @@ namespace VTCManager_Client.Views.Layouts
 
         private void SBSettingsItem_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (wasNavItemClicked)
+                return;
+            wasNavItemClicked = true;
             CurrentPage = "Settings";
+            SideBarItems_MouseLeave(SBDashboardItem, null); //Fixes item still visually active
             SBSettingsItem.Opacity = 1;
-            SBDashboardItem.Opacity = 0.7;
             if (settingsPage == null)
                 settingsPage = new UI.Views.SettingsPage();
             PageContent.Navigate(settingsPage);
@@ -167,8 +174,11 @@ namespace VTCManager_Client.Views.Layouts
 
         private void SBDashboardItem_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (wasNavItemClicked)
+                return;
+            wasNavItemClicked = true;
             CurrentPage = "Dashboard";
-            SBSettingsItem.Opacity = 0.7;
+            SideBarItems_MouseLeave(SBSettingsItem, null); //Fixes item still visually active
             SBDashboardItem.Opacity = 1;
             PageContent.Navigate(maindash);
             CloseSideBar();
@@ -176,21 +186,19 @@ namespace VTCManager_Client.Views.Layouts
 
         private void CloseSideBarButton_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
-           CloseSideBar();
+            if (isSideBarAnimationRunning)
+                return;
+            CloseSideBar();
         }
 
         private void CloseSideBar()
         {
-            if (isSideBarAnimationRunning)
-                return;
             isSideBarAnimationRunning = true;
             (this.FindResource("CloseSideBarStoryboard") as Storyboard).Begin();
         }
 
         private void OpenSideBar()
         {
-            if (isSideBarAnimationRunning)
-                return;
             isSideBarAnimationRunning = true;
             (this.FindResource("OpenSideBarStoryboard") as Storyboard).Begin();
         }

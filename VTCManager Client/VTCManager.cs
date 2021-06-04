@@ -7,15 +7,15 @@
     {
         public static string AppName = "VTCManager";
         public static string Author = "The VisualCable Collective";
-        public static string Version = "v1.3.0 Public Beta";
+        public static string Version = "v1.4.0 Public Beta";
         public static string DiscordClientID = "659036297561767948";
 
         #region UpdateInfo
         public static string UpdatePublishedData = "March 28, 2021";
         //Changelog
-        public static string CLNewFeaturesList = "- VTCManager now starts automatically in the background, so you don't have to worry anymore if you forgot to start VTCManager (enabled by default)\n- Introducing the tray icon: When VTCManager is running, you will see an icon in the lower right corner of the taskbar";
-        public static string CLAdditionalImprovementsList = "- The animation when opening and closing the navigation menu has been improved\n- Opening the application multiple times was fixed to address possible stability issues\n- The startup speed has been improved\n- New Discord RPC image";
-        public static string CLSecurityAndBugFixesList = "- Fixed an issue where required application files weren't copied after a minor update";
+        public static string CLNewFeaturesList = "";
+        public static string CLAdditionalImprovementsList = "- The behavior of the sidebar when opening and closing and the visual display of the navigation items when navigating have been improved.";
+        public static string CLSecurityAndBugFixesList = "";
         #endregion
 
         /// <summary>
