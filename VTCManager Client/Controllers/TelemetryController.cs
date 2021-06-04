@@ -12,7 +12,10 @@ namespace VTCManager_Client.Controllers
         public static SCSTelemetry TelemetryData = new SCSTelemetry();
         public static float TrailerAvgDamageChassis = 0;
         public static float TrailerAvgDamageWheels = 0;
+        public static bool isGamePaused = false;
         private static bool _InitDone = false;
+        private static uint prevGameTimeValue = 0;
+        private static DateTime prevGameTimeCheckTime;
         public static bool InitDone
         {
             get { return _InitDone; }
@@ -117,6 +120,33 @@ namespace VTCManager_Client.Controllers
         {
             TelemetryData = data;
             CalculateAverageTrailerDamageValues();
+            CheckIfGameIsPaused();
+        }
+
+        /// <summary>
+        /// The Paused value in the TelemetryData object doesn't work, so we have to check this manually.
+        /// </summary>
+        private static void CheckIfGameIsPaused()
+        {
+            // we have to wait 5 seconds, because the GameTime value doesn't update very often
+            DateTime currentTelemetryTime = DateTime.Now;
+            if(prevGameTimeCheckTime != null)
+            {
+                TimeSpan difference = currentTelemetryTime - prevGameTimeCheckTime;
+                if (difference.TotalSeconds < 5)
+                    return;
+            }
+
+            if (prevGameTimeValue == TelemetryData.CommonValues.GameTime.Value)
+            {
+                isGamePaused = true;
+            }
+            else
+            {
+                isGamePaused = false;
+            }
+            prevGameTimeValue = TelemetryData.CommonValues.GameTime.Value;
+            prevGameTimeCheckTime = currentTelemetryTime;
         }
 
         private static void CalculateAverageTrailerDamageValues()

@@ -355,18 +355,14 @@
     <Content Include="Resources\DLLs\CefSharp\swiftshader\libGLESv2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\DLLs\SCSSdkClient.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Files\scs-telemetry.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Resources\DLLs\SCSSdkClient.dll" />
     <Resource Include="Resources\Images\UI\Backgrounds\Default.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\UI\Backgrounds\NoGameRunning.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Content Include="Resources\Files\scs-telemetry.dll" />
     <Content Include="Resources\Images\UI\Icons\dashboard_icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

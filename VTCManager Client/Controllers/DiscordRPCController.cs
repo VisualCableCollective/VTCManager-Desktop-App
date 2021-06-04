@@ -8,10 +8,11 @@ namespace VTCManager_Client.Controllers
     public static class DiscordRPCController
     {
         private static DiscordRpcClient DiscordRPCClient;
-        private static Timer UpdateRPCTimer = new Timer(10000);
+        private static Timer UpdateRPCTimer = new Timer(5000);
         private static readonly string LogPrefix = "[DiscordRPCController] ";
         private static bool InitDone = false;
         private static String DefaultSmallImageText = VTCManager.AppName + " " + VTCManager.Version;
+        private static readonly String PauseSmallImage = "pause-icon";
         private static Timestamps CurrentUsedTS;
         public static RPCStatus CurrentRPCStatus
         {
@@ -67,15 +68,25 @@ namespace VTCManager_Client.Controllers
                 case RPCStatus.TourRunning:
                     RPC.Details = "Delivering " + TelemetryController.TelemetryData.JobValues.CargoValues.Name + " (" + ((int)TelemetryController.TelemetryData.JobValues.CargoValues.Mass) / 1000 + "t)";
                     RPC.State = TelemetryController.TelemetryData.JobValues.CitySource + " -> " + TelemetryController.TelemetryData.JobValues.CityDestination + " (" + TelemetryController.GetTourPercentageCompleted() + "% completed)";
-                    RPC.Assets.LargeImageText = "Driving " + TelemetryController.TelemetryData.TruckValues.ConstantsValues.Brand + " " + TelemetryController.TelemetryData.TruckValues.ConstantsValues.Name + " | " + (uint)TelemetryController.TelemetryData.TruckValues.CurrentValues.DashboardValues.Speed.Kph + " km/h";
                     break;
                 case RPCStatus.FreeRoam:
-                    RPC.Assets.LargeImageText = "Driving " + TelemetryController.TelemetryData.TruckValues.ConstantsValues.Brand + " " + TelemetryController.TelemetryData.TruckValues.ConstantsValues.Name + " | " + (uint)TelemetryController.TelemetryData.TruckValues.CurrentValues.DashboardValues.Speed.Kph + " km/h";
                     RPC.Details = "Free as the wind.";
                     break;
                 default:
                     return;
             }
+
+            LogController.Write(LogPrefix + "isGamePaused: " + TelemetryController.isGamePaused, LogController.LogType.Debug);
+            if (TelemetryController.isGamePaused)
+            {
+                RPC.Assets.SmallImageKey = PauseSmallImage;
+                RPC.Assets.LargeImageText = "Resting in the " + TelemetryController.TelemetryData.TruckValues.ConstantsValues.Brand + " " + TelemetryController.TelemetryData.TruckValues.ConstantsValues.Name;
+            }
+            else
+            {
+                RPC.Assets.LargeImageText = "Driving in the " + TelemetryController.TelemetryData.TruckValues.ConstantsValues.Brand + " " + TelemetryController.TelemetryData.TruckValues.ConstantsValues.Name + " | " + (uint)TelemetryController.TelemetryData.TruckValues.CurrentValues.DashboardValues.Speed.Kph + " km/h";
+            }
+
             RPC.Timestamps = new Timestamps()
             {
                 Start = CurrentUsedTS.Start,
