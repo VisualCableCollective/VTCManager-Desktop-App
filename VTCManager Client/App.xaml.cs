@@ -69,13 +69,13 @@ namespace VTCManager_Client
                         if (_MainWindow != null)
                         {
                             _MainWindow.Show();
-                            _MainWindow.Focus();
-                            Controllers.DiscordRPCController.Init();
+                            _MainWindow.Topmost = true;
+                            DiscordRPCController.Init();
                         }
                         else if (_LoadingWindow != null)
                         {
                             _LoadingWindow.Show();
-                            _LoadingWindow.Focus();
+                            _MainWindow.Topmost = true;
                         }
                     }
                     catch (Exception ex)
@@ -84,7 +84,15 @@ namespace VTCManager_Client
                             LogController.LogType.Error);
                     }
 
-                    File.Delete(AppDataFolder + ".fcsmw");
+                    try
+                    {
+                        File.Delete(AppDataFolder + ".fcsmw");
+                    }
+                    catch
+                    {
+                        Thread.Sleep(10); // just to make sure that it is not used by the other process
+                        File.Delete(AppDataFolder + ".fcsmw");
+                    }
                 }
             });
             fcsmwTimer.Start();

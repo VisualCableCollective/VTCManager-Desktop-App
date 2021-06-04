@@ -15,7 +15,7 @@
         //Changelog
         public static string CLNewFeaturesList = "";
         public static string CLAdditionalImprovementsList = "- The behavior of the sidebar when opening and closing and the visual display of the navigation items when navigating have been improved.";
-        public static string CLSecurityAndBugFixesList = "- Fixed an issue where skipping the VCC intro animation resulted in the configuration file not being read.";
+        public static string CLSecurityAndBugFixesList = "- Fixed an issue where skipping the VCC intro animation resulted in the configuration file not being read.\n- Fixed an issue where the application was not brought to the foreground and could potentially crash.";
         #endregion
 
         /// <summary>
