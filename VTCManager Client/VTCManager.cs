@@ -14,7 +14,7 @@
         public static string UpdatePublishedData = "March 28, 2021";
         //Changelog
         public static string CLNewFeaturesList = "";
-        public static string CLAdditionalImprovementsList = "- The behavior of the sidebar when opening and closing and the visual display of the navigation items when navigating have been improved.";
+        public static string CLAdditionalImprovementsList = "- The behavior of the sidebar when opening and closing and the visual display of the navigation items when navigating have been improved.\n- The image that is displayed in the dashboard when no game is running has been replaced with an image that matches the current summer season.";
         public static string CLSecurityAndBugFixesList = "- Fixed an issue where skipping the VCC intro animation resulted in the configuration file not being read.\n- Fixed an issue where the application was not brought to the foreground and could potentially crash.";
         #endregion
 

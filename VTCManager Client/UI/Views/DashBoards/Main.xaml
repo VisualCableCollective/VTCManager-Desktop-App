@@ -36,7 +36,7 @@
             </Grid.RowDefinitions>
             <Border VerticalAlignment="Top" Grid.Row="0" Grid.Column="1" CornerRadius="30" Margin="5" x:Name="NoGameRunningInfoPanel" MinHeight="143" Visibility="Visible">
                 <Border.Background>
-                    <ImageBrush ImageSource="pack://application:,,,/Resources/Images/UI/Backgrounds/NoGameRunning.png" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Bottom" Opacity="0.7" Viewport="0,0,1,1.4"/>
+                    <ImageBrush ImageSource="pack://application:,,,/Resources/Images/UI/Backgrounds/NoGameRunning.png" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Bottom" Opacity="0.6" Viewport="0,0,1,1.4"/>
                 </Border.Background>
                 <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid.RowDefinitions>
