@@ -18,6 +18,9 @@ namespace VTCManager_Client.Windows
 
         public bool IgnoreCloseEvent = false;
         private App app;
+
+        private bool isAppInitializing = false;
+
         public LoadingWindow(App _app)
         {
             app = _app;
@@ -81,6 +84,11 @@ namespace VTCManager_Client.Windows
         //init the controllers and boot the app
         private void VCCLogoIntroPlayer_MediaEnded(object sender, RoutedEventArgs e)
         {
+            if (isAppInitializing)
+                return;
+
+            isAppInitializing = true;
+
             this.Dispatcher.Invoke(DispatcherPriority.Normal,
                 new Action(() =>
                 {
@@ -149,7 +157,10 @@ namespace VTCManager_Client.Windows
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
+            {
+                VCCLogoIntroPlayer.Pause(); // prevent that the MediaEnded event will be executed twice
                 VCCLogoIntroPlayer_MediaEnded(null, null); //skip VCC logo animation
+            }
         }
     }
 }
