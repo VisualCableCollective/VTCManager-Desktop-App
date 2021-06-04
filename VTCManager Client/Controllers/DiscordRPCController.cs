@@ -76,7 +76,7 @@ namespace VTCManager_Client.Controllers
                     return;
             }
 
-            LogController.Write(LogPrefix + "isGamePaused: " + TelemetryController.isGamePaused, LogController.LogType.Debug);
+            /*LogController.Write(LogPrefix + "isGamePaused: " + TelemetryController.isGamePaused, LogController.LogType.Debug);
             if (TelemetryController.isGamePaused)
             {
                 RPC.Assets.SmallImageKey = PauseSmallImage;
@@ -85,7 +85,8 @@ namespace VTCManager_Client.Controllers
             else
             {
                 RPC.Assets.LargeImageText = "Driving in the " + TelemetryController.TelemetryData.TruckValues.ConstantsValues.Brand + " " + TelemetryController.TelemetryData.TruckValues.ConstantsValues.Name + " | " + (uint)TelemetryController.TelemetryData.TruckValues.CurrentValues.DashboardValues.Speed.Kph + " km/h";
-            }
+            }*/
+            RPC.Assets.LargeImageText = "Driving in the " + TelemetryController.TelemetryData.TruckValues.ConstantsValues.Brand + " " + TelemetryController.TelemetryData.TruckValues.ConstantsValues.Name + " | " + (uint)TelemetryController.TelemetryData.TruckValues.CurrentValues.DashboardValues.Speed.Kph + " km/h";
 
             RPC.Timestamps = new Timestamps()
             {
