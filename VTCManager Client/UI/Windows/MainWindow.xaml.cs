@@ -127,7 +127,7 @@ namespace VTCManager_Client.Windows
 
         public void ShowDashboard()
         {
-            dashPage = new Views.Layouts.MainLayout();
+            dashPage = new Views.Layouts.MainLayout(this);
             MainFrame.Content = dashPage;
             loginPage = null;
         }

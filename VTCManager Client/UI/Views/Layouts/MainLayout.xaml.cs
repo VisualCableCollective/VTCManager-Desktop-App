@@ -17,7 +17,8 @@ namespace VTCManager_Client.Views.Layouts
         private string CurrentPage = "Dashboard";
         private bool isSideBarAnimationRunning = false;
         private bool wasNavItemClicked = false;
-        public MainLayout()
+        private bool isSidebarOpen = false;
+        public MainLayout(Windows.MainWindow mainWindow)
         {
             InitializeComponent();
 
@@ -26,6 +27,8 @@ namespace VTCManager_Client.Views.Layouts
             maindash = new DashBoards.Main();
             PageContent.Navigate(maindash);
             SBDashboardItem.Opacity = 1;
+
+            mainWindow.KeyUp += Window_KeyUp;
 
             Controllers.NotificationController.Init();
         }
@@ -45,8 +48,6 @@ namespace VTCManager_Client.Views.Layouts
         private void OpenSideBarButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
             OpenSideBar();
-            ContentOverlay.Visibility = Visibility.Visible;
-            SideBar.Visibility = Visibility.Visible;
         }
 
         private void SideBarContentOverlay_MouseDown(object sender, MouseButtonEventArgs e)
@@ -193,14 +194,41 @@ namespace VTCManager_Client.Views.Layouts
 
         private void CloseSideBar()
         {
+            if (!isSidebarOpen)
+                return;
             isSideBarAnimationRunning = true;
+            isSidebarOpen = false;
             (this.FindResource("CloseSideBarStoryboard") as Storyboard).Begin();
         }
 
         private void OpenSideBar()
         {
+            if (isSidebarOpen)
+                return;
+            ContentOverlay.Visibility = Visibility.Visible;
+            SideBar.Visibility = Visibility.Visible;
             isSideBarAnimationRunning = true;
+            isSidebarOpen = true;
             (this.FindResource("OpenSideBarStoryboard") as Storyboard).Begin();
+        }
+
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                this.Dispatcher.Invoke(DispatcherPriority.Normal,
+                new Action(() =>
+                {
+                    if (isSidebarOpen)
+                    {
+                        CloseSideBar();
+                    }
+                    else
+                    {
+                        OpenSideBar();
+                    }
+                }));
+            }
         }
     }
 }
