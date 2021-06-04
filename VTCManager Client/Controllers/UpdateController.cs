@@ -124,7 +124,7 @@ namespace VTCManager_Client.Controllers
                 Environment.Exit(-1);
                 return;
             }
-            string program_path = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Programs\VTCManager Client\VTCManager Client.appref-ms";
+            string program_path = Path.Combine(ApplicationDeployment.CurrentDeployment.DataDirectory, "VTCManager Client.exe");
             if (!File.Exists(program_path))
             {
                 MessageBox.Show("Couldn't restart VTCManager Client. Please run it from the start menu again.", "Error: Restart failed", MessageBoxButton.OK, MessageBoxImage.Error);
