@@ -153,15 +153,20 @@ namespace VTCManager_Client
 
         public static void SendReport(Exception exception, string developerMessage = "")
         {
-            /*if (exception is System.AggregateException) //sometimes caused by the Pusher client
+            if (exception is System.AggregateException) //sometimes caused by the Pusher client
             {
                 if (string.IsNullOrWhiteSpace(exception.Source))
                 {
-                    return;
+                    if (exception.InnerException != null)
+                    {
+                        if(exception.InnerException is System.Net.Sockets.SocketException)
+                        {
+                            return;
+                        }
+                    }
                 }
             }
-            This IS NOT a fix because I can't identify that this exception comes from the Pusher client. It may also come from other things
-             */
+
             _reportCrash.Silent = false;
             _reportCrash.Send(exception);
         }
