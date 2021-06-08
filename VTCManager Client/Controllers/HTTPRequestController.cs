@@ -45,9 +45,19 @@ namespace VTCManager_Client.Controllers
                 byte[] bytes = Encoding.ASCII.GetBytes(s);
                 request.ContentType = "application/x-www-form-urlencoded";
                 request.ContentLength = bytes.Length;
-                Stream requestStream = request.GetRequestStream();
-                requestStream.Write(bytes, 0, bytes.Length);
-                requestStream.Close();
+                try
+                {
+                    Stream requestStream = request.GetRequestStream();
+                    requestStream.Write(bytes, 0, bytes.Length);
+                    requestStream.Close();
+                }
+                catch (Exception ex)
+                {
+                    LogController.Write(LogPrefix + "Failed to get the request Stream. URL: " + url + " | Error: " + ex.Message, LogController.LogType.Error);
+                    return_str.Add("status_code", "REQUEST_FAILED");
+                    return_str.Add("response", "REQUEST_FAILED");
+                    return return_str;
+                }
             }
             HttpWebResponse response = null;
             string statusCode = null;
