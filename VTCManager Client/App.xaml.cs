@@ -153,6 +153,8 @@ namespace VTCManager_Client
 
         public static void SendReport(Exception exception, string developerMessage = "")
         {
+            if (exception is System.Net.Sockets.SocketException) //sometimes caused by the Pusher client
+                return;
             _reportCrash.Silent = false;
             _reportCrash.Send(exception);
         }
