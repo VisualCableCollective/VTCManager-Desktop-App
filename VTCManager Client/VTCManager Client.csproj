@@ -362,7 +362,9 @@
     <Resource Include="Resources\Images\UI\Backgrounds\NoGameRunning.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="Resources\Files\scs-telemetry.dll" />
+    <Content Include="Resources\Files\scs-telemetry.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\UI\Icons\dashboard_icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
