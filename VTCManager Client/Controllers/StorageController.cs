@@ -68,6 +68,12 @@ namespace VTCManager_Client.Controllers
                 else
                 {
                     Config = JsonConvert.DeserializeObject<Models.Config>(DataFileContent);
+
+                    // rare error, that the config is empty, but it may occur if the config file is broken
+                    if (Config == null)
+                    {
+                        Config = new Models.Config();
+                    }
                 }
             }
 
