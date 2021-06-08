@@ -22,6 +22,13 @@ namespace VTCManager_Client.Controllers
                 InitErrorMessage = "Couldn't check for updates or install new updates for the VTCManager client. The application will now be closed.";
                 return Models.ControllerStatus.FatalError;
             }
+
+            if (ApplicationDeployment.IsNetworkDeployed)
+            {
+                if (ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() != StorageController.Config.last_deploy_version_used)
+                    InstallUpdate();
+            }
+
             InitDone = true;
 
             return Models.ControllerStatus.OK;

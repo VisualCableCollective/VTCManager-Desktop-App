@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Deployment.Application;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -13,7 +11,7 @@ namespace VTCManager_Client.Controllers
     /// </summary>
     public static class ControllerManager
     {
-        public static string LogPrefix = "[" + nameof(ControllerManager) +"] ";
+        public static string LogPrefix = "[" + nameof(ControllerManager) + "] ";
 
         private static Windows.LoadingWindow LoadingWindow = null;
         public static Windows.MainWindow MainWindow = null;
@@ -35,28 +33,22 @@ namespace VTCManager_Client.Controllers
                 {
                     if (window.GetType() == typeof(Windows.LoadingWindow))
                     {
-                        LoadingWindow = (window as Windows.LoadingWindow);
+                        LoadingWindow = window as Windows.LoadingWindow;
                     }
                 }
             });
 
             #region Important Controllers
-            //Important controllers!!! If error, then close application. Do not change the boot order!
+            //Important controllers!!! If an error occurs, then close application. Do not change the boot order!
             Initialize(nameof(StorageController), StorageController.Init(), StorageController.InitErrorMessage, true, true);
             Initialize(nameof(LogController), LogController.Init(), LogController.InitErrorMessage, true, true);
+            Initialize(nameof(UpdateController), UpdateController.Init(LoadingWindow), UpdateController.InitErrorMessage, true, true);
             #endregion
 
-            AuthDataController.Init();
-            Initialize(nameof(LoadingWindow), UpdateController.Init(LoadingWindow), UpdateController.InitErrorMessage, true, true);
-
-            if (ApplicationDeployment.IsNetworkDeployed)
-            {
-                if (ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() != StorageController.Config.last_deploy_version_used)
-                    UpdateController.InstallUpdate();
-            }
+            Initialize(nameof(AuthDataController), AuthDataController.Init(), null);
 
             //API
-            LoadingWindow.Dispatcher.Invoke(DispatcherPriority.Normal,
+            _ = LoadingWindow.Dispatcher.Invoke(DispatcherPriority.Normal,
                         new Action(() =>
                         {
                             LoadingWindow.ChangeStatusText("Connecting to the server");
@@ -64,12 +56,14 @@ namespace VTCManager_Client.Controllers
 
             List<Models.ControllerStatus> APIInitStatusList = API.MainAPIController.Init();
             if (APIInitStatusList.Contains(Models.ControllerStatus.VTCMServerInoperational))
+            {
                 ShowErrorWindow("VTCManager API", "The VTCManager server is currently not available. Please check your internet connection or check the VisualCable Collective status page (https://status.vcc-online.eu/) for further information.");
+            }
 
             // installs the telemetry DLL if not already installed
             if (!StorageController.Config.ETS_Plugin_Installed && !StorageController.Config.ATS_Plugin_Installed)
             {
-                LoadingWindow.Dispatcher.Invoke(DispatcherPriority.Normal,
+                _ = LoadingWindow.Dispatcher.Invoke(DispatcherPriority.Normal,
                         new Action(() =>
                         {
                             LoadingWindow.ChangeStatusText("Installing ETS2/ATS Plugin");
@@ -83,32 +77,47 @@ namespace VTCManager_Client.Controllers
             return APIInitStatusList;
         }
 
-        private static void Initialize(String ControllerName, Models.ControllerStatus ControllerStatus, String InitErrorMessageVariable, bool showErrorWindowIfInitFails = false, bool shutDownIfInitFails = false)
+        /// <summary>
+        /// Initializes the specified controller.
+        /// </summary>
+        /// <param name="ControllerName">Name of the controller.</param>
+        /// <param name="ControllerStatus">The status of the controller returned by the Init() function.</param>
+        /// <param name="InitErrorMessageVariable">String, where the error message of the Init() function can be found.</param>
+        /// <param name="showErrorWindowOnError">If true, the error window is displayed in the event of an error.</param>
+        /// <param name="shutDownIfInitFails">Shuts down the application if an error occurs.</param>
+        private static void Initialize(string ControllerName, Models.ControllerStatus ControllerStatus, string InitErrorMessage, bool showErrorWindowOnError = false, bool shutDownOnError = false)
         {
+            //Logging
             LogController.Write(LogPrefix + "Initialization of " + ControllerName + " returned " + ControllerStatus, LogController.LogType.Debug);
 
             if (ControllerStatus == Models.ControllerStatus.OK)
-                return;
-
-            if(ControllerStatus == Models.ControllerStatus.FatalErrorIEM)
             {
-                LogController.Write(LogPrefix + "Initialization of " + ControllerName + " returned " + ControllerStatus + " | Error: " + InitErrorMessageVariable, LogController.LogType.Error);
+                return;
+            }
+
+            if (ControllerStatus == Models.ControllerStatus.FatalErrorIEM)
+            {
+                LogController.Write(LogPrefix + "Initialization of " + ControllerName + " returned " + ControllerStatus + " | Error: " + InitErrorMessage, LogController.LogType.Error);
             }
             else
             {
                 LogController.Write(LogPrefix + "Initialization of " + ControllerName + " returned " + ControllerStatus, LogController.LogType.Error);
             }
 
-            if (showErrorWindowIfInitFails)
+
+            // Error Window
+            if (!showErrorWindowOnError)
             {
-                if(ControllerStatus == Models.ControllerStatus.FatalErrorIEM)
-                {
-                    ShowErrorWindow("Initialization Error: " + ControllerName, InitErrorMessageVariable, shutDownIfInitFails);
-                }
-                else
-                {
-                    ShowErrorWindow("Initialization Error: " + ControllerName, "The initialization of " + ControllerName + " failed.", shutDownIfInitFails);
-                }
+                return;
+            }
+
+            if (ControllerStatus == Models.ControllerStatus.FatalErrorIEM)
+            {
+                ShowErrorWindow("Initialization Error: " + ControllerName, InitErrorMessage, shutDownOnError);
+            }
+            else
+            {
+                ShowErrorWindow("Initialization Error: " + ControllerName, "The initialization of " + ControllerName + " failed.", shutDownOnError);
             }
         }
 
@@ -117,14 +126,14 @@ namespace VTCManager_Client.Controllers
         /// </summary>
         public static void MainWindowInit()
         {
-            //get the main window to show the modals
+            //get the main window
             Application.Current.Dispatcher.Invoke(() =>
             {
                 foreach (Window window in Application.Current.Windows)
                 {
                     if (window.GetType() == typeof(Windows.MainWindow))
                     {
-                        MainWindow = (window as Windows.MainWindow);
+                        MainWindow = window as Windows.MainWindow;
                     }
                 }
             });
@@ -138,6 +147,7 @@ namespace VTCManager_Client.Controllers
         public static void ShutDown()
         {
             API.MainAPIController.ShutDown();
+
             DiscordRPCController.ShutDown();
             LogController.ShutDown();
             StorageController.ShutDown();
@@ -159,10 +169,10 @@ namespace VTCManager_Client.Controllers
         private static void ShowErrorWindow(string title, string description, bool ShutDown = true)
         {
             LogController.Write("Error title: " + title + "\nDescription: " + description, LogController.LogType.Error);
-            MessageBox.Show(description, title, MessageBoxButton.OK, MessageBoxImage.Error);
+            _ = MessageBox.Show(description, title, MessageBoxButton.OK, MessageBoxImage.Error);
             if (ShutDown)
             {
-                Controllers.ControllerManager.ShutDown();
+                ControllerManager.ShutDown();
                 Environment.Exit(-1);
             }
         }

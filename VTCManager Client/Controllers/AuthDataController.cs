@@ -15,7 +15,7 @@ namespace VTCManager_Client.Controllers
         private static string API_Token = null;
         private static bool Adata_FileOpen = false;
 
-        public static void Init()
+        public static Models.ControllerStatus Init()
         {
             AuthDataFilePath = StorageController.AppDataFolder + "adata.dat";
             if (!File.Exists(AuthDataFilePath))
@@ -26,6 +26,8 @@ namespace VTCManager_Client.Controllers
             }
 
             ConvertOldStorageToNew();
+
+            return Models.ControllerStatus.OK;
         }
 
         private static void SaveData(String data)
