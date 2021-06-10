@@ -7,23 +7,23 @@ namespace VTCManager_Client.Controllers
 {
     public static class StorageController
     {
-        public static string AppDataFolder;
-        private static string DataFilePath;
         public static Models.Config Config;
-        private static Timer AutoSaveTimer = new Timer(60000);
-        public static string InitErrorMessage = null;
+        private static readonly Timer _autoSaveTimer = new Timer(60000);
+        public static string InitErrorMessage = "";
 
-        public static string LogPrefix = "[StorageController] "; 
-
-        private static bool InitDone = false;
+        private static bool _initDone = false;
         public static Models.ControllerStatus Init()
         {
-            AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\VTCManager\";
-            if (!Directory.Exists(AppDataFolder))
+            if (_initDone)
+            {
+                return Models.ControllerStatus.InitAlreadyDone;
+            }
+
+            if (!Directory.Exists(Models.Folder.AppDataFolder))
             {
                 try
                 {
-                    Directory.CreateDirectory(AppDataFolder);
+                    _ = Directory.CreateDirectory(Models.Folder.AppDataFolder);
                 }
                 catch (Exception ex)
                 {
@@ -32,13 +32,12 @@ namespace VTCManager_Client.Controllers
                 }
             }
             //Data File
-            DataFilePath = AppDataFolder + "data.vtcm";
             FileStream DataFileStream;
-            if (!File.Exists(DataFilePath))
+            if (!File.Exists(Models.File.DataFile))
             {
                 try
                 {
-                    DataFileStream = File.Create(DataFilePath);
+                    DataFileStream = File.Create(Models.File.DataFile);
                 }
                 catch (Exception ex)
                 {
@@ -51,7 +50,7 @@ namespace VTCManager_Client.Controllers
             {
                 try
                 {
-                    DataFileStream = File.Open(DataFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+                    DataFileStream = File.Open(Models.File.DataFile, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
                 }
                 catch (Exception ex)
                 {
@@ -61,7 +60,7 @@ namespace VTCManager_Client.Controllers
                 string DataFileContent;
                 StreamReader reader = new StreamReader(DataFileStream);
                 DataFileContent = reader.ReadToEnd();
-                if (String.IsNullOrWhiteSpace(DataFileContent))
+                if (string.IsNullOrWhiteSpace(DataFileContent))
                 {
                     Config = new Models.Config();
                 }
@@ -77,33 +76,41 @@ namespace VTCManager_Client.Controllers
                 }
             }
 
-            if (Config.Debug == true)
+            if (Config.Debug)
+            {
                 VTCManager.DebugMode = true;
+            }
 
             DataFileStream.Close();
 
             //AutoSave
-            AutoSaveTimer.Elapsed += AutoSaveTimer_Elapsed;
-            AutoSaveTimer.Start();
+            _autoSaveTimer.Elapsed += AutoSaveTimer_Elapsed;
+            _autoSaveTimer.Start();
 
-            InitDone = true;
+            _initDone = true;
             return Models.ControllerStatus.OK;
         }
 
-        private static void AutoSaveTimer_Elapsed(object sender, ElapsedEventArgs e) => SaveConfig();
+        private static void AutoSaveTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            SaveConfig();
+        }
 
         public static void ShutDown()
         {
-            if (!InitDone)
+            if (!_initDone)
+            {
                 return;
+            }
+
             SaveConfig();
-            InitDone = false;
+            _initDone = false;
         }
 
         private static void SaveConfig()
         {
-            var ConfigJSON = JsonConvert.SerializeObject(Config);
-            File.WriteAllText(DataFilePath, ConfigJSON);
+            string ConfigJSON = JsonConvert.SerializeObject(Config);
+            File.WriteAllText(Models.File.DataFile, ConfigJSON);
         }
     }
 }
