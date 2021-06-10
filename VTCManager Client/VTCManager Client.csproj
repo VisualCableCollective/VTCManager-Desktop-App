@@ -196,6 +196,8 @@
     <Compile Include="Models\API\VTCManager\StatusResponse.cs" />
     <Compile Include="Models\Config.cs" />
     <Compile Include="Models\Enums.cs" />
+    <Compile Include="Models\File.cs" />
+    <Compile Include="Models\Folder.cs" />
     <Compile Include="Models\Jobs.cs" />
     <Compile Include="Models\StatusCodes.cs" />
     <Compile Include="Models\User.cs" />
