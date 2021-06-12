@@ -357,7 +357,9 @@
     <Content Include="Resources\DLLs\CefSharp\swiftshader\libGLESv2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\DLLs\SCSSdkClient.dll" />
+    <Content Include="Resources\DLLs\SCSSdkClient.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Images\UI\Backgrounds\Default.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

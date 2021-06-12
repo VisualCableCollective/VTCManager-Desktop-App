@@ -11,7 +11,7 @@
         public static readonly string DiscordClientID = "659036297561767948";
 
         #region UpdateInfo
-        public static readonly string UpdatePublishedData = "March 28, 2021";
+        public static readonly string UpdatePublishedData = "June 12, 2021";
 
         //Changelog
         public static readonly string CLNewFeaturesList = "- New Hotkey: You can now open and close the sidebar with the \"ESC\" key.";
