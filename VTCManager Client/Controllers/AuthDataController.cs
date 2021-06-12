@@ -17,7 +17,7 @@ namespace VTCManager_Client.Controllers
 
         public static Models.ControllerStatus Init()
         {
-            AuthDataFilePath = StorageController.AppDataFolder + "adata.dat";
+            AuthDataFilePath = Models.Folder.AppDataFolder + "adata.dat";
             if (!File.Exists(AuthDataFilePath))
             {
                 //so we don't open the not existing file by mistake

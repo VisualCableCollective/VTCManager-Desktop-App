@@ -20,8 +20,8 @@ namespace VTCManager_Client
         private static ReportCrash _reportCrash;
 
         //Windows
-        private Windows.LoadingWindow _loadingWindow;
-        private Windows.MainWindow _mainWindow;
+        private Windows.LoadingWindow _loadingWindow = null;
+        private Windows.MainWindow _mainWindow = null;
 
         /// <summary>
         /// The timer that searches for existing ".showapp" files to restore the currently active window.
