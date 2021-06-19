@@ -11,7 +11,7 @@ namespace VTCManager_Client.Controllers
     /// </summary>
     public static class ControllerManager
     {
-        public static string LogPrefix = "[" + nameof(ControllerManager) + "] ";
+        public static readonly string LOGPREFIX = "[" + nameof(ControllerManager) + "] ";
 
         private static Windows.LoadingWindow LoadingWindow = null;
         public static Windows.MainWindow MainWindow = null;
@@ -24,7 +24,7 @@ namespace VTCManager_Client.Controllers
         /// </returns>
         public static List<Models.ControllerStatus> BootInit()
         {
-            LogController.Write(LogPrefix + "Starting boot initialization...");
+            LogController.Write(LOGPREFIX + "Starting boot initialization...");
 
             //get the loadingwindow to change the status label
             Application.Current.Dispatcher.Invoke(() =>
@@ -54,8 +54,8 @@ namespace VTCManager_Client.Controllers
                             LoadingWindow.ChangeStatusText("Connecting to the server");
                         }));
 
-            List<Models.ControllerStatus> APIInitStatusList = API.MainAPIController.Init();
-            if (APIInitStatusList.Contains(Models.ControllerStatus.VTCMServerInoperational))
+            List<Models.ControllerStatus> apiInitStatusList = API.MainAPIController.Init();
+            if (apiInitStatusList.Contains(Models.ControllerStatus.VTCMServerInoperational))
             {
                 ShowErrorWindow("VTCManager API", "The VTCManager server is currently not available. Please check your internet connection or check the VisualCable Collective status page (https://status.vcc-online.eu/) for further information.");
             }
@@ -73,35 +73,35 @@ namespace VTCManager_Client.Controllers
 
             Initialize(nameof(GameLogController), GameLogController.Init(), GameLogController.InitErrorMessage);
 
-            LogController.Write(LogPrefix + "Boot initialization finished.");
-            return APIInitStatusList;
+            LogController.Write(LOGPREFIX + "Boot initialization finished.");
+            return apiInitStatusList;
         }
 
         /// <summary>
         /// Initializes the specified controller.
         /// </summary>
-        /// <param name="ControllerName">Name of the controller.</param>
-        /// <param name="ControllerStatus">The status of the controller returned by the Init() function.</param>
-        /// <param name="InitErrorMessageVariable">String, where the error message of the Init() function can be found.</param>
+        /// <param name="controllerName">Name of the controller.</param>
+        /// <param name="controllerStatus">The status of the controller returned by the Init() function.</param>
+        /// <param name="initErrorMessageVariable">String, where the error message of the Init() function can be found.</param>
         /// <param name="showErrorWindowOnError">If true, the error window is displayed in the event of an error.</param>
         /// <param name="shutDownIfInitFails">Shuts down the application if an error occurs.</param>
-        private static void Initialize(string ControllerName, Models.ControllerStatus ControllerStatus, string InitErrorMessage, bool showErrorWindowOnError = false, bool shutDownOnError = false)
+        private static void Initialize(string controllerName, Models.ControllerStatus controllerStatus, string initErrorMessage, bool showErrorWindowOnError = false, bool shutDownOnError = false)
         {
             //Logging
-            LogController.Write(LogPrefix + "Initialization of " + ControllerName + " returned " + ControllerStatus, LogController.LogType.Debug);
+            LogController.Write(LOGPREFIX + "Initialization of " + controllerName + " returned " + controllerStatus, LogController.LogType.Debug);
 
-            if (ControllerStatus == Models.ControllerStatus.OK)
+            if (controllerStatus == Models.ControllerStatus.OK)
             {
                 return;
             }
 
-            if (ControllerStatus == Models.ControllerStatus.FatalErrorIEM)
+            if (controllerStatus == Models.ControllerStatus.FatalErrorIEM)
             {
-                LogController.Write(LogPrefix + "Initialization of " + ControllerName + " returned " + ControllerStatus + " | Error: " + InitErrorMessage, LogController.LogType.Error);
+                LogController.Write(LOGPREFIX + "Initialization of " + controllerName + " returned " + controllerStatus + " | Error: " + initErrorMessage, LogController.LogType.Error);
             }
             else
             {
-                LogController.Write(LogPrefix + "Initialization of " + ControllerName + " returned " + ControllerStatus, LogController.LogType.Error);
+                LogController.Write(LOGPREFIX + "Initialization of " + controllerName + " returned " + controllerStatus, LogController.LogType.Error);
             }
 
 
@@ -111,13 +111,13 @@ namespace VTCManager_Client.Controllers
                 return;
             }
 
-            if (ControllerStatus == Models.ControllerStatus.FatalErrorIEM)
+            if (controllerStatus == Models.ControllerStatus.FatalErrorIEM)
             {
-                ShowErrorWindow("Initialization Error: " + ControllerName, InitErrorMessage, shutDownOnError);
+                ShowErrorWindow("Initialization Error: " + controllerName, initErrorMessage, shutDownOnError);
             }
             else
             {
-                ShowErrorWindow("Initialization Error: " + ControllerName, "The initialization of " + ControllerName + " failed.", shutDownOnError);
+                ShowErrorWindow("Initialization Error: " + controllerName, "The initialization of " + controllerName + " failed.", shutDownOnError);
             }
         }
 
@@ -163,16 +163,16 @@ namespace VTCManager_Client.Controllers
         /// <param name="description">
         /// Detailed information about the error.
         /// </param>
-        /// <param name="ShutDown">
+        /// <param name="shutDown">
         /// Closes the loading window now and the application after the user closed the error window.
         /// </param>
-        private static void ShowErrorWindow(string title, string description, bool ShutDown = true)
+        private static void ShowErrorWindow(string title, string description, bool shutDown = true)
         {
             LogController.Write("Error title: " + title + "\nDescription: " + description, LogController.LogType.Error);
             _ = MessageBox.Show(description, title, MessageBoxButton.OK, MessageBoxImage.Error);
-            if (ShutDown)
+            if (shutDown)
             {
-                ControllerManager.ShutDown();
+                ShutDown();
                 Environment.Exit(-1);
             }
         }

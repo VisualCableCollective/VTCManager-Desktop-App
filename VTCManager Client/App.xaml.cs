@@ -9,133 +9,148 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
-using VTCManager_Client.Controllers;
-using VTCManager_Client.Windows;
 
 namespace VTCManager_Client
 {
     /// <summary>
-    /// Interaktionslogik für "App.xaml"
+    /// Interaction logic for "App.xaml"
     /// </summary>
     public partial class App : Application
     {
         private static ReportCrash _reportCrash;
 
         //Windows
-        private Windows.LoadingWindow _LoadingWindow;
-        private Windows.MainWindow _MainWindow;
+        private Windows.LoadingWindow _loadingWindow = null;
+        private Windows.MainWindow _mainWindow = null;
 
-        private System.Timers.Timer fcsmwTimer;
+        /// <summary>
+        /// The timer that searches for existing ".showapp" files to restore the currently active window.
+        /// </summary>
+        private readonly System.Timers.Timer _checkShowAppFilesTimer = new System.Timers.Timer(250);
 
-        private String AppDataFolder;
+        private readonly string _appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\VTCManager\";
+
+        /// <summary>
+        /// The name of the temporary files, that the application should create and list to,
+        /// to display the currently active window again when the application is hidden.
+        /// </summary>
+        private readonly string SHOWAPPFILENAME = ".showapp";
+
+        private readonly string LOGPREFIX = "[APP] ";
 
         public App()
         {
-            AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\VTCManager\";
-
             //check if this app is already running
-            String currentProcessName = Process.GetCurrentProcess().ProcessName;
+            string currentProcessName = Process.GetCurrentProcess().ProcessName;
             if (Process.GetProcesses().Count(p => p.ProcessName == currentProcessName) > 1)
             {
-                //notify the running process that it should show the current main window
-                if (!Directory.Exists(AppDataFolder))
+                //notify the running process that it should show the current main window and set it to the topmost window
+                if (!Directory.Exists(_appDataFolder))
                 {
-                    Directory.CreateDirectory(AppDataFolder);
+                    _ = Directory.CreateDirectory(_appDataFolder);
                 }
-                if (!File.Exists(AppDataFolder + ".fcsmw"))
+                if (!File.Exists(_appDataFolder + SHOWAPPFILENAME))
                 {
-                    File.Create(AppDataFolder + ".fcsmw");
+                    _ = File.Create(_appDataFolder + SHOWAPPFILENAME);
                 }
-
-                Application.Current.Shutdown();
+                Current.Shutdown();
             }
 
-            //set up a listener for .fcsmw files (FocusMainWindow file)
-            fcsmwTimer = new System.Timers.Timer(250);
-            fcsmwTimer.Elapsed += FcsmwTimer_Elapsed;
-            fcsmwTimer.Start();
+            //set up a listener for .showapp files
+            _checkShowAppFilesTimer.Elapsed += CheckShowAppFilesTimerElapsed;
+            _checkShowAppFilesTimer.Start();
 
+            // enable hardware acceleration
+            RenderOptions.ProcessRenderMode = System.Windows.Interop.RenderMode.Default;
         }
 
-        private void FcsmwTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        /// <summary>
+        /// Shows the currently active window and sets it to the topmost window.
+        /// </summary>
+        private void ShowCurrentlyActiveWindow()
         {
-            fcsmwTimer.Stop();
-            this.Dispatcher.Invoke(() =>
+            try
             {
-                if (File.Exists(AppDataFolder + ".fcsmw"))
+                if (_mainWindow != null)
                 {
-                    try
-                    {
-                        if (_MainWindow != null)
-                        {
-                            _MainWindow.Show();
-                            _MainWindow.Topmost = true;
-                            DiscordRPCController.Init();
-                        }
-                        else if (_LoadingWindow != null)
-                        {
-                            _LoadingWindow.Show();
-                            _MainWindow.Topmost = true;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogController.Write("Error while showing the main window: " + ex.Message,
-                            LogController.LogType.Error);
-                    }
+                    _mainWindow.Show();
+                    _mainWindow.Topmost = true;
+                    Controllers.DiscordRPCController.Init();
+                }
+                else if (_loadingWindow != null)
+                {
+                    _loadingWindow.Show();
+                    _loadingWindow.Topmost = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Controllers.LogController.Write(LOGPREFIX + "Error while showing the currently active window: " + ex.Message,
+                    Controllers.LogController.LogType.Error);
+            }
+        }
+
+        /// <summary>
+        /// Event fired by the <see cref="_checkShowAppFilesTimer"/> to regularly check if a ".showapp" file
+        /// exists to show the currently active window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CheckShowAppFilesTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            _checkShowAppFilesTimer.Stop();
+            Dispatcher.Invoke(() =>
+            {
+                if (File.Exists(_appDataFolder + SHOWAPPFILENAME))
+                {
+                    ShowCurrentlyActiveWindow();
 
                     try
                     {
-                        File.Delete(AppDataFolder + ".fcsmw");
+                        File.Delete(_appDataFolder + SHOWAPPFILENAME);
                     }
                     catch
                     {
                         Thread.Sleep(10); // just to make sure that it is not used by the other process
-                        File.Delete(AppDataFolder + ".fcsmw");
+                        File.Delete(_appDataFolder + SHOWAPPFILENAME);
                     }
                 }
             });
-            fcsmwTimer.Start();
+            _checkShowAppFilesTimer.Start();
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            // set up crash reporter
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
-            Application.Current.DispatcherUnhandledException += DispatcherOnUnhandledException;
+            Current.DispatcherUnhandledException += DispatcherOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
-            _reportCrash = new ReportCrash("joschua.hass.sh@gmail.com")
+
+            _reportCrash = new ReportCrash(VTCManager.CrashReportReceiverEmail)
             {
                 Silent = true
             };
-            _reportCrash.RetryFailedReports();
+            _ = _reportCrash.RetryFailedReports();
 
-            RenderOptions.ProcessRenderMode = System.Windows.Interop.RenderMode.Default;
-        }
 
-        private void Application_Startup(object sender, StartupEventArgs e)
-        {
+            // silent mode checks
             if (e.Args.Contains("-silent"))
+            {
                 VTCManager.SilentAutoStartMode = true;
-            _LoadingWindow = new LoadingWindow(this);
-            if(!VTCManager.SilentAutoStartMode)
-                _LoadingWindow.Show();
-            MainWindow = _LoadingWindow;
-        }
+            }
 
-        public void LaunchMainWindow(List<Models.ControllerStatus> AppInitResults)
-        {
-            if (_MainWindow != null)
-                return;
-            _MainWindow = new Windows.MainWindow(this, AppInitResults);
+            _loadingWindow = new Windows.LoadingWindow(this);
             if (!VTCManager.SilentAutoStartMode)
-                _MainWindow.Show();
-            MainWindow = _MainWindow;
+            {
+                _loadingWindow.Show();
+            }
 
-            _LoadingWindow.Close();
-            _LoadingWindow = null;
+            MainWindow = _loadingWindow;
         }
 
+        #region CrashReporting
         private void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs unobservedTaskExceptionEventArgs)
         {
             SendReport(unobservedTaskExceptionEventArgs.Exception);
@@ -151,15 +166,15 @@ namespace VTCManager_Client
             SendReport((Exception)unhandledExceptionEventArgs.ExceptionObject);
         }
 
-        public static void SendReport(Exception exception, string developerMessage = "")
+        public static void SendReport(Exception exception)
         {
-            if (exception is System.AggregateException) //sometimes caused by the Pusher client
+            if (exception is AggregateException) //sometimes caused by the Pusher client
             {
                 if (string.IsNullOrWhiteSpace(exception.Source))
                 {
                     if (exception.InnerException != null)
                     {
-                        if(exception.InnerException is System.Net.Sockets.SocketException)
+                        if (exception.InnerException is System.Net.Sockets.SocketException)
                         {
                             return;
                         }
@@ -171,10 +186,35 @@ namespace VTCManager_Client
             _reportCrash.Send(exception);
         }
 
-        public static void SendReportSilently(Exception exception, string developerMessage = "")
+        public static void SendReportSilently(Exception exception)
         {
             _reportCrash.Silent = true;
             _reportCrash.Send(exception);
+        }
+        #endregion
+
+        /// <summary>
+        /// Shows the <see cref="Windows.MainWindow"/> and closes the <see cref="Windows.LoadingWindow"/>.<br/>
+        /// If <see cref="VTCManager.SilentAutoStartMode"/> is <see langword="true"/> the <see cref="Windows.MainWindow"/> won't be visible.
+        /// </summary>
+        /// <param name="AppInitResults"></param>
+        public void LaunchMainWindow(List<Models.ControllerStatus> appInitResults)
+        {
+            if (_mainWindow != null)
+            {
+                return;
+            }
+
+            _mainWindow = new Windows.MainWindow(this, appInitResults);
+            if (!VTCManager.SilentAutoStartMode)
+            {
+                _mainWindow.Show();
+            }
+
+            MainWindow = _mainWindow;
+
+            _loadingWindow.Close();
+            _loadingWindow = null;
         }
     }
 }
