@@ -8,7 +8,10 @@ namespace VTCManager_Client.UI.Views.Models
 {
     public class MainDashboardViewModel : INotifyPropertyChanged
     {
-        public uint WidgetsCornerRadius = 20;
+        public uint WidgetsCornerRadius
+        {
+            get { return 20; }
+        }
 
         public String SpeedLimitString
         {
