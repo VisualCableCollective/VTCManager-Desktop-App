@@ -15,7 +15,7 @@
 
         //Changelog
         public static readonly string CLNewFeaturesList = "";
-        public static readonly string CLAdditionalImprovementsList = "- The edge rounding and the size of the widgets have been adjusted.";
+        public static readonly string CLAdditionalImprovementsList = "- The edge rounding and the size of the widgets have been adjusted.\n- The design of the button to open the sidebar has been adjusted when hovering with a mouse over the button.";
         public static readonly string CLSecurityAndBugFixesList = "";
         #endregion
 
