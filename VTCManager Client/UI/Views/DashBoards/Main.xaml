@@ -8,7 +8,8 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Main"
       Background="Black"
-      Style="{StaticResource DefaultPage}">
+      Style="{StaticResource DefaultPage}"
+      >
     <Page.Resources>
         <Storyboard x:Key="SwitchToGameRunningInfoPanel" Completed="SwitchToGameRunningInfoPanelStoryboard_Completed">
             <DoubleAnimation Duration="00:00:01" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="GameRunningInfoPanel" To="1" From="0">
@@ -32,9 +33,9 @@
         <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" MinHeight="143"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Border VerticalAlignment="Top" Grid.Row="0" Grid.Column="1" CornerRadius="30" Margin="5" x:Name="NoGameRunningInfoPanel" MinHeight="143" Visibility="Visible">
+            <Border VerticalAlignment="Top" Grid.Row="0" Grid.Column="1" CornerRadius="20" Margin="5" x:Name="NoGameRunningInfoPanel" MinHeight="143" Visibility="Visible">
                 <Border.Background>
                     <ImageBrush ImageSource="pack://application:,,,/Resources/Images/UI/Backgrounds/NoGameRunning.png" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Bottom" Opacity="0.6" Viewport="0,0,1,1.4"/>
                 </Border.Background>
@@ -118,56 +119,54 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Border Grid.Column="0" CornerRadius="30" Margin="5" MouseDown="Border_MouseDown">
+                <Border Grid.Column="0" CornerRadius="20" Margin="5" MouseDown="Border_MouseDown">
                     <Border.Background>
                         <SolidColorBrush Color="#171717" Opacity="0.98"/>
                     </Border.Background>
-                    <Grid Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid Margin="10, 15" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                        <Image Source="pack://application:,,,/Resources/SVGs/exclamation-white.png" Opacity="0.85" MaxHeight="40"/>
-                        <Label Grid.Row="1" Content="Widget Not Available" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center"/>
-                        <TextBlock Margin="0,2,0,0" Grid.Row="2" Text="This feature will be included in a future update and is work in progress." FontSize="12" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"/>
+                        <Image Source="pack://application:,,,/Resources/SVGs/exclamation-white.png" MaxHeight="40"/>
+                        <Label Grid.Row="1" Margin="0,6,0,0" Content="Widget Not Available" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Foreground="#c4c4c4" Grid.Row="2" Text="This feature will be included in a future update and is work in progress." FontSize="12" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"/>
                     </Grid>
                 </Border>
-                <Border Grid.Column="1" CornerRadius="30" Margin="5">
+                <Border Grid.Column="1" CornerRadius="{Binding Path=WidgetsCornerRadius, FallbackValue='20'}" Margin="5" Padding="10,10">
                     <Border.Background>
                         <SolidColorBrush Color="#171717" Opacity="0.98"/>
                     </Border.Background>
-                    <Grid Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid Margin="10, 15" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                        <Image Source="pack://application:,,,/Resources/SVGs/exclamation-white.png" Opacity="0.85" MaxHeight="40"/>
-                        <Label Grid.Row="1" Content="Widget Not Available" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center"/>
-                        <TextBlock Margin="0,2,0,0" Grid.Row="2" Text="This feature will be included in a future update and is work in progress." FontSize="12" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"/>
+                        <Image Source="pack://application:,,,/Resources/SVGs/exclamation-white.png" MaxHeight="40"/>
+                        <Label Grid.Row="1" Margin="0,6,0,0" Content="Widget Not Available" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Foreground="#c4c4c4" Grid.Row="2" Text="This feature will be included in a future update and is work in progress." FontSize="12" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"/>
                     </Grid>
                 </Border>
-                <Border Grid.Column="2" CornerRadius="30" Margin="5">
+                <Border Grid.Column="2" CornerRadius="20" Margin="5">
                     <Border.Background>
                         <SolidColorBrush Color="#171717" Opacity="0.98"/>
                     </Border.Background>
-                    <Grid Margin="10">
+                    <Grid Margin="10, 15">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="5*"/>
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
-                        <Viewbox HorizontalAlignment="Center">
-                            <Grid Grid.Row="0" HorizontalAlignment="Center">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto"/>
-                                    <ColumnDefinition Width="auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Ellipse x:Name="ConnectionStateColor" Fill="{Binding Path=CurrentConnectionStateColor, UpdateSourceTrigger=PropertyChanged, FallbackValue='#13bf00'}" Height="13" Width="13" Grid.Column="0" Margin="5,0"/>
-                                <Label Grid.Column="1" Content="{Binding Path=CurrentConnectionStateString, UpdateSourceTrigger=PropertyChanged, FallbackValue='Connected'}" FontSize="10"/>
-                            </Grid>
-                        </Viewbox>
+                        <Grid Grid.Row="0" HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Ellipse x:Name="ConnectionStateColor" Fill="{Binding Path=CurrentConnectionStateColor, UpdateSourceTrigger=PropertyChanged, FallbackValue='#13bf00'}" Height="15" Width="15" Grid.Column="0" Margin="2,0"/>
+                            <Label Grid.Column="1" Content="{Binding Path=CurrentConnectionStateString, UpdateSourceTrigger=PropertyChanged, FallbackValue='Connected'}" FontSize="15"/>
+                        </Grid>
                         <Viewbox Grid.Row="1" VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3,0">
                                 <Label Content="{Binding Path=CurrentTimeWidgetHourString, UpdateSourceTrigger=PropertyChanged, FallbackValue='20'}" Padding="0" VerticalContentAlignment="Center"/>
