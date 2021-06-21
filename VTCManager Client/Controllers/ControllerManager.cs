@@ -61,7 +61,7 @@ namespace VTCManager_Client.Controllers
             }
 
             // installs the telemetry DLL if not already installed
-            if (!StorageController.Config.ETS_Plugin_Installed && !StorageController.Config.ATS_Plugin_Installed)
+            if (!StorageController.Config.ETS_Plugin_Installed || !StorageController.Config.ATS_Plugin_Installed)
             {
                 _ = LoadingWindow.Dispatcher.Invoke(DispatcherPriority.Normal,
                         new Action(() =>
