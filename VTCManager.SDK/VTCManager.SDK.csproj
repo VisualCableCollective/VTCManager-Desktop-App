@@ -4,4 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="SCSSdkClient">
+      <HintPath>Resources\Telemetry\SCSSdkClient.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
