@@ -1,0 +1,14 @@
+C:\Users\Joschua\Documents\GitHub\VTCManager-Desktop-App\VTCManager.SDK\bin\Debug\net5.0\VTCManager.SDK.deps.json
+C:\Users\Joschua\Documents\GitHub\VTCManager-Desktop-App\VTCManager.SDK\bin\Debug\net5.0\VTCManager.SDK.dll
+C:\Users\Joschua\Documents\GitHub\VTCManager-Desktop-App\VTCManager.SDK\bin\Debug\net5.0\ref\VTCManager.SDK.dll
+C:\Users\Joschua\Documents\GitHub\VTCManager-Desktop-App\VTCManager.SDK\bin\Debug\net5.0\VTCManager.SDK.pdb
+C:\Users\Joschua\Documents\GitHub\VTCManager-Desktop-App\VTCManager.SDK\bin\Debug\net5.0\SCSSdkClient.dll
+C:\Users\Joschua\Documents\GitHub\VTCManager-Desktop-App\VTCManager.SDK\obj\Debug\net5.0\VTCManager.SDK.csproj.AssemblyReference.cache
+C:\Users\Joschua\Documents\GitHub\VTCManager-Desktop-App\VTCManager.SDK\obj\Debug\net5.0\VTCManager.SDK.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Joschua\Documents\GitHub\VTCManager-Desktop-App\VTCManager.SDK\obj\Debug\net5.0\VTCManager.SDK.AssemblyInfoInputs.cache
+C:\Users\Joschua\Documents\GitHub\VTCManager-Desktop-App\VTCManager.SDK\obj\Debug\net5.0\VTCManager.SDK.AssemblyInfo.cs
+C:\Users\Joschua\Documents\GitHub\VTCManager-Desktop-App\VTCManager.SDK\obj\Debug\net5.0\VTCManager.SDK.csproj.CoreCompileInputs.cache
+C:\Users\Joschua\Documents\GitHub\VTCManager-Desktop-App\VTCManager.SDK\obj\Debug\net5.0\VTCManager.SDK.csproj.CopyComplete
+C:\Users\Joschua\Documents\GitHub\VTCManager-Desktop-App\VTCManager.SDK\obj\Debug\net5.0\VTCManager.SDK.dll
+C:\Users\Joschua\Documents\GitHub\VTCManager-Desktop-App\VTCManager.SDK\obj\Debug\net5.0\ref\VTCManager.SDK.dll
+C:\Users\Joschua\Documents\GitHub\VTCManager-Desktop-App\VTCManager.SDK\obj\Debug\net5.0\VTCManager.SDK.pdb

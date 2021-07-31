@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "hga6ZRfWxM3vl48+sL4M4nZb4qJCUeIaoweuc41YKvyADF2omIKC2c1rfuEg8pujUhcveDioptzxpKFf5Z4UOw==",
+  "dgSpecHash": "oASHbXh2NELP8qQIRWxl5b/AtW636UXoF2BeA8u2wsKtfOK4Ar5eYUAIrulCx29LQSAn7/y47BWiYdAC2u6wfg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Joschua\\Documents\\GitHub\\VTCManager-Desktop-App\\VTCManager.SDK\\VTCManager.SDK.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Joschua\\.nuget\\packages\\discordrichpresence\\1.0.175\\discordrichpresence.1.0.175.nupkg.sha512",
+    "C:\\Users\\Joschua\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
+    "C:\\Users\\Joschua\\.nuget\\packages\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
+    "C:\\Users\\Joschua\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\Joschua\\.nuget\\packages\\system.security.accesscontrol\\4.5.0\\system.security.accesscontrol.4.5.0.nupkg.sha512",
+    "C:\\Users\\Joschua\\.nuget\\packages\\system.security.principal.windows\\4.5.0\\system.security.principal.windows.4.5.0.nupkg.sha512"
+  ],
   "logs": []
 }

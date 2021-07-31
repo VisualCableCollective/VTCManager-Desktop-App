@@ -27,7 +27,7 @@ namespace VTCManager.SDK.Facades
         #region Telemetry Events
         private void TelemetryDataReceived(SCSTelemetry data, bool newTimestamp)
         {
-
+            VTCManagerClient.Game = new Models.Game(data);
         }
         #endregion
     }

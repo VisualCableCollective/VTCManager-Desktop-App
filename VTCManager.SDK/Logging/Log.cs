@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VTCManager.SDK.Facades
+namespace VTCManager.SDK.Logging
 {
     public static class Log
     {
@@ -51,13 +51,5 @@ namespace VTCManager.SDK.Facades
 
             return returnMessage;
         }
-    }
-
-    public enum LogMessageType{
-        Trace,
-        Debug,
-        Info,
-        Warning,
-        Error
     }
 }
