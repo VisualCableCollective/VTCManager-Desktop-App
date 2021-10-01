@@ -14,7 +14,8 @@
     "electron-serve": "^1.1.0",
     "electron-store": "^8.0.1",
     "lottie-react": "^2.1.0",
-    "prop-types": "^15.5.7"
+    "prop-types": "^15.5.7",
+    "react-icons": "^4.2.0"
   },
   "devDependencies": {
     "@types/node": "^14.14.31",
