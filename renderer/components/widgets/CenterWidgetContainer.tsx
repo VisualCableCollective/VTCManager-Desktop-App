@@ -4,6 +4,7 @@ import { WidgetBase } from "../shared/WidgetBase";
 import { AiFillMessage } from "react-icons/ai";
 import { IoMdSettings, IoMdDesktop, IoMdMap } from "react-icons/io";
 import { UpperInfoWidget } from "./UpperInfoWidget";
+import {TelemetryOfflineWidget} from "./info/TelemetryOfflineWidget";
 
 export function CenterWidgetContainer() {
   return (
@@ -11,7 +12,7 @@ export function CenterWidgetContainer() {
       <div className="col-span-2">
         <UpperInfoWidget />
       </div>
-      <h1>Nav</h1>
+      <TelemetryOfflineWidget />
       <div className="grid grid-cols-2 gap-6 h-full place-self-stretch">
         <Shortcut title="Web Dashboard" icon={<IoMdDesktop />} />
         <Shortcut title="Messages" icon={<AiFillMessage />} />

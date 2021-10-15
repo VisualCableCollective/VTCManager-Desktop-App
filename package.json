@@ -11,11 +11,13 @@
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
+    "@awesomeeng/awesome-log": "^4.2.2",
     "electron-serve": "^1.1.0",
     "electron-store": "^8.0.1",
     "lottie-react": "^2.1.0",
     "prop-types": "^15.5.7",
-    "react-icons": "^4.2.0"
+    "react-icons": "^4.2.0",
+    "trucksim-telemetry": "^0.16.0"
   },
   "devDependencies": {
     "@types/node": "^14.14.31",

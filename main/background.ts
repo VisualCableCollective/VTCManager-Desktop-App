@@ -1,6 +1,8 @@
 import { app } from 'electron';
 import serve from 'electron-serve';
 import { createWindow } from './helpers';
+import {TelemetryManager} from "./managers/TelemetryManager";
+import {LogManager} from "./managers/LogManager";
 
 const isProd: boolean = process.env.NODE_ENV === 'production';
 
@@ -25,6 +27,9 @@ if (isProd) {
     await mainWindow.loadURL(`http://localhost:${port}/home`);
     mainWindow.webContents.openDevTools();
   }
+
+  await LogManager.Init();
+  await TelemetryManager.Init(mainWindow);
 })();
 
 app.on('window-all-closed', () => {

@@ -7,6 +7,18 @@
   resolved "https://registry.yarnpkg.com/7zip-bin/-/7zip-bin-5.1.1.tgz#9274ec7460652f9c632c59addf24efb1684ef876"
   integrity sha512-sAP4LldeWNz0lNzmTird3uWfFDWWTeg6V/MsmyyLR9X1idwKBWIgt/ZvinqQldJm3LecKEs1emkbquO6PCiLVQ==
 
+"@awesomeeng/awesome-log@^4.2.2":
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@awesomeeng/awesome-log/-/awesome-log-4.2.2.tgz#4a3e542aea4c7d288c7501a41d2eed35626f87c8"
+  integrity sha512-IPxIN6OZQ1Cgg398tnRNRTd469xI5IZHafQA4obBkHmdQcC1XwfmEFw/tgv4/TaljAMvoHJqD6thh+l1G3ytiQ==
+  dependencies:
+    "@awesomeeng/awesome-utils" "^1.5.1"
+
+"@awesomeeng/awesome-utils@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@awesomeeng/awesome-utils/-/awesome-utils-1.5.1.tgz#543cda022d21ba099a898136f94c659af4912a1a"
+  integrity sha512-mM4ECjfrOYIhDh7DfN+NXlfo+2Sp5ZrrQrF3jVYyHpcB1t32iW7ifQEoFd4WYn0Tgvz2nSAaaudVq3XdHbS/nQ==
+
 "@babel/code-frame@7.12.11":
   version "7.12.11"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.12.11.tgz#f4ad435aa263db935b8f10f2c552d23fb716a63f"
@@ -3781,10 +3793,20 @@ locate-path@^5.0.0:
   dependencies:
     p-locate "^4.1.0"
 
+lodash.clonedeep@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
+  integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
+
 lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
   integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
+
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+  integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
 
 lodash.sortby@^4.7.0:
   version "4.7.0"
@@ -5205,6 +5227,11 @@ strip-json-comments@~2.0.1:
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
 
+struct-fu@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/struct-fu/-/struct-fu-1.2.1.tgz#1b8920bf44b669914e969393de51bb2e920be551"
+  integrity sha512-QrtfoBRe+RixlBJl852/Gu7tLLTdx3kWs3MFzY1OHNrSsYYK7aIAnzqsncYRWrKGG/QSItDmOTlELMxehw4Gjw==
+
 styled-jsx@4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/styled-jsx/-/styled-jsx-4.0.1.tgz#ae3f716eacc0792f7050389de88add6d5245b9e9"
@@ -5383,6 +5410,15 @@ tr46@^1.0.1:
   integrity sha1-qLE/1r/SSJUZZ0zN5VujaTtwbQk=
   dependencies:
     punycode "^2.1.0"
+
+trucksim-telemetry@^0.16.0:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/trucksim-telemetry/-/trucksim-telemetry-0.16.0.tgz#a6176b28f7a70b3fab55930beb21e81f60b964a6"
+  integrity sha512-ikSwmtXue/1xw06XwhgOJwy2B5Yaa9FaJ3olj7P/H9TEkjJIG06wzQZqlV/d2bkwWqCxBAaAtUfN5bf85Qfm1w==
+  dependencies:
+    lodash.clonedeep "^4.5.0"
+    lodash.isequal "^4.5.0"
+    struct-fu "^1.2.1"
 
 truncate-utf8-bytes@^1.0.0:
   version "1.0.2"

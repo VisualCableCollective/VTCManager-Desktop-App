@@ -3,6 +3,8 @@ import Link from "next/link";
 import { UpperInfoWidget } from "../components/widgets/UpperInfoWidget";
 import { VehicleWidget } from "../components/widgets/VehicleWidget";
 import { CenterWidgetContainer } from "../components/widgets/CenterWidgetContainer";
+import electron from 'electron';
+import {useTelemetry} from "../contexts/TelemetryContext";
 
 function Dashboard() {
   return (
