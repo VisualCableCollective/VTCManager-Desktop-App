@@ -17,11 +17,15 @@ export function TelemetryContextProvider(props: Props) {
     const [data, setData] = useState<TelemetryData>(null);
     const ipcRenderer = useIpc();
     useEffect(() => {
+        if (!ipcRenderer.ipcReady){
+            return;
+        }
+
         ipcRenderer.ipcRenderer.on("telemetry", function(event, args) {
             console.log("Received telemetry data: " + args);
             setData(args);
         })
-    }, []);
+    }, [ipcRenderer.ipcReady]);
 
     const context = {
         data,

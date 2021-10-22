@@ -10,13 +10,27 @@
     "build": "nextron build",
     "postinstall": "electron-builder install-app-deps"
   },
+  "protocols": [
+    {
+      "name": "vtcm",
+      "role": "Viewer",
+      "schemes": [
+        "vtcm"
+      ]
+    }
+  ],
   "dependencies": {
     "@awesomeeng/awesome-log": "^4.2.2",
+    "electron-fetch": "^1.7.4",
+    "electron-log": "^4.4.1",
     "electron-serve": "^1.1.0",
     "electron-store": "^8.0.1",
+    "electron-updater": "^4.3.9",
+    "enum": "^3.0.4",
     "lottie-react": "^2.1.0",
     "prop-types": "^15.5.7",
     "react-icons": "^4.2.0",
+    "react-popout": "^2.0.1",
     "trucksim-telemetry": "^0.16.0"
   },
   "devDependencies": {

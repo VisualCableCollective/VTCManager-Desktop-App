@@ -10,6 +10,7 @@ export class TelemetryManager {
     static Init(mainWindow: BrowserWindow) {
         this.appWindow = mainWindow;
         this.telemetry = Telemetry();
+        this.UpdateReceived(null);
         this.telemetry.watch({interval: this.UpdateInterval}, this.UpdateReceived);
         Log.info("[Telemetry] Listening to telemetry updates with an interval of " + this.UpdateInterval);
     }

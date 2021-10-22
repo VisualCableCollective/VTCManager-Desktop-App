@@ -2,11 +2,13 @@ import React, {createContext, useContext, useEffect, useState} from "react";
 import electron, {IpcRenderer} from 'electron';
 
 interface ContextProps {
-    ipcRenderer: IpcRenderer
+    ipcRenderer: IpcRenderer,
+    ipcReady: boolean,
 }
 
 const IpcContext = createContext<ContextProps>({
-    ipcRenderer: null
+    ipcRenderer: null,
+    ipcReady: false,
 });
 
 interface Props {
@@ -14,20 +16,21 @@ interface Props {
 }
 export function IpcContextProvider(props: Props) {
     const [ipcRenderer, setIpcRenderer] = useState<IpcRenderer>(null);
+    const [ipcReady, setIpcReady] = useState(false);
 
-    if(!ipcRenderer) {
-        const foundIpcRenderer = electron.ipcRenderer || false;
-        if (foundIpcRenderer) {
-            setIpcRenderer(foundIpcRenderer);
-            foundIpcRenderer.on("telemetry", (event, data) => {
-                console.log(event);
-                console.log(data);
-            });
+    setTimeout(() => {
+        if(!ipcRenderer) {
+            const foundIpcRenderer = electron.ipcRenderer || false;
+            if (foundIpcRenderer) {
+                setIpcRenderer(foundIpcRenderer);
+                setIpcReady(true);
+            }
         }
-    }
+    }, 500); // we have to wait otherwise a not working ipcRenderer will be used
 
     const context = {
         ipcRenderer: ipcRenderer,
+        ipcReady,
     };
 
     return (
