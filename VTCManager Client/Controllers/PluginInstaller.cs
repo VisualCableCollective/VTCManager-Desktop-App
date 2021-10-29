@@ -1,6 +1,8 @@
 ﻿using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -46,16 +48,26 @@ namespace VTCManager_Client.Controllers
                         LogController.Write(LogPrefix + "Found Steam Library Configuration File in '" + SteamLibraryConfigPath + "'. Looking for ganes...");
                         string testFile = File.ReadAllText(SteamLibraryConfigPath);
                         VdfDeserializer deserializer = new VdfDeserializer();
-                        dynamic result = deserializer.Deserialize(testFile);
-                        IDictionary<string, object> result_dictionary = result.LibraryFolders;
                         List<string> SteamLibraries = new List<string>();
-                        for (int i = 1; i < 5; i++)
+
+                        // try catch because it's dynamic and can change
+                        try
                         {
-                            if (result_dictionary.ContainsKey(i.ToString()))
+                            dynamic result = deserializer.Deserialize(testFile);
+                            IDictionary<string, dynamic> result_dictionary = result.libraryfolders;
+                            for (int i = 1; i < 5; i++)
                             {
-                                SteamLibraries.Add(result_dictionary[i.ToString()].ToString());
+                                if (result_dictionary.ContainsKey(i.ToString()))
+                                {
+                                    SteamLibraries.Add(result_dictionary[i.ToString()].path.ToString());
+                                }
                             }
                         }
+                        catch (Exception ex)
+                        {
+                            LogController.Write("Error while parsing Steam lib: " + ex.Message, LogController.LogType.Error);
+                        }
+
                         foreach (String Steampath in SteamLibraries)
                         {
                             if (File.Exists(Steampath + @"\steamapps\common\Euro Truck Simulator 2\bin\win_x86\eurotrucks2.exe") || File.Exists(Steampath + @"\steamapps\common\Euro Truck Simulator 2\bin\win_x64\eurotrucks2.exe"))

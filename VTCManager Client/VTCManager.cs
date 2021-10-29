@@ -7,16 +7,16 @@
     {
         public static readonly string AppName = "VTCManager";
         public static readonly string Author = "The VisualCable Collective";
-        public static readonly string Version = "v1.4.0 Public Beta";
+        public static readonly string Version = "v1.4.1 Public Beta";
         public static readonly string DiscordClientID = "659036297561767948";
 
         #region UpdateInfo
-        public static readonly string UpdatePublishedData = "June 12, 2021";
+        public static readonly string UpdatePublishedData = "October 29, 2021";
 
         //Changelog
         public static readonly string CLNewFeaturesList = "";
         public static readonly string CLAdditionalImprovementsList = "- The edge rounding and the size of the widgets have been adjusted.\n- The design of the button to open the sidebar has been adjusted when hovering with a mouse over the button.";
-        public static readonly string CLSecurityAndBugFixesList = "";
+        public static readonly string CLSecurityAndBugFixesList = "- Fixed an issue that led to a faulty plugin installation and the application crashing during the plugin installation.";
         #endregion
 
         /// <summary>
