@@ -48,7 +48,13 @@ if (isProd) {
     TelemetryManager.Init(mainWindow);
     VtcmApiClient.Init(new VtcmApiClientConfig(Environment.Development));
     mainWindow.webContents.send("loading-status-update", {message: "Connecting to the VTCManager services..."});
+
     let response = await VtcmApiClient.GetServiceStatus();
+    if (!response.DesktopClient.operational) {
+      mainWindow.webContents.send("show-loading-screen-error", {errorCode: "SERVICES_NOT_AVAILABLE"});
+      return;
+    }
+
     mainWindow.webContents.send("show-login");
     mainWindow.webContents.send("loading-status-update", {message: "Logging in..."});
     if (!VtcmApiClient.Config.BearerToken) {

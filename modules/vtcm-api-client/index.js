@@ -15,6 +15,22 @@ export class VtcmApiClient {
 
     static async GetServiceStatus() {
         const response = await HttpRequestUtil.Request(SERVICE_STATUS_ROUTE);
+
+        // happens if server is completely down
+        if (response == null) {
+            // fake response
+            const fakeData = {
+                WebApp: {
+                    operational: false,
+                },
+                DesktopClient: {
+                    operational: false,
+                }
+            }
+
+            return fakeData;
+        }
+
         return new ServiceStatusResponse(await response.json());
     }
 
