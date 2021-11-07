@@ -45,7 +45,7 @@ function Home() {
     <React.Fragment>
         {popout}
       <div className="w-screen h-screen bg-gray-900 flex items-center justify-center">
-          {loadingFailed ? <LoadingErrorInfo statusMessage={statusMessage} /> : <LoadingInfo statusMessage={statusMessage} />}
+          {loadingFailed ? <LoadingErrorInfo ipc={ipc} statusMessage={statusMessage} /> : <LoadingInfo statusMessage={statusMessage} />}
           <div className="fixed bottom-0 right-0 mr-1 opacity-70 select-none">
               v1.0.0
           </div>
@@ -70,7 +70,12 @@ function LoadingInfo({statusMessage}) {
     )
 }
 
-function LoadingErrorInfo({statusMessage}) {
+function LoadingErrorInfo({statusMessage, ipc}) {
+
+    function quitApp() {
+        ipc.ipcRenderer.send('quit-app');
+    }
+
     return (
         <div className="">
             <div className="flex justify-center">
@@ -87,7 +92,7 @@ function LoadingErrorInfo({statusMessage}) {
                             <p className="leading-none">Relaunch</p>
                         </button>
                         <button className="bg-white bg-opacity-20 hover:bg-opacity-30 text-xl rounded px-3 py-2 ml-2">
-                            <p className="leading-none">Quit</p>
+                            <p className="leading-none" onClick={quitApp}>Quit</p>
                         </button>
                     </div>
                 </div>

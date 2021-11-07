@@ -62,6 +62,10 @@ if (isProd) {
     }
     event.reply("init-finished");
   });
+
+  ipcMain.on("quit-app", async (event, args) => {
+    app.quit();
+  });
 })();
 
 app.on('window-all-closed', () => {
