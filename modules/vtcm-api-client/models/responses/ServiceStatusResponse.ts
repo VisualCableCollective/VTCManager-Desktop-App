@@ -8,7 +8,7 @@ export class ServiceStatusResponse {
     }
 }
 
-class ServiceStatus {
+export class ServiceStatus {
     operational: boolean;
 
     constructor(operational) {

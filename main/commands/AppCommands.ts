@@ -7,39 +7,48 @@ import {Environment} from "../../enums/Environment";
 import {mainWindow} from "../background";
 import {VtcmApiClient} from "../../modules/vtcm-api-client";
 import {createWindow} from "../helpers";
+import { IpcMainEvent } from "electron/main";
 
 export class AppCommands {
     static Init() {
-        ipcMain.on("init-app", async (event, args) => {
-            LogManager.Init();
+        // set up ipc events
+        ipcMain.on("init-app", this.InitApp);
+        ipcMain.on("quit-app", this.QuitApp);
+    }
 
-            mainWindow.webContents.send("loading-status-update", {message: "Looking for updates..."});
-            await UpdateManager.Init();
-            if(UpdateManager.IsUpdating) {
-                return;
-            }
+    private static async InitApp(event: IpcMainEvent, args) {
+        LogManager.Init();
 
-            TelemetryManager.Init(mainWindow);
-            VtcmApiClient.Init(new VtcmApiClientConfig(Environment.Development));
-            mainWindow.webContents.send("loading-status-update", {message: "Connecting to the VTCManager services..."});
+        mainWindow.webContents.send("loading-status-update", {message: "Looking for updates..."});
 
-            let response = await VtcmApiClient.GetServiceStatus();
-            if (!response.DesktopClient.operational) {
-                mainWindow.webContents.send("show-loading-screen-error", {errorCode: "SERVICES_NOT_AVAILABLE"});
-                return;
-            }
+        await UpdateManager.Init();
+        if(UpdateManager.IsUpdating) {
+            return;
+        }
 
-            mainWindow.webContents.send("show-login");
-            mainWindow.webContents.send("loading-status-update", {message: "Logging in..."});
-            if (!VtcmApiClient.Config.BearerToken) {
-                await this.openLoginPopup();
-            }
-            event.reply("init-finished");
-        });
+        TelemetryManager.Init(mainWindow);
 
-        ipcMain.on("quit-app", async (event, args) => {
-            app.quit();
-        });
+        VtcmApiClient.Init(new VtcmApiClientConfig(Environment.Development));
+
+        mainWindow.webContents.send("loading-status-update", {message: "Connecting to the VTCManager services..."});
+
+        let response = await VtcmApiClient.GetServiceStatus();
+        if (!response.DesktopClient.operational) {
+            mainWindow.webContents.send("show-loading-screen-error", {errorCode: "SERVICES_NOT_AVAILABLE"});
+            return;
+        }
+
+        mainWindow.webContents.send("loading-status-update", {message: "Logging in..."});
+
+        if (!VtcmApiClient.Config.BearerToken) {
+            await this.openLoginPopup();
+        }
+
+        event.reply("init-finished");
+    }
+
+    private static async QuitApp(event: IpcMainEvent, args) {
+        app.quit();
     }
 
     static async openLoginPopup() {
@@ -72,6 +81,7 @@ export class AppCommands {
                 VtcmApiClient.SetBearerToken(pageContent.token);
             }
         });
+
         await loginWindow.loadURL("http://localhost:8000/auth/vcc/desktop-client/redirect");
     }
 }
