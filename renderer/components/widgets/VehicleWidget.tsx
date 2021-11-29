@@ -21,12 +21,12 @@ export function VehicleWidget() {
           <FaGasPump />
         </div>
         <div className="flex items-center w-52">
-          <div className="bg-blue-900 rounded-xl h-10 absolute w-52"></div>
+          <div className="bg-blue-900 rounded-xl h-10 absolute w-52"/>
           <div
             className="bg-blue-500 rounded-xl h-10 z-10"
-            style={{ width: telemetry.data ? (telemetry.data.truck.fuel.value / telemetry.data.truck.fuel.capacity) + "%" : "0%" }}
-          ></div>
-          <h1 className="z-20 text-center w-52 absolute font-semibold">{telemetry.data ? (telemetry.data.truck.fuel.value / telemetry.data.truck.fuel.capacity) + "%" : "0%"}</h1>
+            style={{ width: telemetry.data ? (telemetry.data.truck.fuel.value / telemetry.data.truck.fuel.capacity) * 100 + "%" : "0%" }}
+          />
+          <h1 className="z-20 text-center w-52 absolute font-semibold">{telemetry.data ? Math.floor((telemetry.data.truck.fuel.value / telemetry.data.truck.fuel.capacity) * 100)+ "%" : "0%"}</h1>
         </div>
         <p className="text-white text-opacity-80 ml-6 text-center leading-4 text-sm">{telemetry.data ? telemetry.data.navigation.distance + "km" : "n/a"}<br/>Distance</p>
       </div>

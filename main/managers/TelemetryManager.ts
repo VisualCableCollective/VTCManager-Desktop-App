@@ -16,15 +16,14 @@ export class TelemetryManager {
     }
 
     static UpdateReceived(data: TelemetryData) {
+        let active = true;
         if (data === null) {
-            return;
+            active = false;
         }
 
-        if (data.truck) {
-            if (data.truck.model) {
-                Log.debug("[Telemetry] Sent data!" + data.truck.model.name);
-            }
-        }
-        TelemetryManager.appWindow.webContents.send("telemetry", data);
+        TelemetryManager.appWindow.webContents.send("telemetry", {
+            active,
+            data
+        });
     }
 }

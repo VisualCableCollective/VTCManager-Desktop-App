@@ -3,11 +3,13 @@ import { TelemetryData } from "trucksim-telemetry";
 import {useIpc} from "./IpcContext";
 
 interface ContextProps {
-    data: TelemetryData
+    data: TelemetryData,
+    active: boolean
 }
 
 const TelemetryContext = createContext<ContextProps>({
-    data: null
+    data: null,
+    active: false,
 });
 
 interface Props {
@@ -15,6 +17,7 @@ interface Props {
 }
 export function TelemetryContextProvider(props: Props) {
     const [data, setData] = useState<TelemetryData>(null);
+    const [active, setActive] = useState<boolean>(false);
     const ipcRenderer = useIpc();
     useEffect(() => {
         if (!ipcRenderer.ipcReady){
@@ -22,13 +25,18 @@ export function TelemetryContextProvider(props: Props) {
         }
 
         ipcRenderer.ipcRenderer.on("telemetry", function(event, args) {
-            console.log("Received telemetry data: " + args);
-            setData(args);
+            console.log(args);
+            if (args.active != active) {
+                setActive(args.active);
+            }
+
+            setData(args.data);
         })
     }, [ipcRenderer.ipcReady]);
 
     const context = {
         data,
+        active
     };
 
     return (
