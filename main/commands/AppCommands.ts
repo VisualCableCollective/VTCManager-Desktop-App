@@ -1,4 +1,4 @@
-import {app, ipcMain} from "electron";
+import {app, ipcMain, dialog} from "electron";
 import {LogManager} from "../managers/LogManager";
 import {UpdateManager} from "../managers/UpdateManager";
 import {TelemetryManager} from "../managers/TelemetryManager";
@@ -74,6 +74,16 @@ export class AppCommands {
                 const pageContent = JSON.parse(await loginWindow.webContents.executeJavaScript('document.documentElement.innerText;'));
 
                 if (pageContent.message !== "OK") {
+
+                    loginWindow.destroy();
+
+                    if (pageContent.error === "USER_NOT_REGISTERED") {
+                        dialog.showMessageBoxSync({
+                            message: "You have to create an account online before signing in!",
+                            title: "Login Error"
+                        });
+                    }
+
                     await this.openLoginPopup();
                     return;
                 }
