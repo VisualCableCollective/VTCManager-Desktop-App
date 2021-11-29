@@ -42,6 +42,7 @@ export class AppCommands {
 
         if (!VtcmApiClient.Config.BearerToken) {
             await AppCommands.openLoginPopup();
+            return;
         }
 
         event.reply("init-finished");
