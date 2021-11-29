@@ -41,7 +41,7 @@ export class AppCommands {
         mainWindow.webContents.send("loading-status-update", {message: "Logging in..."});
 
         if (!VtcmApiClient.Config.BearerToken) {
-            await AppCommands.openLoginPopup();
+            await AppCommands.openLoginPopup(event);
             return;
         }
 
@@ -52,7 +52,7 @@ export class AppCommands {
         app.quit();
     }
 
-    private static async openLoginPopup() {
+    private static async openLoginPopup(initEvent: IpcMainEvent) {
 
         let loginWindow = await createWindow("login", {show: false});
 
@@ -84,12 +84,13 @@ export class AppCommands {
                         });
                     }
 
-                    await this.openLoginPopup();
+                    await this.openLoginPopup(initEvent);
                     return;
                 }
 
                 loginWindow.destroy();
                 VtcmApiClient.SetBearerToken(pageContent.token);
+                initEvent.reply("init-finished");
             }
         });
 

@@ -8,15 +8,23 @@ export class TelemetryManager {
     static appWindow : BrowserWindow;
 
     static Init(mainWindow: BrowserWindow) {
-        this.appWindow = mainWindow;
-        this.telemetry = Telemetry();
-        this.UpdateReceived(null);
-        this.telemetry.watch({interval: this.UpdateInterval}, this.UpdateReceived);
-        Log.info("[Telemetry] Listening to telemetry updates with an interval of " + this.UpdateInterval);
+        TelemetryManager.appWindow = mainWindow;
+        TelemetryManager.telemetry = Telemetry();
+        TelemetryManager.UpdateReceived(null);
+        TelemetryManager.telemetry.watch({interval: TelemetryManager.UpdateInterval}, TelemetryManager.UpdateReceived);
+        Log.info("[Telemetry] Listening to telemetry updates with an interval of " + TelemetryManager.UpdateInterval);
     }
 
     static UpdateReceived(data: TelemetryData) {
-        Log.debug("[Telemetry] Sent data!");
-        this.appWindow.webContents.send("telemetry", data);
+        if (data === null) {
+            return;
+        }
+
+        if (data.truck) {
+            if (data.truck.model) {
+                Log.debug("[Telemetry] Sent data!" + data.truck.model.name);
+            }
+        }
+        TelemetryManager.appWindow.webContents.send("telemetry", data);
     }
 }
