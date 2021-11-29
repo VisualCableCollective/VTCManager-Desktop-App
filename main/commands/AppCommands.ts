@@ -41,7 +41,7 @@ export class AppCommands {
         mainWindow.webContents.send("loading-status-update", {message: "Logging in..."});
 
         if (!VtcmApiClient.Config.BearerToken) {
-            await this.openLoginPopup();
+            await AppCommands.openLoginPopup();
         }
 
         event.reply("init-finished");
@@ -51,7 +51,7 @@ export class AppCommands {
         app.quit();
     }
 
-    static async openLoginPopup() {
+    private static async openLoginPopup() {
 
         let loginWindow = await createWindow("login", {show: false});
 
