@@ -1,5 +1,5 @@
 import {WidgetBase} from "../../shared/WidgetBase";
-import ErrorAnimation from "../../../assets/lotties/error.json";
+import ConnectedAnimation from "../../../assets/lotties/telemetry-connected.json";
 import Lottie from "lottie-react";
 import React from "react";
 
@@ -9,7 +9,7 @@ export function TelemetryOnlineWidget() {
             <div className="mx-6 max-w-md text-center">
                 <div className="flex justify-center">
                     <div style={{maxWidth: "170px"}}>
-                        <Lottie animationData={ErrorAnimation}  loop={false}  />
+                        <Lottie animationData={ConnectedAnimation}  loop={false}  />
                     </div>
                 </div>
                 <h1 className="text-2xl font-bold">Telemetry Online!</h1>

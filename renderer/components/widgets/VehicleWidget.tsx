@@ -26,7 +26,7 @@ export function VehicleWidget() {
             className="bg-blue-500 rounded-xl h-10 z-10"
             style={{ width: telemetry.data ? (telemetry.data.truck.fuel.value / telemetry.data.truck.fuel.capacity) * 100 + "%" : "0%" }}
           />
-          <h1 className="z-20 text-center w-52 absolute font-semibold">{telemetry.data ? Math.floor((telemetry.data.truck.fuel.value / telemetry.data.truck.fuel.capacity) * 100)+ "%" : "0%"}</h1>
+          <h1 className="z-20 text-center w-52 absolute font-semibold">{telemetry.data ? Math.floor((telemetry.data.truck.fuel.value / telemetry.data.truck.fuel.capacity) * 100)+ "%" : "n/a"}</h1>
         </div>
         <p className="text-white text-opacity-80 ml-6 text-center leading-4 text-sm">{telemetry.data ? telemetry.data.navigation.distance + "km" : "n/a"}<br/>Distance</p>
       </div>
