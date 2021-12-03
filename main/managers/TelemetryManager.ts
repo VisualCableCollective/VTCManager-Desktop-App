@@ -1,6 +1,8 @@
 import Telemetry, {EventsJobStartedVerbose, TelemetryData, Telemetry as TelemetryType} from "trucksim-telemetry";
 import Log from "@awesomeeng/awesome-log";
 import {BrowserWindow} from "electron";
+import {StoreJobRequest} from "../../modules/vtcm-api-client/models/requests/StoreJobRequest";
+import {VtcmApiClient} from "../../modules/vtcm-api-client";
 
 export class TelemetryManager {
     static telemetry: TelemetryType;
@@ -33,5 +35,46 @@ export class TelemetryManager {
     static JobStarted(data: EventsJobStartedVerbose) {
         Log.info("[Telemetry] A new job has been started!");
         Log.debug("[Telemetry] Job Data: " + JSON.stringify(data));
+
+        const requestData = new StoreJobRequest();
+        requestData.CargoId = data.cargo.id;
+        requestData.CargoName = data.cargo.name;
+        requestData.CargoMass = data.cargo.mass;
+
+        requestData.PlannedDistanceKm = data.plannedDistance.km;
+        requestData.PlannedDistanceMiles = data.plannedDistance.miles;
+        requestData.CitySourceId = data.source.city.id;
+        requestData.CitySourceName = data.source.city.name;
+        requestData.CompanySourceId = data.source.company.id;
+        requestData.CompanySourceName = data.source.company.name;
+        requestData.CityDestinationId = data.destination.city.id;
+        requestData.CityDestinationName = data.destination.city.name;
+        requestData.CompanyDestinationId = data.destination.company.id;
+        requestData.CompanyDestinationName = data.destination.company.name;
+
+        const truckData = TelemetryManager.telemetry.getTruck();
+        requestData.TruckModelId = truckData.model.id;
+        requestData.TruckModelName = truckData.model.name;
+        requestData.TruckModelManufacturerId = truckData.make.id;
+        requestData.TruckModelManufacturerName = truckData.make.name;
+        requestData.TruckCabinDamage = truckData.damage.cabin;
+        requestData.TruckChassisDamage = truckData.damage.chassis;
+        requestData.TruckEngineDamage = truckData.damage.engine;
+        requestData.TruckTransmissionDamage = truckData.damage.transmission;
+        requestData.TruckWheelsDamage = truckData.damage.wheels;
+
+        const trailerData = TelemetryManager.telemetry.getTrailer();
+        requestData.TrailerDamageChassis = trailerData.damage.chassis;
+        requestData.TrailerDamageWheels = trailerData.damage.wheels;
+
+        requestData.MarketId = data.market.id;
+        requestData.IsSpecialJob = data.isSpecial;
+        // ToDo: I hate this shit
+        requestData.JobIngameStarted = new Date(TelemetryManager.telemetry.getData().game.time.unix).toISOString();
+        requestData.JobIngameDeadline = new Date(data.expectedDeliveryTimestamp.unix).toISOString();
+        requestData.JobIncome = data.income;
+        requestData.LanguageCode = null;
+
+        VtcmApiClient.JobStart(requestData.GetPostData());
     }
 }

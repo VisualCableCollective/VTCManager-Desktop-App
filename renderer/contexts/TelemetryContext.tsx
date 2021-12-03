@@ -25,7 +25,7 @@ export function TelemetryContextProvider(props: Props) {
         }
 
         ipcRenderer.ipcRenderer.on("telemetry", function(event, args) {
-            
+
             if (args.active != active) {
                 setActive(args.active);
             }

@@ -1,8 +1,9 @@
 import {VtcmApiClientConfig} from "./VtcmApiClientConfig";
-import {SERVICE_STATUS_ROUTE} from "./constants/routes";
+import {SERVICE_STATUS_ROUTE, STORE_JOB_ROUTE} from "./constants/routes";
 import {HttpRequestUtil} from "./utils/HttpRequestUtil";
 import {ServiceStatusResponse} from "./models/responses/ServiceStatusResponse";
 import {Storage} from "../../main/managers/StorageManager";
+import {StoreJobRequest} from "./models/requests/StoreJobRequest";
 
 export class VtcmApiClient {
     static Config;
@@ -32,6 +33,10 @@ export class VtcmApiClient {
         }
 
         return new ServiceStatusResponse(await response.json());
+    }
+
+    static JobStart(data) {
+        const response = HttpRequestUtil.Request(STORE_JOB_ROUTE, data);
     }
 
     static SetBearerToken(token) {
