@@ -10,3 +10,7 @@ export const STORE_JOB_ROUTE: APIRoute = {
     route: 'jobs', method: RequestMethod.POST, requiresAuth: true, requiresID: false, requiresParentRoute: false, disableApiUrlPrefix: false,
 };
 
+export const JOB_DELIVERED_ROUTE: APIRoute = {
+    route: 'jobs/{id}/delivered', method: RequestMethod.POST, requiresAuth: true, requiresID: true, requiresParentRoute: false, disableApiUrlPrefix: false,
+};
+

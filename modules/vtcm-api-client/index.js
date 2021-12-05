@@ -1,5 +1,5 @@
 import {VtcmApiClientConfig} from "./VtcmApiClientConfig";
-import {SERVICE_STATUS_ROUTE, STORE_JOB_ROUTE} from "./constants/routes";
+import {JOB_DELIVERED_ROUTE, SERVICE_STATUS_ROUTE, STORE_JOB_ROUTE} from "./constants/routes";
 import {HttpRequestUtil} from "./utils/HttpRequestUtil";
 import {ServiceStatusResponse} from "./models/responses/ServiceStatusResponse";
 import {Storage} from "../../main/managers/StorageManager";
@@ -37,6 +37,12 @@ export class VtcmApiClient {
 
     static JobStart(data) {
         const response = HttpRequestUtil.Request(STORE_JOB_ROUTE, data);
+    }
+
+    static JobDelivered(jobId, data) {
+        const route = JOB_DELIVERED_ROUTE;
+        route.ID = jobId;
+        const response = HttpRequestUtil.Request(route, data);
     }
 
     static SetBearerToken(token) {
