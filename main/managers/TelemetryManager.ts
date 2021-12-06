@@ -3,6 +3,7 @@ import Log from "@awesomeeng/awesome-log";
 import {BrowserWindow} from "electron";
 import {StoreJobRequest} from "../../modules/vtcm-api-client/models/requests/StoreJobRequest";
 import {VtcmApiClient} from "../../modules/vtcm-api-client";
+import {Storage} from "./StorageManager";
 
 export class TelemetryManager {
     static telemetry: TelemetryType;
@@ -75,6 +76,13 @@ export class TelemetryManager {
         requestData.JobIncome = data.income;
         requestData.LanguageCode = null;
 
-        VtcmApiClient.JobStart(requestData.GetPostData());
+        VtcmApiClient.JobStart(requestData.GetPostData()).then((response) => {
+            if (response.success) {
+                Storage.set("CurrentJobId", response.id);
+                console.log("Started job: " + response.id);
+            } else {
+                console.log("Failed to start job");
+            }
+        })
     }
 }

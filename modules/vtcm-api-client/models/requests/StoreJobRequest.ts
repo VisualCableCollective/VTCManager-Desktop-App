@@ -41,6 +41,14 @@ export class StoreJobRequest {
 
     private returnData = {};
 
+    private static BoolToInt(value) {
+        if (value) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
     public GetPostData() {
         this.returnData = {};
 
@@ -72,7 +80,7 @@ export class StoreJobRequest {
         this.ValidateAndSetData("trailer_avg_damage_wheels_at_start", this.TrailerDamageWheels);
 
         this.ValidateAndSetData("market_id", this.MarketId);
-        this.ValidateAndSetData("special_job", this.IsSpecialJob);
+        this.ValidateAndSetData("special_job", StoreJobRequest.BoolToInt(this.IsSpecialJob));
         this.ValidateAndSetData("job_ingame_started", this.JobIngameStarted);
         this.ValidateAndSetData("job_ingame_deadline", this.JobIngameDeadline);
         this.ValidateAndSetData("job_income", this.JobIncome);

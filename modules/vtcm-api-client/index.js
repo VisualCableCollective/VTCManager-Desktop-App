@@ -35,8 +35,15 @@ export class VtcmApiClient {
         return new ServiceStatusResponse(await response.json());
     }
 
-    static JobStart(data) {
-        const response = HttpRequestUtil.Request(STORE_JOB_ROUTE, data);
+    static async JobStart(data) {
+        const response = await HttpRequestUtil.Request(STORE_JOB_ROUTE, data);
+        console.log("JobStarted Response: " + JSON.stringify(response));
+
+        if (response.status !== 200) {
+            return {success: false};
+        }
+
+        return response.json();
     }
 
     static JobDelivered(jobId, data) {
