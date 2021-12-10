@@ -69,7 +69,7 @@ export class TelemetryManager {
         requestData.TrailerChassisDamage = trailerData.damage.chassis;
         requestData.TrailerWheelsDamage = trailerData.damage.wheels;
 
-        VtcmApiClient.JobDelivered(requestData.GetPostData()).then((response) => {
+        VtcmApiClient.JobDelivered(requestData).then((response) => {
             Storage.delete("CurrentJobId");
         })
     }

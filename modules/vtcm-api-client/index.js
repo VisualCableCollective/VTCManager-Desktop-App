@@ -56,17 +56,17 @@ export class VtcmApiClient {
         return response.status === 200;
     }
 
-    static async JobDelivered(jobId, data) {
+    static async JobDelivered(data) {
         const route = JOB_DELIVERED_ROUTE;
-        route.ID = jobId;
-        const response = await HttpRequestUtil.Request(route, data);
+        route.ID = data.JobId;
+        const response = await HttpRequestUtil.Request(route, data.GetPostData());
         console.log("JobDelivered Response: " + response.body);
 
-        if (response.status !== 200) {
+        if (response.status !== 204) {
             return {success: false};
         }
 
-        return response.body;
+        return {success: true};
     }
 
     static SetBearerToken(token) {
