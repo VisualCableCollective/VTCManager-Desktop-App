@@ -40,7 +40,7 @@ export class AppCommands {
 
         mainWindow.webContents.send("loading-status-update", {message: "Logging in..."});
 
-        if (!VtcmApiClient.Config.BearerToken) {
+        if (!await VtcmApiClient.CheckAuthentication()) {
             await AppCommands.openLoginPopup(event);
             return;
         }
@@ -90,6 +90,15 @@ export class AppCommands {
 
                 loginWindow.destroy();
                 VtcmApiClient.SetBearerToken(pageContent.token);
+
+                mainWindow.webContents.send("loading-status-update", {message: "Checking authentication..."});
+                
+                if (!await VtcmApiClient.CheckAuthentication()) {
+                    mainWindow.webContents.send("loading-status-update", {message: "Authentication failed!"});
+                    await this.openLoginPopup(initEvent);
+                    return;
+                }
+
                 initEvent.reply("init-finished");
             }
         });
