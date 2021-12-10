@@ -70,7 +70,6 @@ export class TelemetryManager {
 
         requestData.MarketId = data.market.id;
         requestData.IsSpecialJob = data.isSpecial;
-        // ToDo: I hate this shit
         requestData.JobIngameStarted = new Date(TelemetryManager.telemetry.getData().game.time.unix).toISOString();
         requestData.JobIngameDeadline = new Date(data.expectedDeliveryTimestamp.unix).toISOString();
         requestData.JobIncome = data.income;
