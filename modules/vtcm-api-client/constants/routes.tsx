@@ -14,3 +14,7 @@ export const JOB_DELIVERED_ROUTE: APIRoute = {
     route: 'jobs/{id}/delivered', method: RequestMethod.POST, requiresAuth: true, requiresID: true, requiresParentRoute: false, disableApiUrlPrefix: false,
 };
 
+export const GET_SELF_USER_ROUTE: APIRoute = {
+    route: 'user', method: RequestMethod.GET, requiresAuth: true, requiresID: false, requiresParentRoute: false, disableApiUrlPrefix: false,
+};
+

@@ -1,5 +1,5 @@
 import {VtcmApiClientConfig} from "./VtcmApiClientConfig";
-import {JOB_DELIVERED_ROUTE, SERVICE_STATUS_ROUTE, STORE_JOB_ROUTE} from "./constants/routes";
+import {GET_SELF_USER_ROUTE, JOB_DELIVERED_ROUTE, SERVICE_STATUS_ROUTE, STORE_JOB_ROUTE} from "./constants/routes";
 import {HttpRequestUtil} from "./utils/HttpRequestUtil";
 import {ServiceStatusResponse} from "./models/responses/ServiceStatusResponse";
 import {Storage} from "../../main/managers/StorageManager";
@@ -46,10 +46,27 @@ export class VtcmApiClient {
         return response.json();
     }
 
-    static JobDelivered(jobId, data) {
+    static async CheckAuthentication() {
+        if (!VtcmApiClient.Config.BearerToken) {
+            return false;
+        }
+
+        const response = await HttpRequestUtil.Request(GET_SELF_USER_ROUTE);
+
+        return response.status === 200;
+    }
+
+    static async JobDelivered(jobId, data) {
         const route = JOB_DELIVERED_ROUTE;
         route.ID = jobId;
-        const response = HttpRequestUtil.Request(route, data);
+        const response = await HttpRequestUtil.Request(route, data);
+        console.log("JobDelivered Response: " + response.body);
+
+        if (response.status !== 200) {
+            return {success: false};
+        }
+
+        return response.body;
     }
 
     static SetBearerToken(token) {

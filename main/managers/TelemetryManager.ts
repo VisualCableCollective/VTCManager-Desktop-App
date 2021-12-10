@@ -1,9 +1,16 @@
-import Telemetry, {EventsJobStartedVerbose, TelemetryData, Telemetry as TelemetryType} from "trucksim-telemetry";
+import Telemetry, {
+    EventsJobStartedVerbose,
+    TelemetryData,
+    Telemetry as TelemetryType,
+    EventsJobDeliveredVerbose
+} from "trucksim-telemetry";
 import Log from "@awesomeeng/awesome-log";
 import {BrowserWindow} from "electron";
 import {StoreJobRequest} from "../../modules/vtcm-api-client/models/requests/StoreJobRequest";
 import {VtcmApiClient} from "../../modules/vtcm-api-client";
 import {Storage} from "./StorageManager";
+import {JobDeliveredRequest} from "../../modules/vtcm-api-client/models/requests/JobDeliveredRequest";
+import {number} from "prop-types";
 
 export class TelemetryManager {
     static telemetry: TelemetryType;
@@ -16,6 +23,7 @@ export class TelemetryManager {
 
         TelemetryManager.UpdateReceived(null);
         TelemetryManager.telemetry.job.on("started", this.JobStarted);
+        TelemetryManager.telemetry.job.on("delivered", this.JobDelivered);
 
         TelemetryManager.telemetry.watch({interval: TelemetryManager.UpdateInterval}, TelemetryManager.UpdateReceived);
         Log.info("[Telemetry] Listening to telemetry updates with an interval of " + TelemetryManager.UpdateInterval);
@@ -31,6 +39,39 @@ export class TelemetryManager {
             active,
             data
         });
+    }
+
+    static JobDelivered(data: EventsJobDeliveredVerbose) {
+        Log.info("[Telemetry] A job has been delivered!");
+        Log.debug("[Telemetry] Job Data: " + JSON.stringify(data));
+
+        if (!Storage.has("CurrentJobId")) {
+            Log.info("[Telemetry] Rejected delivery because CurrentJobId is not set.");
+            return;
+        }
+
+        const requestData = new JobDeliveredRequest();
+        // @ts-ignore
+        requestData.JobId = parseInt(Storage.get("CurrentJobId"));
+        requestData.RemainingDeliveryTime = new Date(data.expectedDeliveryTimestamp.unix - data.deliveredTimestamp.unix).toISOString();
+        requestData.RemainingDistance = data.plannedDistance.km - data.plannedDistance.km;
+
+        requestData.CargoDamage = data.cargo.damage;
+
+        const truckData = TelemetryManager.telemetry.getTruck();
+        requestData.TruckCabinDamage = truckData.damage.cabin;
+        requestData.TruckChassisDamage = truckData.damage.chassis;
+        requestData.TruckEngineDamage = truckData.damage.engine;
+        requestData.TruckTransmissionDamage = truckData.damage.transmission;
+        requestData.TruckWheelsDamage = truckData.damage.wheels;
+
+        const trailerData = TelemetryManager.telemetry.getTrailer();
+        requestData.TrailerChassisDamage = trailerData.damage.chassis;
+        requestData.TrailerWheelsDamage = trailerData.damage.wheels;
+
+        VtcmApiClient.JobDelivered(requestData.GetPostData()).then((response) => {
+            Storage.delete("CurrentJobId");
+        })
     }
 
     static JobStarted(data: EventsJobStartedVerbose) {
@@ -80,8 +121,9 @@ export class TelemetryManager {
                 Storage.set("CurrentJobId", response.id);
                 console.log("Started job: " + response.id);
             } else {
+                Storage.delete("CurrentJobId");
                 console.log("Failed to start job");
             }
-        })
+        });
     }
 }

@@ -2,7 +2,7 @@ export class JobDeliveredRequest {
     // Job Data
     JobId: number;
     RemainingDeliveryTime: string;
-    RemainingDistance: string;
+    RemainingDistance: number;
 
     // Cargo Data
     CargoDamage: number;
