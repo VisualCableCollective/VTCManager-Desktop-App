@@ -5,6 +5,8 @@ import {ServiceStatusResponse} from "./models/responses/ServiceStatusResponse";
 import {Storage} from "../../main/managers/StorageManager";
 import {StoreJobRequest} from "./models/requests/StoreJobRequest";
 
+export const CHECK_AUTH_RESULT = Object.freeze({"SUCCESS":1, "UNAUTHORIZED":2, "NO_LICENSE_KEY":3})
+
 export class VtcmApiClient {
     static Config;
 
@@ -48,12 +50,21 @@ export class VtcmApiClient {
 
     static async CheckAuthentication() {
         if (!VtcmApiClient.Config.BearerToken) {
-            return false;
+            return CHECK_AUTH_RESULT.UNAUTHORIZED;
         }
 
         const response = await HttpRequestUtil.Request(GET_SELF_USER_ROUTE);
+        console.log("response: " + JSON.stringify(response));
 
-        return response.status === 200;
+        if (response.status !== 200) {
+            if (response.status === 403) {
+                return CHECK_AUTH_RESULT.NO_LICENSE_KEY;
+            }
+
+            return CHECK_AUTH_RESULT.UNAUTHORIZED;
+        }
+
+        return CHECK_AUTH_RESULT.SUCCESS;
     }
 
     static async JobDelivered(data) {

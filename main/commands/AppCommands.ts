@@ -5,7 +5,7 @@ import {TelemetryManager} from "../managers/TelemetryManager";
 import {VtcmApiClientConfig} from "../../modules/vtcm-api-client/VtcmApiClientConfig";
 import {Environment} from "../../enums/Environment";
 import {mainWindow} from "../background";
-import {VtcmApiClient} from "../../modules/vtcm-api-client";
+import {CHECK_AUTH_RESULT, VtcmApiClient} from "../../modules/vtcm-api-client";
 import {createWindow} from "../helpers";
 import { IpcMainEvent } from "electron/main";
 
@@ -40,7 +40,18 @@ export class AppCommands {
 
         mainWindow.webContents.send("loading-status-update", {message: "Logging in..."});
 
-        if (!await VtcmApiClient.CheckAuthentication()) {
+        const checkAuthResult = await VtcmApiClient.CheckAuthentication();
+        console.log("CheckARes: " + checkAuthResult);
+        if (checkAuthResult !== CHECK_AUTH_RESULT.SUCCESS) {
+            if (checkAuthResult === CHECK_AUTH_RESULT.UNAUTHORIZED) {
+                mainWindow.webContents.send("loading-status-update", {message: "Authentication failed!"});
+            } else if (checkAuthResult === CHECK_AUTH_RESULT.NO_LICENSE_KEY) {
+                mainWindow.webContents.send("loading-status-update", {message: "Authentication failed: No license key"});
+                dialog.showMessageBoxSync({
+                    message: "You have to enter a valid license key on the website before using the desktop application!",
+                    title: "Authentication Error: No license key"
+                });
+            }
             await AppCommands.openLoginPopup(event);
             return;
         }
@@ -92,9 +103,19 @@ export class AppCommands {
                 VtcmApiClient.SetBearerToken(pageContent.token);
 
                 mainWindow.webContents.send("loading-status-update", {message: "Checking authentication..."});
-                
-                if (!await VtcmApiClient.CheckAuthentication()) {
-                    mainWindow.webContents.send("loading-status-update", {message: "Authentication failed!"});
+
+                const checkAuthResult = await VtcmApiClient.CheckAuthentication();
+                console.log("CheckARes: " + checkAuthResult);
+                if (checkAuthResult !== CHECK_AUTH_RESULT.SUCCESS) {
+                    if (checkAuthResult === CHECK_AUTH_RESULT.UNAUTHORIZED) {
+                        mainWindow.webContents.send("loading-status-update", {message: "Authentication failed!"});
+                    } else if (checkAuthResult === CHECK_AUTH_RESULT.NO_LICENSE_KEY) {
+                        mainWindow.webContents.send("loading-status-update", {message: "Authentication failed: No license key"});
+                        dialog.showMessageBoxSync({
+                            message: "You have to enter a valid license key on the website before using the desktop application!",
+                            title: "Authentication Error: No license key"
+                        });
+                    }
                     await this.openLoginPopup(initEvent);
                     return;
                 }
