@@ -76,6 +76,10 @@ function LoadingErrorInfo({statusMessage, ipc}) {
         ipc.ipcRenderer.send('quit-app');
     }
 
+    function relaunchApp() {
+        ipc.ipcRenderer.send('relaunch-app');
+    }
+
     return (
         <div className="">
             <div className="flex justify-center">
@@ -88,11 +92,11 @@ function LoadingErrorInfo({statusMessage, ipc}) {
                         <h1 className="text-center font-bold text-2xl leading-none select-none">{statusMessage}</h1>
                     </div>
                     <div className="flex justify-center mt-4">
-                        <button className="bg-green-700 hover:bg-green-600 text-xl rounded px-3 py-2 mr-2">
+                        <button className="bg-green-700 hover:bg-green-600 text-xl rounded px-3 py-2 mr-2" onClick={relaunchApp}>
                             <p className="leading-none">Relaunch</p>
                         </button>
-                        <button className="bg-white bg-opacity-20 hover:bg-opacity-30 text-xl rounded px-3 py-2 ml-2">
-                            <p className="leading-none" onClick={quitApp}>Quit</p>
+                        <button className="bg-white bg-opacity-20 hover:bg-opacity-30 text-xl rounded px-3 py-2 ml-2" onClick={quitApp}>
+                            <p className="leading-none">Quit</p>
                         </button>
                     </div>
                 </div>

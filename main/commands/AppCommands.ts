@@ -14,6 +14,7 @@ export class AppCommands {
         // set up ipc events
         ipcMain.on("init-app", this.InitApp);
         ipcMain.on("quit-app", this.QuitApp);
+        ipcMain.on("relaunch-app", this.RelaunchApp);
     }
 
     private static async InitApp(event: IpcMainEvent, args) {
@@ -60,6 +61,11 @@ export class AppCommands {
     }
 
     private static async QuitApp(event: IpcMainEvent, args) {
+        app.quit();
+    }
+
+    private static async RelaunchApp(event: IpcMainEvent, args) {
+        app.relaunch();
         app.quit();
     }
 
