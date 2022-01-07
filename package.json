@@ -2,14 +2,14 @@
   "private": true,
   "name": "my-nextron-app",
   "description": "My application description",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
   "main": "app/background.js",
   "scripts": {
     "dev": "nextron",
-    "build": "nextron build",
+    "build": "nextron build --win -p always",
     "postinstall": "electron-builder install-app-deps",
-    "release": "electron-builder --win -p always"
+    "release": "nextron build --win -p always"
   },
   "build": {
     "publish": [
