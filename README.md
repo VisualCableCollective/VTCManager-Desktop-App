@@ -15,8 +15,22 @@ This repository currently has 3 branches:
 - development:	push your work on features, etc. to this branch 
 
 ## Getting started
-1. Install all fonts in [VTCManager Client/Fonts/](VTCManager%20Client/Fonts).
-2. Make sure all NuGet packages are installed on your computer.
+### Install Dependencies
+
+```
+$ cd my-app
+$ yarn
+```
+
+### Use it
+
+```
+# development mode
+$ yarn dev
+
+# production build
+$ yarn build
+```
 
 ## Contributors
 Many thanks for contributing to this project to:
