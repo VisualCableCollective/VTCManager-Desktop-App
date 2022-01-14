@@ -18,7 +18,7 @@ export class AppCommands {
     }
 
     private static async InitApp(event: IpcMainEvent, args) {
-        mainWindow.webContents.send("app-version", {version: app.getVersion()});
+        mainWindow.webContents.send("app-version", {version: app.getVersion() + (process.env.NODE_ENV === 'production' ? "" : "-dev")});
 
         LogManager.Init();
 
