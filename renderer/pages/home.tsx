@@ -13,6 +13,7 @@ function Home() {
     const router = useRouter();
 
     const [statusMessage, setStatusMessage] = useState("Loading...");
+    const [appVersion, setAppVersion] = useState("");
     const [errorDetailMessage, setErrorDetailMessage] = useState("");
     const [popout, setPopout] = useState(null);
     const [loadingFailed, setLoadingFailed] = useState(false);
@@ -22,7 +23,9 @@ function Home() {
             return;
         }
 
-        ipc.ipcRenderer.send('init-app');
+        ipc.ipcRenderer.on("app-version", (event, args) => {
+            setAppVersion("v" + args.version);
+        })
 
         ipc.ipcRenderer.on("init-finished", (event, args) => {
             router.push("/dashboard");
@@ -39,6 +42,8 @@ function Home() {
                 setLoadingFailed(true);
             }
         })
+
+        ipc.ipcRenderer.send('init-app');
     }, [ipc.ipcReady]);
 
   return (
@@ -47,7 +52,7 @@ function Home() {
       <div className="w-screen h-screen bg-gray-900 flex items-center justify-center">
           {loadingFailed ? <LoadingErrorInfo ipc={ipc} statusMessage={statusMessage} /> : <LoadingInfo statusMessage={statusMessage} />}
           <div className="fixed bottom-0 right-0 mr-1 opacity-70 select-none">
-              v1.0.0
+              {appVersion}
           </div>
       </div>
     </React.Fragment>

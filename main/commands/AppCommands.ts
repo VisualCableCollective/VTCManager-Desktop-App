@@ -18,6 +18,8 @@ export class AppCommands {
     }
 
     private static async InitApp(event: IpcMainEvent, args) {
+        mainWindow.webContents.send("app-version", {version: app.getVersion()});
+
         LogManager.Init();
 
         mainWindow.webContents.send("loading-status-update", {message: "Looking for updates..."});
