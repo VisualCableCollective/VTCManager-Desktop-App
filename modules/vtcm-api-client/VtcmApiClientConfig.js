@@ -9,7 +9,7 @@ export class VtcmApiClientConfig {
 
     Environment = Environment.Production;
 
-    ServerUrl = "";
+    ServerUrl = "https://alpha-api.vtcmanager.eu/api/";
 
     LogPrefix = "[VtcmAPIClient] ";
 

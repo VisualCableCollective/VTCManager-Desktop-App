@@ -31,7 +31,7 @@ export class AppCommands {
 
         TelemetryManager.Init(mainWindow);
 
-        VtcmApiClient.Init(new VtcmApiClientConfig(Environment.Development));
+        VtcmApiClient.Init(new VtcmApiClientConfig(process.env.NODE_ENV === 'production' ? Environment.Production : Environment.Development));
 
         mainWindow.webContents.send("loading-status-update", {message: "Connecting to the VTCManager services..."});
 
