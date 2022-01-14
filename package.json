@@ -2,14 +2,14 @@
   "private": true,
   "name": "VTCManager",
   "description": "ETS/ATS job tracker",
-  "version": "2.0.10",
+  "version": "2.0.11",
   "author": "Joschua Haß <joschua.hass@gmail.com>",
   "main": "app/background.js",
   "scripts": {
     "dev": "nextron",
     "build": "nextron build --win",
     "postinstall": "electron-builder install-app-deps",
-    "release": "nextron build --win -p always"
+    "release": "yarn build && node ./build.js"
   },
   "build": {
     "publish": [
