@@ -1,9 +1,9 @@
 {
   "private": true,
-  "name": "my-nextron-app",
-  "description": "My application description",
-  "version": "2.0.3",
-  "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
+  "name": "VTCManager",
+  "description": "ETS/ATS job tracker",
+  "version": "2.0.8",
+  "author": "Joschua Haß <joschua.hass@gmail.com>",
   "main": "app/background.js",
   "scripts": {
     "dev": "nextron",

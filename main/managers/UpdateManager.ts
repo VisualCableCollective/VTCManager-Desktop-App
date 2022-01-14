@@ -1,23 +1,26 @@
-import { NsisUpdater  } from "electron-updater";
+const { app, autoUpdater } = require('electron')
+import Log from "@awesomeeng/awesome-log";
 
 export class UpdateManager {
     static IsUpdating = false;
 
     static async Init() {
-        const appUpdater = new NsisUpdater({
-            provider: 'generic',
-            url: 'https://hazel-sage-zeta.vercel.app'
+        const url = `https://hazel-sage-zeta.vercel.app/update/${process.platform}/${app.getVersion()}`;
+
+        autoUpdater.setFeedURL({ url })
+
+        autoUpdater.on("update-available", () => {
+            UpdateManager.IsUpdating = true;
+            Log.info("Update is available");
         });
 
-        const log = require("electron-log");
-        log.transports.file.level = "debug";
-        appUpdater.logger = log;
+        /*autoUpdater.on("update-downloaded", (e: UpdateInfo) => {
+            app.relaunch();
+            app.quit();
+        });*/
 
-        // result is null in dev environment
-        let result = await appUpdater.checkForUpdatesAndNotify(); // ToDO: investigate result of update check
-        if (result) {
-            console.log("got: " + result);
-            this.IsUpdating = true;
+        if (process.env.NODE_ENV === 'production') {
+            await autoUpdater.checkForUpdates();
         }
     }
 }
