@@ -5,7 +5,8 @@ export class UpdateManager {
     static IsUpdating = false;
 
     static async Init() {
-        const url = `https://hazel-sage-zeta.vercel.app/update/${process.platform}/${app.getVersion()}`;
+        Log.info("Current version: " + app.getVersion());
+        const url = `https://update.vtcmanager.eu/update/win64/${app.getVersion()}`;
 
         autoUpdater.setFeedURL({ url })
 
