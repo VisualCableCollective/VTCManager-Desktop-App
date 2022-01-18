@@ -88,7 +88,7 @@ export class AppCommands {
 
             const currentPage = loginWindow.webContents.getURL();
 
-            if (currentPage.includes("localhost:8000/auth/vcc/desktop-client/callback")) {
+            if (currentPage.includes(VtcmApiClient.Config.ServerUrl.replace("/api/", "") +"/auth/vcc/desktop-client/callback")) {
 
                 const pageContent = JSON.parse(await loginWindow.webContents.executeJavaScript('document.documentElement.innerText;'));
 
@@ -132,6 +132,6 @@ export class AppCommands {
             }
         });
 
-        await loginWindow.loadURL("http://localhost:8000/auth/vcc/desktop-client/redirect");
+        await loginWindow.loadURL(VtcmApiClient.Config.ServerUrl.replace("/api/", "") + "/auth/vcc/desktop-client/redirect");
     }
 }
