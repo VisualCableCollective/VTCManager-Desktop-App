@@ -157,7 +157,8 @@ namespace VTCManager_Client.Controllers.API
                 {
                     return false;
                 }
-            }catch(Exception ex)
+            }
+            catch
             {
                 return false;
             }
