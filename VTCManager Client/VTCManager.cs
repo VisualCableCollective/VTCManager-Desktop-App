@@ -47,6 +47,8 @@
 
         public static bool SilentAutoStartMode = false;
 
+        public static bool EnableWebsockets = false;
+
         // VTCM API
         //WS
         public static readonly string VTCMAPI_WSHost = "api.vtcmanager.eu:6001";
