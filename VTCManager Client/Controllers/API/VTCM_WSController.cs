@@ -14,9 +14,6 @@ namespace VTCManager_Client.Controllers.API
         private static bool InitDone = false;
         public static Models.ControllerStatus Init()
         {
-            if (!VTCManager.EnableWebsockets)
-                return Models.ControllerStatus.OK;
-
             client = new Pusher(VTCManager.VTCMAPI_WSAppKey, new PusherOptions()
             {
                 Host = VTCManager.VTCMAPI_WSHost,
@@ -26,6 +23,9 @@ namespace VTCManager_Client.Controllers.API
             client.Connected += Client_Connected;
             client.Disconnected += Client_Disconnected;
             client.Error += Client_Error;
+
+            if (!VTCManager.EnableWebsockets)
+                return Models.ControllerStatus.OK;
 
             ConnectionState connectionState;
 
