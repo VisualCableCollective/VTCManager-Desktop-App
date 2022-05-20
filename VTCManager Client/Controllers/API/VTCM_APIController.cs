@@ -142,7 +142,6 @@ namespace VTCManager_Client.Controllers.API
 
         public static bool IsServerOperational()
         {
-            return true;
             Dictionary<string, string> request_response_data = HTTPRequestController.Request(ServerStatus_url, HTTPRequestController.Service.VTCManager);
             request_response_data.TryGetValue("status_code", out string statuscode);
             if (statuscode != "200")
