@@ -27,7 +27,7 @@ namespace VTCManager_Client.Controllers.API
             if (VTCManager.UseLocalServer)
             {
                 LogController.Write(LogPrefix + "Changing server url to localhost:8000", LogController.LogType.Warning);
-                Server_url = "http://computer.local:8000/api/";
+                Server_url = "http://localhost:8000/api/";
                 //update urls
                 UserData_url = Server_url + "user";
                 ServerStatus_url = Server_url + "status";
