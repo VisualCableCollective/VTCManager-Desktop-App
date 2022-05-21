@@ -56,12 +56,14 @@ namespace VTCManager_Client.Controllers
 
         private static void UpdateRPCTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            RichPresence RPC = new RichPresence();
-            RPC.Assets = new Assets()
+            RichPresence RPC = new RichPresence
             {
-                LargeImageKey = "big-image",
-                SmallImageKey = "vtcmanager_logo",
-                SmallImageText = DefaultSmallImageText,
+                Assets = new Assets()
+                {
+                    LargeImageKey = "big-image",
+                    SmallImageKey = "vtcmanager_logo",
+                    SmallImageText = DefaultSmallImageText,
+                }
             };
             switch (CurrentRPCStatus)
             {

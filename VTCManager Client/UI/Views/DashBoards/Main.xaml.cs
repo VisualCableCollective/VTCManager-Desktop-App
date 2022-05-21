@@ -20,7 +20,6 @@ namespace VTCManager_Client.Views.DashBoards
         private UI.Views.Models.MainDashboardViewModel viewModel = new UI.Views.Models.MainDashboardViewModel();
         public ImageSourceConverter sourceConverter = new ImageSourceConverter();
         private DurationConverter DurationConverter = new DurationConverter();
-        private TypeConverter TypeConverter = new TypeConverter();
         private bool DashboardModeGameRunning = false;
         private ImageSource TruckIconWithFreight;
         private ImageSource TruckIconNoFreight;
@@ -151,16 +150,20 @@ namespace VTCManager_Client.Views.DashBoards
                     NoGameRunningInfoPanel.Visibility = Visibility.Visible;
                     Storyboard sb = this.FindResource("SwitchToGameNotRunningInfoPanel") as Storyboard;
                     DoubleAnimation HeightAnimation = new DoubleAnimation(248, 143, (Duration)DurationConverter.ConvertFromString("00:00:01"), FillBehavior.Stop);
-                    QuadraticEase quadraticEase = new QuadraticEase();
-                    quadraticEase.EasingMode = EasingMode.EaseInOut;
+                    QuadraticEase quadraticEase = new QuadraticEase
+                    {
+                        EasingMode = EasingMode.EaseInOut
+                    };
                     HeightAnimation.EasingFunction = quadraticEase;
                     Storyboard.SetTargetName(HeightAnimation, "GameRunningInfoPanel");
                     Storyboard.SetTargetProperty(HeightAnimation, new PropertyPath("Height"));
                     sb.Children.Add(HeightAnimation);
 
                     DoubleAnimation HeightAnimation2 = new DoubleAnimation(248, 143, (Duration)DurationConverter.ConvertFromString("00:00:01"), FillBehavior.Stop);
-                    QuadraticEase quadraticEase2 = new QuadraticEase();
-                    quadraticEase2.EasingMode = EasingMode.EaseInOut;
+                    QuadraticEase quadraticEase2 = new QuadraticEase
+                    {
+                        EasingMode = EasingMode.EaseInOut
+                    };
                     HeightAnimation2.EasingFunction = quadraticEase2;
                     Storyboard.SetTargetName(HeightAnimation2, "NoGameRunningInfoPanel");
                     Storyboard.SetTargetProperty(HeightAnimation2, new PropertyPath("Height"));
@@ -180,15 +183,19 @@ namespace VTCManager_Client.Views.DashBoards
                     GameRunningInfoPanel.Visibility = Visibility.Visible;
                     Storyboard sb = this.FindResource("SwitchToGameRunningInfoPanel") as Storyboard;
                     DoubleAnimation HeightAnimation = new DoubleAnimation(143, 248, (Duration)DurationConverter.ConvertFromString("00:00:01"), FillBehavior.Stop);
-                    QuadraticEase quadraticEase = new QuadraticEase();
-                    quadraticEase.EasingMode = EasingMode.EaseInOut;
+                    QuadraticEase quadraticEase = new QuadraticEase
+                    {
+                        EasingMode = EasingMode.EaseInOut
+                    };
                     HeightAnimation.EasingFunction = quadraticEase;
                     Storyboard.SetTargetName(HeightAnimation, "GameRunningInfoPanel");
                     Storyboard.SetTargetProperty(HeightAnimation, new PropertyPath("Height"));
                     sb.Children.Add(HeightAnimation);
                     DoubleAnimation HeightAnimation2 = new DoubleAnimation(143, 248, (Duration)DurationConverter.ConvertFromString("00:00:01"), FillBehavior.Stop);
-                    QuadraticEase quadraticEase2 = new QuadraticEase();
-                    quadraticEase2.EasingMode = EasingMode.EaseInOut;
+                    QuadraticEase quadraticEase2 = new QuadraticEase
+                    {
+                        EasingMode = EasingMode.EaseInOut
+                    };
                     HeightAnimation2.EasingFunction = quadraticEase2;
                     Storyboard.SetTargetName(HeightAnimation2, "NoGameRunningInfoPanel");
                     Storyboard.SetTargetProperty(HeightAnimation2, new PropertyPath("Height"));

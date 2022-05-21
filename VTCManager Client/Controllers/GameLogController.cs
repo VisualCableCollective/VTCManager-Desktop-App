@@ -44,13 +44,15 @@ namespace VTCManager_Client.Controllers
             try
             {
                 LogFileContent = File.ReadAllText(ETSLogFilePath);
-            }catch(Exception ex)
+            }
+            catch
             {
                 try
                 {
                     File.Copy(ETSLogFilePath, ETSFolder + "game.log.backup.txt", true);
                     LogFileContent = File.ReadAllText(ETSFolder + "game.log.backup.txt");
-                }catch(Exception ex2)
+                }
+                catch(Exception ex2)
                 {
                     LogController.Write(LogPrefix + "An error occured while copying the game log file and read it. Error: " + ex2.Message, LogController.LogType.Error);
                     StorageController.Config.GameLanguageCode = null;

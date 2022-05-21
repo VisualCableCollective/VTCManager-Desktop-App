@@ -33,7 +33,8 @@ namespace VTCManager_Client.Controllers.API
             try
             {
                 connectionState = client.ConnectAsync().Result;
-            }catch(AggregateException ex)
+            }
+            catch
             {
                 return Models.ControllerStatus.VTCMServerInoperational;
             }
