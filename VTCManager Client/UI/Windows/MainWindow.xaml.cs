@@ -44,13 +44,16 @@ namespace VTCManager_Client.Windows
                 Controllers.DiscordRPCController.Init();
 
             //init tray icon
+
+            var cms = new ContextMenuStrip();
+
+            cms.Items.Add(new ToolStripMenuItem("Open", null, Open));
+            cms.Items.Add(new ToolStripMenuItem("Exit", null, ExitApplication));
+
             TrayIcon = new NotifyIcon()
             {
                 Icon = new Icon(Assembly.GetExecutingAssembly().Location.Replace("VTCManager Client.exe", "vtcmanager_logo.ico")),
-                ContextMenu = new System.Windows.Forms.ContextMenu(new System.Windows.Forms.MenuItem[] {
-                    new System.Windows.Forms.MenuItem("Open", Open),
-                    new System.Windows.Forms.MenuItem("Exit", ExitApplication)
-                }),
+                ContextMenuStrip = cms,
                 Visible = true
             };
             TrayIcon.Click += Open;

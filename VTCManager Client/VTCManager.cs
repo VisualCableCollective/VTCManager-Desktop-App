@@ -38,7 +38,7 @@
         /// <summary>
         /// Use local VTCManager/VCC Server
         /// </summary>
-        public static bool UseLocalServer = false;
+        public static bool UseLocalServer = true;
 
         /// <summary>
         /// Returns the type of the active main window

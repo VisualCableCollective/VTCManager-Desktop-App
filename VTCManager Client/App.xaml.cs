@@ -1,5 +1,4 @@
-﻿using CrashReporterDotNET;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -17,7 +16,7 @@ namespace VTCManager_Client
     /// </summary>
     public partial class App : Application
     {
-        private static ReportCrash _reportCrash;
+        //private static ReportCrash _reportCrash;
 
         //Windows
         private Windows.LoadingWindow _loadingWindow = null;
@@ -128,11 +127,11 @@ namespace VTCManager_Client
             Current.DispatcherUnhandledException += DispatcherOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
 
-            _reportCrash = new ReportCrash(VTCManager.CrashReportReceiverEmail)
-            {
-                Silent = true
-            };
-            _ = _reportCrash.RetryFailedReports();
+            //_reportCrash = new ReportCrash(VTCManager.CrashReportReceiverEmail)
+            //{
+            //    Silent = true
+            //};
+            //_ = _reportCrash.RetryFailedReports();
 
 
             // silent mode checks
@@ -182,14 +181,14 @@ namespace VTCManager_Client
                 }
             }
 
-            _reportCrash.Silent = false;
-            _reportCrash.Send(exception);
+            //_reportCrash.Silent = false;
+            //_reportCrash.Send(exception);
         }
 
         public static void SendReportSilently(Exception exception)
         {
-            _reportCrash.Silent = true;
-            _reportCrash.Send(exception);
+            //_reportCrash.Silent = true;
+            //_reportCrash.Send(exception);
         }
         #endregion
 
