@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="VTCManager Client" Height="500" Width="600"
         WindowStyle="None" 
-        Background="#101010"
+        Background="Black"
         Icon="pack://application:,,,/Resources/Images/vtcmanager_logo.png"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
