@@ -11,7 +11,7 @@ namespace VTCManager_Client.UI.Views
         public Changelog()
         {
             InitializeComponent();
-            ChangelogTitle.Content += VTCManager.Version;
+            ChangelogTitle.Text += VTCManager.Version;
             UpdatePublishedLabel.Content += VTCManager.UpdatePublishedData;
             if (!string.IsNullOrWhiteSpace(VTCManager.CLNewFeaturesList))
             {

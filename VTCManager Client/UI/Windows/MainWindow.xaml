@@ -76,7 +76,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Border x:Name="Modal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40" CornerRadius="20" Background="#212020" Visibility="Visible" Panel.ZIndex="3" Height="auto" Width="auto">
+            <Border x:Name="Modal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40" CornerRadius="6" Background="#212020" Visibility="Visible" Panel.ZIndex="3" Height="auto" MaxWidth="500" Width="auto">
                 <Frame x:Name="ModalFrame" HorizontalAlignment="Center" VerticalAlignment="Center" NavigationUIVisibility="Hidden" beha:FrameDisableNavigation.Disable="True" Height="auto" Width="auto"/>
             </Border>
             <Rectangle x:Name="MainFrameOverlay" Fill="Black" Opacity="0.6" HorizontalAlignment="Center" VerticalAlignment="Bottom" Visibility="Hidden" MouseDown="MainFrameOverlay_MouseDown" Panel.ZIndex="2"/>

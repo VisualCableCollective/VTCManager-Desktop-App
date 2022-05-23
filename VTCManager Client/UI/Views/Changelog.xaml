@@ -15,7 +15,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
-            <Grid Margin="30,10,10,0">
+            <Grid Margin="30,10,30,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
@@ -26,18 +26,18 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Label x:Name="ChangelogTitle" Grid.Row="0" Content="Changelog Version " FontSize="35" FontWeight="Bold" Margin="0,0,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <Label x:Name="UpdatePublishedLabel" Grid.Row="1" Content="Published on " Margin="0,0,0,30" Opacity="0.6" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="0"/>
-                <Label x:Name="NewFeaturesTitle" Grid.Row="2" Content="New Features" FontSize="25" FontWeight="Bold" Foreground="#3da84d" Padding="0"/>
-                <TextBlock x:Name="NewFeaturesList" Grid.Row="3" TextWrapping="Wrap" Margin="0,10,0,20" Padding="0" LineHeight="19">
+                <TextBlock x:Name="ChangelogTitle" Grid.Row="0" Text="Changelog Version " FontSize="28" TextWrapping="Wrap" FontWeight="Bold" Margin="0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label x:Name="UpdatePublishedLabel" Grid.Row="1" Content="Published on " Margin="0,0,0,12" Opacity="0.6" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="0"/>
+                <Label x:Name="NewFeaturesTitle" Grid.Row="2" Content="New Features" FontSize="20" FontWeight="Bold" Foreground="#3da84d" Padding="0"/>
+                <TextBlock x:Name="NewFeaturesList" Grid.Row="3" TextWrapping="Wrap" Margin="0,10,0,12" Padding="0" LineHeight="19">
                 - Published client for alpha testers.<LineBreak/>
                 </TextBlock>
-                <Label x:Name="AdditionalImprovementsTitle" Grid.Row="4" Content="Additional improvements" FontSize="25" FontWeight="Bold" Foreground="#56b3d6" Padding="0"/>
-                <TextBlock x:Name="AdditionalImprovementsList" Grid.Row="5" TextWrapping="Wrap" Margin="0,10,0,20" LineHeight="19">
+                <Label x:Name="AdditionalImprovementsTitle" Grid.Row="4" Content="Additional improvements" FontSize="20" FontWeight="Bold" Foreground="#56b3d6" Padding="0"/>
+                <TextBlock x:Name="AdditionalImprovementsList" Grid.Row="5" TextWrapping="Wrap" Margin="0,10,0,12" LineHeight="19">
                     - Login: If you click on the "Don't have an account yet?" label, the application will open the VTCManager website.
                 </TextBlock>
-                <Label x:Name="BugAndSecurityFixesTitle" Grid.Row="6" Content="Bug and Security Fixes" FontSize="25" FontWeight="Bold" Foreground="#d3d62d" Padding="0"/>
-                <TextBlock x:Name="BugAndSecurityFixesList" Grid.Row="7" TextWrapping="Wrap" Margin="0,10,0,20" LineHeight="19">
+                <Label x:Name="BugAndSecurityFixesTitle" Grid.Row="6" Content="Bug and Security Fixes" FontSize="20" FontWeight="Bold" Foreground="#d3d62d" Padding="0"/>
+                <TextBlock x:Name="BugAndSecurityFixesList" Grid.Row="7" TextWrapping="Wrap" Margin="0,10,0,12" LineHeight="19">
                     - Removed "username" from login page<LineBreak/>
                 </TextBlock>
             </Grid>
