@@ -1,4 +1,4 @@
-﻿using CrashReporterDotNET;
+﻿using Sentry;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,8 +17,6 @@ namespace VTCManager_Client
     /// </summary>
     public partial class App : Application
     {
-        private static ReportCrash _reportCrash;
-
         //Windows
         private Windows.LoadingWindow _loadingWindow = null;
         private Windows.MainWindow _mainWindow = null;
@@ -40,6 +38,18 @@ namespace VTCManager_Client
 
         public App()
         {
+            // Setup crash/error reporting
+#if !DEBUG
+            DispatcherUnhandledException += App_DispatcherUnhandledException;
+
+            SentrySdk.Init(o =>
+            {
+                o.Dsn = "https://92d2e5304bf24f4592a6456c3b52f901@o1249248.ingest.sentry.io/6436578";
+
+                o.TracesSampleRate = 1.0;
+            });
+#endif
+
             //check if this app is already running
             string currentProcessName = Process.GetCurrentProcess().ProcessName;
             if (Process.GetProcesses().Count(p => p.ProcessName == currentProcessName) > 1)
@@ -62,6 +72,14 @@ namespace VTCManager_Client
 
             // enable hardware acceleration
             RenderOptions.ProcessRenderMode = System.Windows.Interop.RenderMode.Default;
+        }
+
+        void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            SentrySdk.CaptureException(e.Exception);
+
+            // If you want to avoid the application from crashing:
+            e.Handled = true;
         }
 
         /// <summary>
@@ -123,18 +141,6 @@ namespace VTCManager_Client
         {
             base.OnStartup(e);
 
-            // set up crash reporter
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
-            Current.DispatcherUnhandledException += DispatcherOnUnhandledException;
-            TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
-
-            _reportCrash = new ReportCrash(VTCManager.CrashReportReceiverEmail)
-            {
-                Silent = true
-            };
-            _ = _reportCrash.RetryFailedReports();
-
-
             // silent mode checks
             if (e.Args.Contains("-silent"))
             {
@@ -149,49 +155,6 @@ namespace VTCManager_Client
 
             MainWindow = _loadingWindow;
         }
-
-        #region CrashReporting
-        private void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs unobservedTaskExceptionEventArgs)
-        {
-            SendReport(unobservedTaskExceptionEventArgs.Exception);
-        }
-
-        private void DispatcherOnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs dispatcherUnhandledExceptionEventArgs)
-        {
-            SendReport(dispatcherUnhandledExceptionEventArgs.Exception);
-        }
-
-        private static void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
-        {
-            SendReport((Exception)unhandledExceptionEventArgs.ExceptionObject);
-        }
-
-        public static void SendReport(Exception exception)
-        {
-            if (exception is AggregateException) //sometimes caused by the Pusher client
-            {
-                if (string.IsNullOrWhiteSpace(exception.Source))
-                {
-                    if (exception.InnerException != null)
-                    {
-                        if (exception.InnerException is System.Net.Sockets.SocketException)
-                        {
-                            return;
-                        }
-                    }
-                }
-            }
-
-            _reportCrash.Silent = false;
-            _reportCrash.Send(exception);
-        }
-
-        public static void SendReportSilently(Exception exception)
-        {
-            _reportCrash.Silent = true;
-            _reportCrash.Send(exception);
-        }
-        #endregion
 
         /// <summary>
         /// Shows the <see cref="Windows.MainWindow"/> and closes the <see cref="Windows.LoadingWindow"/>.<br/>
