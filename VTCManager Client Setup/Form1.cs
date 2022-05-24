@@ -23,7 +23,7 @@ namespace VTCManager_Client_Setup
         private void InstallButton_Click(object sender, EventArgs e)
         {
             InstallButton.Enabled = false;
-            InstallApplication(@"https://cdn.vcc-online.eu/app/vtcm/VTCManager%20Client.application");
+            InstallApplication(@"https://cdn.vcc-online.eu/apps/vtcm/VTCManager%20Client.application");
         }
 
         InPlaceHostingManager iphm = null;
