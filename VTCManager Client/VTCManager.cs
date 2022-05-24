@@ -11,11 +11,11 @@
         public static readonly string DiscordClientID = "659036297561767948";
 
         #region UpdateInfo
-        public static readonly string UpdatePublishedData = "May 21, 2022";
+        public static readonly string UpdatePublishedData = "May 24, 2022";
 
         //Changelog
         public static readonly string CLNewFeaturesList = "";
-        public static readonly string CLAdditionalImprovementsList = "";
+        public static readonly string CLAdditionalImprovementsList = "- Changelog design has been improved.\n- The new crash reporting system will now automatically send relevant reports to the development team for faster bug fixes.";
         public static readonly string CLSecurityAndBugFixesList = "- The client no longer connects to the websocket server, which is no longer active.\n- The websocket server status is no longer displayed above the clock.";
         #endregion
 
