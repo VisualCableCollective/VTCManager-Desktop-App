@@ -108,7 +108,7 @@ namespace VTCManager_Client.Controllers.API
                     postParameters.Add("OrientationHeading", TelemetryController.TelemetryData.TruckValues.CurrentValues.PositionValue.Orientation.Heading.ToString());
 
                     //job data
-                    if (TelemetryController.JobRunning)
+                    if (TelemetryController.JobRunning && StorageController.Config.User.Job != null)
                     {
                         //General data
                         postParameters.Add("JobID", StorageController.Config.User.Job.ID.ToString());
@@ -256,7 +256,7 @@ namespace VTCManager_Client.Controllers.API
                 uint job_id = 0;
                 try
                 {
-                    job_id = Convert.ToUInt32(response_string);
+                    job_id = Convert.ToUInt32(JsonConvert.DeserializeObject<dynamic>(response_string).id);
                 }
                 catch (Exception ex)
                 {
