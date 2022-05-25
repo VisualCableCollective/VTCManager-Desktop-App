@@ -11,7 +11,7 @@
         public static readonly string DiscordClientID = "659036297561767948";
 
         #region UpdateInfo
-        public static readonly string UpdatePublishedData = "May 24, 2022";
+        public static readonly string UpdatePublishedData = "May 25, 2022";
 
         //Changelog
         public static readonly string CLNewFeaturesList = "";
