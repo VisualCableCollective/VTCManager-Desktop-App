@@ -35,7 +35,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>104</ApplicationRevision>
+    <ApplicationRevision>115</ApplicationRevision>
     <ApplicationVersion>1.4.2.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -109,22 +109,6 @@
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CefSharp, Version=86.0.241.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Resources\DLLs\CefSharp\CefSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="CefSharp.BrowserSubprocess.Core, Version=86.0.241.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Resources\DLLs\CefSharp\CefSharp.BrowserSubprocess.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="CefSharp.Core, Version=86.0.241.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Resources\DLLs\CefSharp\CefSharp.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="CefSharp.Wpf, Version=86.0.241.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Resources\DLLs\CefSharp\CefSharp.Wpf.dll</HintPath>
-    </Reference>
     <Reference Include="PusherClient">
       <HintPath>Resources\DLLs\Custom Pusher Client\PusherClient.dll</HintPath>
     </Reference>
@@ -252,39 +236,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Resources\DLLs\CefSharp\cef.pak">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\CefSharp.Core.Runtime.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\CefSharp.Core.Runtime.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\cef_100_percent.pak">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\cef_200_percent.pak">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\cef_extensions.pak">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\icudtl.dat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\libcef.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\locales\en-US.pak">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\snapshot_blob.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\v8_context_snapshot.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -324,39 +275,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\DLLs\CefSharp\CefSharp.BrowserSubprocess.Core.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\CefSharp.BrowserSubprocess.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\CefSharp.Core.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\CefSharp.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\CefSharp.Wpf.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\chrome_elf.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\d3dcompiler_47.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\libEGL.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\libGLESv2.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\swiftshader\libEGL.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\DLLs\CefSharp\swiftshader\libGLESv2.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\DLLs\SCSSdkClient.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -458,85 +376,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <PublishFile Include="CefSharp.BrowserSubprocess.Core.dll">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="CefSharp.BrowserSubprocess.Core.pdb">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="CefSharp.BrowserSubprocess.pdb">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="CefSharp.Core.Runtime.dll">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="CefSharp.Core.Runtime.pdb">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="Resources\DLLs\CefSharp\CefSharp.Core.Runtime.xml">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
+    <Folder Include="Resources\DLLs\CefSharp\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y "$(ProjectDir)Resources\DLLs\CefSharp\locales\en-US.pak"  "$(ProjectDir)$(OutDir)\locales"
-                xcopy /y "$(ProjectDir)Resources\DLLs\CefSharp\swiftshader\libEGL.dll"  "$(ProjectDir)$(OutDir)\swiftshader"
-                xcopy /y "$(ProjectDir)Resources\DLLs\CefSharp\swiftshader\libGLESv2.dll"  "$(ProjectDir)$(OutDir)\swiftshader"
-                xcopy /y "$(ProjectDir)Resources\DLLs\CefSharp\cef.pak"  "$(ProjectDir)$(OutDir)"
-                xcopy /y "$(ProjectDir)Resources\DLLs\CefSharp\cef_100_percent.pak"  "$(ProjectDir)$(OutDir)"
-                xcopy /y "$(ProjectDir)Resources\DLLs\CefSharp\cef_200_percent.pak"  "$(ProjectDir)$(OutDir)"
-                xcopy /y "$(ProjectDir)Resources\DLLs\CefSharp\cef_extensions.pak"  "$(ProjectDir)$(OutDir)"
-                xcopy /y "$(ProjectDir)Resources\DLLs\CefSharp\CefSharp.BrowserSubprocess.exe"  "$(ProjectDir)$(OutDir)"    
-                xcopy /y "$(ProjectDir)Resources\DLLs\CefSharp\chrome_elf.dll"  "$(ProjectDir)$(OutDir)"
-                xcopy /y "$(ProjectDir)Resources\DLLs\CefSharp\d3dcompiler_47.dll"  "$(ProjectDir)$(OutDir)"
-                xcopy /y "$(ProjectDir)Resources\DLLs\CefSharp\icudtl.dat"  "$(ProjectDir)$(OutDir)"
-                xcopy /y "$(ProjectDir)Resources\DLLs\CefSharp\libcef.dll"  "$(ProjectDir)$(OutDir)"
-                xcopy /y "$(ProjectDir)Resources\DLLs\CefSharp\libEGL.dll"  "$(ProjectDir)$(OutDir)"
-                xcopy /y "$(ProjectDir)Resources\DLLs\CefSharp\libGLESv2.dll"  "$(ProjectDir)$(OutDir)"
-                xcopy /y "$(ProjectDir)Resources\DLLs\CefSharp\snapshot_blob.bin"  "$(ProjectDir)$(OutDir)"
-                xcopy /y "$(ProjectDir)Resources\DLLs\CefSharp\v8_context_snapshot.bin"  "$(ProjectDir)$(OutDir)"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

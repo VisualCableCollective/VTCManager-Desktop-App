@@ -190,7 +190,7 @@ namespace VTCManager_Client.Controllers
             string location = System.Reflection.Assembly.GetEntryAssembly().Location.Replace("VTCManager Client.exe", "");
             LogController.Write(LogPrefix + "Current exe location: " + location);
 
-            if(!Directory.Exists(location + @"locales\"))
+            /*if(!Directory.Exists(location + @"locales\"))
                 Directory.CreateDirectory(location + @"locales\");
             if(!Directory.Exists(location + @"swiftshader\"))
                 Directory.CreateDirectory(location + @"swiftshader\");
@@ -237,7 +237,7 @@ namespace VTCManager_Client.Controllers
             if (!File.Exists(location + @"CefSharp.Core.Runtime.dll"))
                 File.Copy(location + @"Resources\DLLs\CefSharp\CefSharp.Core.Runtime.dll", location + @"CefSharp.Core.Runtime.dll", true);
             if (!File.Exists(location + @"CefSharp.Core.Runtime.xml"))
-                File.Copy(location + @"Resources\DLLs\CefSharp\CefSharp.Core.Runtime.xml", location + @"CefSharp.Core.Runtime.xml", true);
+                File.Copy(location + @"Resources\DLLs\CefSharp\CefSharp.Core.Runtime.xml", location + @"CefSharp.Core.Runtime.xml", true);*/
 
             //update auto start registry
             if (!StorageController.Config.User_Disabled_Auto_Start)
