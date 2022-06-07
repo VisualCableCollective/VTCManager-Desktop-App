@@ -580,7 +580,8 @@ namespace SCSSdkClient {
         private SCSTelemetry.Trailer[] GetTrailers() {
             var trailer = new SCSTelemetry.Trailer[10];
             //TODO : only 1 for old game versions
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < trailer.Length; i++) // previous: 10 instead of "trailer.Length". Was changed due to a IndexOutOfRangeException
+            {
                 trailer[i] = GetTrailer();
             }
 
