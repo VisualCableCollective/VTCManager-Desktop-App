@@ -7,16 +7,16 @@
     {
         public static readonly string AppName = "VTCManager";
         public static readonly string Author = "The VisualCable Collective";
-        public static readonly string Version = "v1.4.2 Public Beta";
+        public static readonly string Version = "v1.4.3 Public Beta";
         public static readonly string DiscordClientID = "659036297561767948";
 
         #region UpdateInfo
-        public static readonly string UpdatePublishedData = "May 25, 2022";
+        public static readonly string UpdatePublishedData = "June 7, 2022";
 
         //Changelog
         public static readonly string CLNewFeaturesList = "";
-        public static readonly string CLAdditionalImprovementsList = "- Changelog design has been improved.\n- The new crash reporting system will now automatically send relevant reports to the development team for faster bug fixes.";
-        public static readonly string CLSecurityAndBugFixesList = "- The client no longer connects to the websocket server, which is no longer active.\n- The websocket server status is no longer displayed above the clock.";
+        public static readonly string CLAdditionalImprovementsList = "";
+        public static readonly string CLSecurityAndBugFixesList = "- Fixed an issue in the telemetry that caused an error after reading the trailer values.";
         #endregion
 
         /// <summary>
