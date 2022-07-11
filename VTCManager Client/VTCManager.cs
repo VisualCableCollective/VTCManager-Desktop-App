@@ -7,8 +7,8 @@
     {
         public static readonly string AppName = "VTCManager";
         public static readonly string Author = "The VisualCable Collective";
-        public static readonly string Version = $"v{VersionId} Public Beta";
         public static readonly string VersionId = "1.4.4";
+        public static readonly string Version = $"v{VersionId} Public Beta";
         public static readonly string DiscordClientID = "659036297561767948";
 
         #region UpdateInfo
