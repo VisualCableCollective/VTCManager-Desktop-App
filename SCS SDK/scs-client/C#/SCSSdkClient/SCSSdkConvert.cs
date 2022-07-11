@@ -457,7 +457,9 @@ namespace SCSSdkClient {
 
         private byte[] GetSubArray(int length) {
             var ret = new byte[length];
-            for (var i = 0; i < length; i++) {
+
+            // && i < _data.Length for preventing IndexOutOfRangeExceptions
+            for (var i = 0; i < length && (_offset + i) < _data.Length; i++) {
                 ret[i] = _data[_offset + i];
             }
 
