@@ -47,6 +47,8 @@ namespace VTCManager_Client
                 o.Dsn = "https://92d2e5304bf24f4592a6456c3b52f901@o1249248.ingest.sentry.io/6436578";
 
                 o.TracesSampleRate = 1.0;
+
+                o.Release = $"vtcmanager-desktop@{VTCManager.VersionId}";
             });
 #endif
 
