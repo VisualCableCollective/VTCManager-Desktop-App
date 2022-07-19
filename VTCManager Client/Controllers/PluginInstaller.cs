@@ -18,11 +18,14 @@ namespace VTCManager_Client.Controllers
         private static readonly string LogPrefix = "[PluginInstaller] ";
         public static void Install()
         {
-            LogController.Write(LogPrefix + "Starting tracker installation");
             InstallTelemetryETS2();
         }
         private static void InstallTelemetryETS2()
         {
+            if (StorageController.Config.ETS_Plugin_Installation_Tried && StorageController.Config.ATS_Plugin_Installation_Tried) return;
+
+            LogController.Write(LogPrefix + "Starting ETS/ATS tracker installation");
+
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 String SteamInstallPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Valve\Steam\", "InstallPath", null).ToString();
@@ -87,13 +90,14 @@ namespace VTCManager_Client.Controllers
             if (!StorageController.Config.ETS_Plugin_Installed)
             {
                 LogController.Write(LogPrefix + "Couldn't auto detect ETS2 installation folder.", LogController.LogType.Warning);
-                MessageBox.Show("Couldn't auto detect ETS2 installation folder.", "VTCManager: Plugin Installer", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             if (!StorageController.Config.ATS_Plugin_Installed)
             {
                 LogController.Write(LogPrefix + "Couldn't auto detect ATS installation folder.", LogController.LogType.Warning);
-                MessageBox.Show("Couldn't auto detect ATS installation folder.", "VTCManager: Plugin Installer", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+
+            StorageController.Config.ETS_Plugin_Installation_Tried = true;
+            StorageController.Config.ATS_Plugin_Installation_Tried = true;
         }
 
         private static void InstallPlugin(string GamePath, Games Game)
@@ -112,6 +116,7 @@ namespace VTCManager_Client.Controllers
                 //64
                 if (!Directory.Exists(GamePath + @"win_x64\plugins"))
                     Directory.CreateDirectory(GamePath + @"win_x64\plugins");
+
                 //make sure to got the correct telemetry version
                 if (File.Exists(GamePath + @"win_x64\plugins\scs-telemetry.dll"))
                     File.Delete(GamePath + @"win_x64\plugins\scs-telemetry.dll");
@@ -120,6 +125,7 @@ namespace VTCManager_Client.Controllers
                 //86
                 if (!Directory.Exists(GamePath + @"win_x86\plugins"))
                     Directory.CreateDirectory(GamePath + @"win_x86\plugins");
+
                 //make sure to got the correct telemetry version
                 if (File.Exists(GamePath + @"win_x86\plugins\scs-telemetry.dll"))
                     File.Delete(GamePath + @"win_x86\plugins\scs-telemetry.dll");

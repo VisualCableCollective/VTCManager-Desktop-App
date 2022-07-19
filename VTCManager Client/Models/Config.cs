@@ -3,7 +3,9 @@
     public class Config
     {
         public bool ETS_Plugin_Installed = false;
+        public bool ETS_Plugin_Installation_Tried = false;
         public bool ATS_Plugin_Installed = false;
+        public bool ATS_Plugin_Installation_Tried = false;
         public bool Debug = false;
         public string last_version_used = null;
         public string last_deploy_version_used = "";
