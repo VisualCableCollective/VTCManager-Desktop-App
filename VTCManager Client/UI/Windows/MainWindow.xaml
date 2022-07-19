@@ -84,7 +84,8 @@
                 <Grid.Effect>
                     <BlurEffect Radius="0" KernelType="Gaussian" x:Name="MainFrameWrapperBlurEffect"/>
                 </Grid.Effect>
-                <Frame x:Name="MainFrame" HorizontalAlignment="Center" VerticalAlignment="Bottom" NavigationUIVisibility="Hidden" beha:FrameDisableNavigation.Disable="True"/>
+                <Frame x:Name="MainFrame" HorizontalAlignment="Center" VerticalAlignment="Bottom" NavigationUIVisibility="Hidden" beha:FrameDisableNavigation.Disable="True"
+                       Focusable="False" />
             </Grid>
         </Grid>
     </Canvas>

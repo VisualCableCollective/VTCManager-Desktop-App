@@ -182,7 +182,7 @@
                     <Label Content="Avatar" VerticalAlignment="Center"/>
                 </StackPanel>
             </Grid>
-            <Frame Grid.Row="1" x:Name="PageContent" Panel.ZIndex="0" beha:FrameDisableNavigation.Disable="True"/>
+            <Frame Grid.Row="1" x:Name="PageContent" Panel.ZIndex="0" beha:FrameDisableNavigation.Disable="True" Focusable="False"/>
         </Grid>
     </Canvas>
 </Page>
