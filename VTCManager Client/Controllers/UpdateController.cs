@@ -255,6 +255,10 @@ namespace VTCManager_Client.Controllers
                 }
             }
 
+            // Update plugins later
+            StorageController.Config.ETS_Plugin_Installation_Tried = true;
+            StorageController.Config.ATS_Plugin_Installation_Tried = true;
+
             StorageController.Config.last_deploy_version_used = ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
         }
     }
