@@ -26,6 +26,30 @@
                         <ScaleTransform ScaleX="1.4" ScaleY="1.4" />
                     </CheckBox.LayoutTransform>
                 </CheckBox>
+                <Button x:Name="InstallPlugins_Button" Margin="0,10,0,0" >
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#FF3E8E09"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#00c907"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Content>
+                        <Label Content="Install ETS/ATS plugins" FontSize="16" Padding="0,2,0,3" />
+                    </Button.Content>
+                </Button>
             </StackPanel>
         </StackPanel>
     </Grid>

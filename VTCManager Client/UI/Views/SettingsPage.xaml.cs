@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VTCManager_Client.Controllers;
 
 namespace VTCManager_Client.UI.Views
 {
@@ -36,18 +37,60 @@ namespace VTCManager_Client.UI.Views
             {
                 EnableAutoStart_CB.IsChecked = true;
             }
+
+            InstallPlugins_Button.Click += InstallPlugins_Button_Click;
+        }
+
+        private void InstallPlugins_Button_Click(object sender, RoutedEventArgs e)
+        {
+            StorageController.Config.ETS_Plugin_Installation_Tried = false;
+            StorageController.Config.ATS_Plugin_Installation_Tried = false;
+
+            PluginInstaller.Install();
+
+            string mbText;
+            var mbImage = MessageBoxImage.Information;
+
+            if (StorageController.Config.ETS_Plugin_Installed || StorageController.Config.ATS_Plugin_Installed)
+            {
+                mbText = "Successfully installed plugins for the following games: ";
+
+                if (StorageController.Config.ETS_Plugin_Installed)
+                {
+                    mbText += "Euro Truck Simulator 2";
+                }
+
+                if (StorageController.Config.ATS_Plugin_Installed)
+                {
+                    if (mbText.Contains("Euro Truck"))
+                    {
+                        mbText += " & American Truck Simulator";
+                    }
+                    else
+                    {
+                        mbText += "American TruckSimulator";
+                    }
+                }
+            } 
+            else
+            {
+                mbText = "The plugin installation was not successful because no Euro Truck Simulator 2 or American Truck Simulator installation could be found.";
+                mbImage = MessageBoxImage.Error;
+            }
+
+            MessageBox.Show(mbText, "VTCManager: Plugin Installation", MessageBoxButton.OK, mbImage);
         }
 
         private void EnableDiscordRPC_CB_Unchecked(object sender, RoutedEventArgs e)
         {
-            Controllers.StorageController.Config.DiscordRPC_Enabled = false;
-            Controllers.DiscordRPCController.ShutDown();
+            StorageController.Config.DiscordRPC_Enabled = false;
+            DiscordRPCController.ShutDown();
         }
 
         private void EnableDiscordRPC_CB_Checked(object sender, RoutedEventArgs e)
         {
-            Controllers.StorageController.Config.DiscordRPC_Enabled = true;
-            Controllers.DiscordRPCController.Init();
+            StorageController.Config.DiscordRPC_Enabled = true;
+            DiscordRPCController.Init();
         }
 
         private void EnableAutoStart_CB_Checked(object sender, RoutedEventArgs e)

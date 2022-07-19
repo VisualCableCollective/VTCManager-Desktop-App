@@ -22,9 +22,12 @@ namespace VTCManager_Client.Controllers
         }
         private static void InstallTelemetryETS2()
         {
-            if (StorageController.Config.ETS_Plugin_Installation_Tried && StorageController.Config.ATS_Plugin_Installation_Tried) return;
+            if (StorageController.Config.ETS_Plugin_Installation_Tried || StorageController.Config.ATS_Plugin_Installation_Tried) return;
 
             LogController.Write(LogPrefix + "Starting ETS/ATS tracker installation");
+
+            StorageController.Config.ETS_Plugin_Installed = false;
+            StorageController.Config.ATS_Plugin_Installed = false;
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {

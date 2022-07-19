@@ -68,7 +68,37 @@ namespace VTCManager_Client.Controllers
                         {
                             LoadingWindow.ChangeStatusText("Installing ETS2/ATS Plugin");
                         }));
-                PluginInstaller.Install();
+                
+                if (!StorageController.Config.ETS_Plugin_Installation_Tried || !StorageController.Config.ATS_Plugin_Installation_Tried)
+                {
+                    PluginInstaller.Install();
+
+                    if (!StorageController.Config.ETS_Plugin_Installed || StorageController.Config.ATS_Plugin_Installed)
+                    {
+                        string mbText = "Automatic plugin installation failed for these games: ";
+
+                        if (!StorageController.Config.ETS_Plugin_Installed)
+                        {
+                            mbText += "Euro Truck Simulator 2";
+                        }
+
+                        if (!StorageController.Config.ATS_Plugin_Installed)
+                        {
+                            if (mbText.Contains("Euro Truck"))
+                            {
+                                mbText += " & American Truck Simulator";
+                            } 
+                            else
+                            {
+                                mbText += "American Truck Simulator";
+                            }
+                        }
+
+                        mbText += "\nThis might happen, if a game is not installed.";
+
+                        MessageBox.Show(mbText, "VTCManager: Plugin Installation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
             }
 
             Initialize(nameof(GameLogController), GameLogController.Init(), GameLogController.InitErrorMessage);
