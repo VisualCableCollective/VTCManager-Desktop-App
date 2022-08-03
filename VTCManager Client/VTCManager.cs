@@ -7,17 +7,17 @@
     {
         public static readonly string AppName = "VTCManager";
         public static readonly string Author = "The VisualCable Collective";
-        public static readonly string VersionId = "1.5.0";
+        public static readonly string VersionId = "1.5.1";
         public static readonly string Version = $"v{VersionId} Public Beta";
         public static readonly string DiscordClientID = "659036297561767948";
 
         #region UpdateInfo
-        public static readonly string UpdatePublishedData = "July 19, 2022";
+        public static readonly string UpdatePublishedData = "August 3, 2022";
 
         //Changelog
-        public static readonly string CLNewFeaturesList = "- The game plugin installation can now be started by pressing a button in the settings.";
-        public static readonly string CLAdditionalImprovementsList = "- The automatic plugin installation is now running once after each update and not after each start of the client as before.";
-        public static readonly string CLSecurityAndBugFixesList = "- Fixed a bug that unintentionally focused certain UI elements.\n- Security patches, bug fixes and performance improvements.";
+        public static readonly string CLNewFeaturesList = "";
+        public static readonly string CLAdditionalImprovementsList = "";
+        public static readonly string CLSecurityAndBugFixesList = "- Fixed an issue that sometimes caused the error window to not be displayed and the application to crash.\n- Additional security patches, bug fixes and performance improvements.";
         #endregion
 
         /// <summary>
