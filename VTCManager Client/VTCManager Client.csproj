@@ -36,7 +36,7 @@
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>124</ApplicationRevision>
-    <ApplicationVersion>1.5.1.%2a</ApplicationVersion>
+    <ApplicationVersion>1.5.2.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -332,6 +332,7 @@
     <Content Include="Resources\Images\vtcmanager_logo_old.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="SCSSdkClient.dll" />
     <Content Include="vtcmanager_logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

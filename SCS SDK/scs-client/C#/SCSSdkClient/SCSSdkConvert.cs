@@ -459,7 +459,7 @@ namespace SCSSdkClient {
             var ret = new byte[length];
 
             // && i < _data.Length for preventing IndexOutOfRangeExceptions
-            for (var i = 0; i < length && (_offset + i) < _data.Length; i++) {
+            for (var i = 0; i < length && ((_offset + i) < _data.Length); i++) {
                 ret[i] = _data[_offset + i];
             }
 
