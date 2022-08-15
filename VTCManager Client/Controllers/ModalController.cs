@@ -45,7 +45,7 @@ namespace VTCManager_Client.Controllers
             Task.Run(() =>
             {
                 ControllerManager.MainWindow.HideModal();
-                ModalQueue.RemoveAt(0);
+                if (ModalQueue.Any()) ModalQueue.RemoveAt(0);
                 NextModalTimer.Start();
             });
         }

@@ -17,7 +17,7 @@
         //Changelog
         public static readonly string CLNewFeaturesList = "";
         public static readonly string CLAdditionalImprovementsList = "";
-        public static readonly string CLSecurityAndBugFixesList = "- Fixed an issue that sometimes caused the error window to not be displayed properly (and the application to crash).";
+        public static readonly string CLSecurityAndBugFixesList = "- Fixed an issue that sometimes caused the error window to not be displayed properly (and the application to crash).\n- Fixed an issue that caused an error when closing a popup/modal.";
         #endregion
 
         /// <summary>
