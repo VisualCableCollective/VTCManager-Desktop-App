@@ -7,7 +7,7 @@
     {
         public static readonly string AppName = "VTCManager";
         public static readonly string Author = "The VisualCable Collective";
-        public static readonly string VersionId = "1.5.1";
+        public static readonly string VersionId = "1.5.2";
         public static readonly string Version = $"v{VersionId} Public Beta";
         public static readonly string DiscordClientID = "659036297561767948";
 
@@ -17,7 +17,7 @@
         //Changelog
         public static readonly string CLNewFeaturesList = "";
         public static readonly string CLAdditionalImprovementsList = "";
-        public static readonly string CLSecurityAndBugFixesList = "- Fixed an issue that sometimes caused the error window to not be displayed and the application to crash.\n- Additional security patches, bug fixes and performance improvements.";
+        public static readonly string CLSecurityAndBugFixesList = "- Fixed an issue that sometimes caused the error window to not be displayed properly (and the application to crash).";
         #endregion
 
         /// <summary>

@@ -228,7 +228,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\app.manifest" />
@@ -306,9 +306,7 @@
     <Content Include="Resources\Videos\VCC-logo-animated.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\UI\close-icon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Resources\Images\UI\close-icon.png" />
     <Content Include="Resources\Images\UI\Icons\clear-white.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -321,9 +319,7 @@
     <Content Include="Resources\Images\UI\Icons\Truck-Icon-With-Freight.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Images\error_icon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Resources\Images\error_icon.png" />
     <Content Include="Resources\Images\loading_image.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

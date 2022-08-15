@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:VTCManager_Client.Windows"
         mc:Ignorable="d"
         WindowStyle="None" WindowStartupLocation="CenterScreen"
-        Title="VTCManager Client" Height="262" Width="689" Icon="pack://siteoforigin:,,,/Resources/Images/error_icon.png"
+        Title="VTCManager Client" Height="262" Width="689" Icon="pack://application:,,,/Resources/Images/error_icon.png"
         Background="#1c1c1c"
         ResizeMode="NoResize"
         Topmost="True"
@@ -24,7 +24,7 @@
         <Border x:Name="TopBar" Grid.Row="0" Grid.Column="0" Mouse.MouseDown="TopBar_MouseDown" Background="Transparent" Width="auto" Panel.ZIndex="1">
             <WrapPanel Name="WindowTopBarIconWrapper" Orientation="Horizontal" HorizontalAlignment="Right" Panel.ZIndex="2">
                 <Border x:Name="WindowCloseButton" Width="64" Height="30" Cursor="Hand" Mouse.MouseDown="WindowCloseButton_MouseDown" Background="#FFD12121">
-                    <Image Source="pack://siteoforigin:,,,/Resources/Images/UI/close-icon.png"/>
+                    <Image Source="pack://application:,,,/Resources/Images/UI/close-icon.png"/>
                     <Border.Triggers>
                         <EventTrigger RoutedEvent="MouseEnter">
                             <BeginStoryboard>
