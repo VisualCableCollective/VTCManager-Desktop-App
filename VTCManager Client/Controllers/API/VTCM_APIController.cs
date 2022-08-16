@@ -24,7 +24,7 @@ namespace VTCManager_Client.Controllers.API
         //only executed by the loading screen
         public static Models.ControllerStatus Init()
         {
-            if (VTCManager.UseLocalServer)
+            if (AppInfo.UseLocalServer)
             {
                 LogController.Write(LogPrefix + "Changing server url to localhost:8000", LogController.LogType.Warning);
                 Server_url = "http://localhost:8000/api/";

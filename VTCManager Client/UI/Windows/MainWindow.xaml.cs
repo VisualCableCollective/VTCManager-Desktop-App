@@ -40,7 +40,7 @@ namespace VTCManager_Client.Windows
             app = _app;
             InitializeComponent();
 
-            if(!VTCManager.SilentAutoStartMode)
+            if(!AppInfo.SilentAutoStartMode)
                 Controllers.DiscordRPCController.Init();
 
             //init tray icon
@@ -60,7 +60,7 @@ namespace VTCManager_Client.Windows
             WindowCloseButtonHoverBrush = (System.Windows.Media.Brush)brushConverter.ConvertFromString("#FFD12121");
             ChangeWindowSizeBtnHoverBrush = (System.Windows.Media.Brush)brushConverter.ConvertFromString("#095db8");
 
-            VTCManager.CurrentWindow = Models.Enums.AppWindow.MainWindow;
+            AppInfo.CurrentWindow = Models.Enums.AppWindow.MainWindow;
 
             TopBarMouseClickTimer = new System.Timers.Timer(500);
             TopBarMouseClickTimer.Elapsed += new ElapsedEventHandler(TopBarMouseClickTimerEvent);
@@ -97,7 +97,7 @@ namespace VTCManager_Client.Windows
             Controllers.ControllerManager.MainWindowInit();
 
             //show changelog
-            if(StorageController.Config.last_version_used != VTCManager.Version)
+            if(StorageController.Config.last_version_used != AppInfo.Version)
             {
                 Task.Run(() =>
                 {

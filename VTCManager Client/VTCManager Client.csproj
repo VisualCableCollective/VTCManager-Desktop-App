@@ -35,8 +35,8 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>125</ApplicationRevision>
-    <ApplicationVersion>1.5.2.%2a</ApplicationVersion>
+    <ApplicationRevision>127</ApplicationRevision>
+    <ApplicationVersion>1.5.3.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -211,7 +211,7 @@
     <Compile Include="UI\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VTCManager.cs" />
+    <Compile Include="AppInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -275,9 +275,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\DLLs\SCSSdkClient.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Resources\DLLs\SCSSdkClient.dll" />
     <Resource Include="Resources\Images\UI\Backgrounds\Default.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -375,7 +373,24 @@
   <ItemGroup>
     <Folder Include="Resources\DLLs\CefSharp\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\VTCManager.Plugins.Clock\VTCManager.Plugins.Clock.csproj">
+      <Project>{f50fa5e4-cb8b-4436-814d-e18d4cf09f08}</Project>
+      <Name>VTCManager.Plugins.Clock</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="SCSSdkClient">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

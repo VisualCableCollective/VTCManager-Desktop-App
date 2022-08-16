@@ -82,7 +82,7 @@ namespace VTCManager_Client.Controllers
                     consoleColor = ConsoleColor.Yellow;
                     break;
                 case LogType.Debug:
-                    if (!VTCManager.DebugMode)
+                    if (!AppInfo.DebugMode)
                         return;
                     ltype = "DEBUG";
                     consoleColor = ConsoleColor.Gray;

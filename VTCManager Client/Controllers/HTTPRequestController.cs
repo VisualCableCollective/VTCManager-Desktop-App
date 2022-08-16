@@ -20,7 +20,7 @@ namespace VTCManager_Client.Controllers
             Dictionary<string, string> return_str = new Dictionary<string, string>();
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = Method;
-            request.UserAgent = VTCManager.AppName + " " + VTCManager.Version;
+            request.UserAgent = AppInfo.AppName + " " + AppInfo.Version;
             request.Accept = "application/json";
             switch (service)
             {

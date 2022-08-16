@@ -187,20 +187,6 @@ namespace VTCManager_Client.UI.Views.Models
 
         private Visibility _NavigationInfoPanelVisibility;
 
-        public Visibility CurrentTimeWidgetMiddlePartVisibility
-        {
-            get { return _CurrentTimeWidgetMiddlePartVisibility; }
-            set
-            {
-                if (value == _CurrentTimeWidgetMiddlePartVisibility)
-                    return;
-                _CurrentTimeWidgetMiddlePartVisibility = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        private Visibility _CurrentTimeWidgetMiddlePartVisibility;
-
         public ImageSource TruckImageSource
         {
             get { return _TruckImageSource; }
@@ -214,34 +200,6 @@ namespace VTCManager_Client.UI.Views.Models
         }
 
         private ImageSource _TruckImageSource;
-
-        public String CurrentTimeWidgetHourString
-        {
-            get { return _CurrentTimeWidgetHourString; }
-            set
-            {
-                if (value == _CurrentTimeWidgetHourString)
-                    return;
-                _CurrentTimeWidgetHourString = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        private String _CurrentTimeWidgetHourString;
-
-        public String CurrentTimeWidgetMinuteString
-        {
-            get { return _CurrentTimeWidgetMinuteString; }
-            set
-            {
-                if (value == _CurrentTimeWidgetMinuteString)
-                    return;
-                _CurrentTimeWidgetMinuteString = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        private String _CurrentTimeWidgetMinuteString;
 
         public String CurrentConnectionStateString
         {
@@ -270,8 +228,6 @@ namespace VTCManager_Client.UI.Views.Models
         }
 
         private Brush _CurrentConnectionStateColor;
-
-
 
         public event PropertyChangedEventHandler PropertyChanged;//CurrentTimeString
 

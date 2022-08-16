@@ -21,7 +21,7 @@ namespace VTCManager_Client.Views
         
         public Login()
         {
-            if (VTCManager.UseLocalServer)
+            if (AppInfo.UseLocalServer)
                 VTCMServerHost = "http://localhost:8000/";
 
             InitializeComponent();

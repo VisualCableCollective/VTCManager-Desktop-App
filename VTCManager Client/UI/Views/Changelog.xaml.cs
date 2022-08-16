@@ -11,11 +11,11 @@ namespace VTCManager_Client.UI.Views
         public Changelog()
         {
             InitializeComponent();
-            ChangelogTitle.Text += VTCManager.Version;
-            UpdatePublishedLabel.Content += VTCManager.UpdatePublishedData;
-            if (!string.IsNullOrWhiteSpace(VTCManager.CLNewFeaturesList))
+            ChangelogTitle.Text += AppInfo.Version;
+            UpdatePublishedLabel.Content += AppInfo.UpdatePublishedData;
+            if (!string.IsNullOrWhiteSpace(AppInfo.CLNewFeaturesList))
             {
-                NewFeaturesList.Text = VTCManager.CLNewFeaturesList;
+                NewFeaturesList.Text = AppInfo.CLNewFeaturesList;
             }
             else
             {
@@ -23,9 +23,9 @@ namespace VTCManager_Client.UI.Views
                 NewFeaturesList.Visibility = System.Windows.Visibility.Collapsed;
             }
 
-            if (!string.IsNullOrWhiteSpace(VTCManager.CLAdditionalImprovementsList))
+            if (!string.IsNullOrWhiteSpace(AppInfo.CLAdditionalImprovementsList))
             {
-                AdditionalImprovementsList.Text = VTCManager.CLAdditionalImprovementsList;
+                AdditionalImprovementsList.Text = AppInfo.CLAdditionalImprovementsList;
             }
             else
             {
@@ -33,9 +33,9 @@ namespace VTCManager_Client.UI.Views
                 AdditionalImprovementsList.Visibility = System.Windows.Visibility.Collapsed;
             }
 
-            if (!string.IsNullOrWhiteSpace(VTCManager.CLSecurityAndBugFixesList))
+            if (!string.IsNullOrWhiteSpace(AppInfo.CLSecurityAndBugFixesList))
             {
-                BugAndSecurityFixesList.Text = VTCManager.CLSecurityAndBugFixesList;
+                BugAndSecurityFixesList.Text = AppInfo.CLSecurityAndBugFixesList;
             }
             else
             {
@@ -46,7 +46,7 @@ namespace VTCManager_Client.UI.Views
 
         private void Confirmed_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Controllers.StorageController.Config.last_version_used = VTCManager.Version;
+            Controllers.StorageController.Config.last_version_used = AppInfo.Version;
             Controllers.ModalController.CloseCurrentModal();
         }
     }

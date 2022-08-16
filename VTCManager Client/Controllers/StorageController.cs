@@ -78,7 +78,7 @@ namespace VTCManager_Client.Controllers
 
             if (Config.Debug)
             {
-                VTCManager.DebugMode = true;
+                AppInfo.DebugMode = true;
             }
 
             DataFileStream.Close();

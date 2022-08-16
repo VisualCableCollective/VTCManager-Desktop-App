@@ -14,17 +14,17 @@ namespace VTCManager_Client.Controllers.API
         private static bool InitDone = false;
         public static Models.ControllerStatus Init()
         {
-            client = new Pusher(VTCManager.VTCMAPI_WSAppKey, new PusherOptions()
+            client = new Pusher(AppInfo.VTCMAPI_WSAppKey, new PusherOptions()
             {
-                Host = VTCManager.VTCMAPI_WSHost,
-                Authorizer = new HttpAuthorizer(VTCManager.VTCMAPI_WSAuthEndpointURL, AuthDataController.GetAPIToken())
+                Host = AppInfo.VTCMAPI_WSHost,
+                Authorizer = new HttpAuthorizer(AppInfo.VTCMAPI_WSAuthEndpointURL, AuthDataController.GetAPIToken())
             });
             client.ConnectionStateChanged += Client_ConnectionStateChanged;
             client.Connected += Client_Connected;
             client.Disconnected += Client_Disconnected;
             client.Error += Client_Error;
 
-            if (!VTCManager.EnableWebsockets)
+            if (!AppInfo.EnableWebsockets)
                 return Models.ControllerStatus.OK;
 
             ConnectionState connectionState;

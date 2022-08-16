@@ -11,7 +11,7 @@ namespace VTCManager_Client.Controllers
         private static Timer UpdateRPCTimer = new Timer(5000);
         private static readonly string LogPrefix = "[DiscordRPCController] ";
         private static bool InitDone = false;
-        private static String DefaultSmallImageText = VTCManager.AppName + " " + VTCManager.Version;
+        private static String DefaultSmallImageText = AppInfo.AppName + " " + AppInfo.Version;
         private static readonly String PauseSmallImage = "pause-icon";
         private static Timestamps CurrentUsedTS;
         public static RPCStatus CurrentRPCStatus
@@ -34,7 +34,7 @@ namespace VTCManager_Client.Controllers
         {
             if (InitDone)
                 return;
-            DiscordRPCClient = new DiscordRpcClient(VTCManager.DiscordClientID)
+            DiscordRPCClient = new DiscordRpcClient(AppInfo.DiscordClientID)
             {
                 Logger = new ConsoleLogger() { Level = LogLevel.Warning }
             };

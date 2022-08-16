@@ -48,7 +48,7 @@ namespace VTCManager_Client
 
                 o.TracesSampleRate = 1.0;
 
-                o.Release = $"vtcmanager-desktop@{VTCManager.VersionId}";
+                o.Release = $"vtcmanager-desktop@{AppInfo.VersionId}";
             });
 #endif
 
@@ -146,11 +146,11 @@ namespace VTCManager_Client
             // silent mode checks
             if (e.Args.Contains("-silent"))
             {
-                VTCManager.SilentAutoStartMode = true;
+                AppInfo.SilentAutoStartMode = true;
             }
 
             _loadingWindow = new Windows.LoadingWindow(this);
-            if (!VTCManager.SilentAutoStartMode)
+            if (!AppInfo.SilentAutoStartMode)
             {
                 _loadingWindow.Show();
             }
@@ -160,7 +160,7 @@ namespace VTCManager_Client
 
         /// <summary>
         /// Shows the <see cref="Windows.MainWindow"/> and closes the <see cref="Windows.LoadingWindow"/>.<br/>
-        /// If <see cref="VTCManager.SilentAutoStartMode"/> is <see langword="true"/> the <see cref="Windows.MainWindow"/> won't be visible.
+        /// If <see cref="AppInfo.SilentAutoStartMode"/> is <see langword="true"/> the <see cref="Windows.MainWindow"/> won't be visible.
         /// </summary>
         /// <param name="AppInitResults"></param>
         public void LaunchMainWindow(List<Models.ControllerStatus> appInitResults)
@@ -171,7 +171,7 @@ namespace VTCManager_Client
             }
 
             _mainWindow = new Windows.MainWindow(this, appInitResults);
-            if (!VTCManager.SilentAutoStartMode)
+            if (!AppInfo.SilentAutoStartMode)
             {
                 _mainWindow.Show();
             }

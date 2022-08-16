@@ -16,7 +16,6 @@ namespace VTCManager_Client.Views.DashBoards
     {
 
         private Timer UpdateDashboardTimer;
-        private Timer UpdateTimeLabelTimer;
         private UI.Views.Models.MainDashboardViewModel viewModel = new UI.Views.Models.MainDashboardViewModel();
         public ImageSourceConverter sourceConverter = new ImageSourceConverter();
         private DurationConverter DurationConverter = new DurationConverter();
@@ -41,11 +40,6 @@ namespace VTCManager_Client.Views.DashBoards
             UpdateDashboardTimer.Elapsed += new ElapsedEventHandler(UpdateDashboard);
             UpdateDashboardTimer.Start();
 
-            UpdateTimeLabelTimer = new Timer(1000);
-            UpdateTimeLabelTimer.Elapsed += new ElapsedEventHandler(UpdateTimeLabel);
-            UpdateTimeLabelTimer.Start();
-            UpdateTimeLabel(null,null);
-
             BrushConverter brushConverter = new BrushConverter();
             viewModel.CurrentConnectionStateColor = (Brush)brushConverter.ConvertFromString("#e8e8e8"); //white
             viewModel.CurrentConnectionStateString = "not yet connected";
@@ -61,18 +55,11 @@ namespace VTCManager_Client.Views.DashBoards
 
             TruckIconWithFreight = (ImageSource)sourceConverter.ConvertFromString("pack://application:,,,/Resources/Images/UI/Icons/Truck-Icon-With-Freight.png");
             TruckIconNoFreight = (ImageSource)sourceConverter.ConvertFromString("pack://application:,,,/Resources/Images/UI/Icons/Truck-Icon-No-Freight.png");
-        }
 
-        private void UpdateTimeLabel(object sender, ElapsedEventArgs e)
-        {
-            DateTime TimeNow = DateTime.Now;
-            viewModel.CurrentTimeWidgetHourString = TimeNow.ToString("HH");
-            viewModel.CurrentTimeWidgetMinuteString = TimeNow.ToString("mm");
-
-            if (viewModel.CurrentTimeWidgetMiddlePartVisibility == Visibility.Visible)
-                viewModel.CurrentTimeWidgetMiddlePartVisibility = Visibility.Hidden;
-            else
-                viewModel.CurrentTimeWidgetMiddlePartVisibility = Visibility.Visible;
+            var clockControlType = new VTCManager.Plugins.Clock.PluginInfo().WidgetControlType;
+            var clockControlInstance = (UIElement)Activator.CreateInstance(clockControlType);
+            Grid.SetColumn(clockControlInstance, 2);
+            FirstRow.Children.Add(clockControlInstance);
         }
 
         private void UpdateDashboard(object sender, ElapsedEventArgs e)

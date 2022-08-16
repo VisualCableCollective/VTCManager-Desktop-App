@@ -31,7 +31,7 @@ namespace VTCManager_Client.Windows
                     Environment.Exit(0);
             }
 
-            if (VTCManager.SilentAutoStartMode)
+            if (AppInfo.SilentAutoStartMode)
             {
                 Controllers.LogController.Write("Starting in silent mode");
                 this.Hide();
@@ -51,7 +51,7 @@ namespace VTCManager_Client.Windows
             }
 
             OriginalStatusLabelText = StatusLabel.Content.ToString();
-            VersionLabel.Content = VTCManager.Version;
+            VersionLabel.Content = AppInfo.Version;
             VCCLogoIntroPlayer.Visibility = Visibility.Visible;
             LoadingInformationScreen.Opacity = 0;
             UpdateProgressBar.Visibility = Visibility.Collapsed;
@@ -92,7 +92,7 @@ namespace VTCManager_Client.Windows
             this.Dispatcher.Invoke(DispatcherPriority.Normal,
                 new Action(() =>
                 {
-                    if (!VTCManager.SilentAutoStartMode)
+                    if (!AppInfo.SilentAutoStartMode)
                     {
                         VCCLogoIntroPlayer.Stop();
                         Storyboard sb = this.FindResource("IntroFadeOut") as Storyboard;
@@ -126,7 +126,7 @@ namespace VTCManager_Client.Windows
 
         public void ChangeStatusText(string new_status)
         {
-            if (VTCManager.SilentAutoStartMode)
+            if (AppInfo.SilentAutoStartMode)
                 return;
             this.Dispatcher.Invoke(DispatcherPriority.Normal,
                 new Action(() =>
