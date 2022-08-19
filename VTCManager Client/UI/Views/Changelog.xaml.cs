@@ -12,7 +12,7 @@ namespace VTCManager_Client.UI.Views
         {
             InitializeComponent();
             ChangelogTitle.Text += AppInfo.Version;
-            UpdatePublishedLabel.Content += AppInfo.UpdatePublishedData;
+            UpdatePublishedLabel.Content += AppInfo.UpdatePublishedDate;
             if (!string.IsNullOrWhiteSpace(AppInfo.CLNewFeaturesList))
             {
                 NewFeaturesList.Text = AppInfo.CLNewFeaturesList;
