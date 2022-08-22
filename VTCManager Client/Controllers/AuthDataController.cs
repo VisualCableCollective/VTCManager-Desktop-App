@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace VTCManager_Client.Controllers
 {
     public static class AuthDataController
     {
         private static string AuthDataFilePath;
-        private static string LogPrefix = "[AuthDataController] ";
-        private static string API_Token = null;
-        private static bool Adata_FileOpen = false;
+        private static readonly string LogPrefix = $"[{nameof(AuthDataController)}] ";
+        private static string ApiToken = null;
+        private static bool IsFileOpen = false;
 
         public static Models.ControllerStatus Init()
         {
@@ -25,21 +22,22 @@ namespace VTCManager_Client.Controllers
                 StorageController.Config.ADataBytesWritten = 0;
             }
 
-            ConvertOldStorageToNew();
+            if (IsOldStorageUsed()) ConvertOldStorageToNew();;
 
             return Models.ControllerStatus.OK;
         }
 
-        private static void SaveData(String data)
+        private static void SaveData(string data)
         {
-            byte[] toEncrypt = UnicodeEncoding.ASCII.GetBytes(data);
+            byte[] toEncrypt = Encoding.ASCII.GetBytes(data);
             StorageController.Config.ADataEntropy = CreateRandomEntropy();
 
             FileStream filestream;
             try
             {
                 filestream = new FileStream(AuthDataFilePath, FileMode.OpenOrCreate);
-            }catch(Exception ex)
+            }
+            catch(Exception ex)
             {
                 LogController.Write(LogPrefix + "Couldn't create adata file: " + ex.Message, LogController.LogType.Error);
                 return;
@@ -47,21 +45,22 @@ namespace VTCManager_Client.Controllers
 
             StorageController.Config.ADataBytesWritten = EncryptDataToStream(toEncrypt, StorageController.Config.ADataEntropy, DataProtectionScope.CurrentUser, filestream);
             SHA256 sha = SHA256.Create();
-            StorageController.Config.ADataSHA256Hash = System.Text.Encoding.Default.GetString(sha.ComputeHash(filestream));
+            StorageController.Config.ADataSHA256Hash = Encoding.Default.GetString(sha.ComputeHash(filestream));
+
             filestream.Close();
         }
 
         private static string ReadDataFromFile()
         {
-            if (Adata_FileOpen)
+            if (IsFileOpen)
             {
-                while (Adata_FileOpen)
+                while (IsFileOpen)
                 {
 
                 }
-                return API_Token;
+                return ApiToken;
             }
-            Adata_FileOpen = true;
+            IsFileOpen = true;
             // Open the file.
             FileStream fStream;
             try
@@ -70,40 +69,44 @@ namespace VTCManager_Client.Controllers
             }catch(Exception ex)
             {
                 LogController.Write(LogPrefix + "Couldn't open Adata file: " + ex.Message, LogController.LogType.Error);
-                Adata_FileOpen = false;
+                IsFileOpen = false;
                 return "";
             }
             // Read from the stream and decrypt the data.
             byte[] decryptData = DecryptDataFromStream(StorageController.Config.ADataEntropy, DataProtectionScope.CurrentUser, fStream, StorageController.Config.ADataBytesWritten);
             fStream.Close();
 
-            API_Token = UnicodeEncoding.ASCII.GetString(decryptData);
-            Adata_FileOpen = false;
-            return API_Token;
+            ApiToken = UnicodeEncoding.ASCII.GetString(decryptData);
+            IsFileOpen = false;
+            return ApiToken;
         }
 
         public static string GetAPIToken()
         {
-            if (API_Token != null)
-                return API_Token;
+            if (ApiToken != null)
+                return ApiToken;
 
-            if (StorageController.Config.ADataEntropy == null || StorageController.Config.ADataBytesWritten == 0 || StorageController.Config.ADataSHA256Hash == null)
+            if (!CanReadAData())
                 return "";
 
             try
             {
                 return ReadDataFromFile();
-            }catch(Exception ex)
+            }
+            catch(Exception ex)
             {
                 LogController.Write(LogPrefix + "An error occured while reading the auth data from the file: " + ex.Message, LogController.LogType.Error);
-                API_Token = "";
+                ApiToken = "";
                 return "";
             }
         }
 
-        public static void SetAPIToken(String token)
+        private static bool CanReadAData() => StorageController.Config.ADataEntropy != null && StorageController.Config.ADataBytesWritten != 0 
+            && StorageController.Config.ADataSHA256Hash != null;
+
+        public static void SetAPIToken(string token)
         {
-            API_Token = token;
+            ApiToken = token;
             SaveData(token);
         }
 
@@ -174,14 +177,13 @@ namespace VTCManager_Client.Controllers
             return length;
         }
 
+        private static bool IsOldStorageUsed() => !string.IsNullOrWhiteSpace(StorageController.Config.User.API_Token);
+
         private static void ConvertOldStorageToNew()
         {
-            if (!String.IsNullOrWhiteSpace(StorageController.Config.User.API_Token))
-            {
-                AuthDataController.SetAPIToken(StorageController.Config.User.API_Token);
-                StorageController.Config.User.API_Token = null;
-                LogController.Write(LogPrefix + "Moved api token to the new location! ");
-            }
+            SetAPIToken(StorageController.Config.User.API_Token);
+            StorageController.Config.User.API_Token = null;
+            LogController.Write(LogPrefix + "Moved api token to the new location!");
         }
     }
 }

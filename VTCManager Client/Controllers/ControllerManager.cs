@@ -11,7 +11,7 @@ namespace VTCManager_Client.Controllers
     /// </summary>
     public static class ControllerManager
     {
-        public static readonly string LOGPREFIX = "[" + nameof(ControllerManager) + "] ";
+        public static readonly string LogPrefix = "[" + nameof(ControllerManager) + "] ";
 
         private static Windows.LoadingWindow LoadingWindow = null;
         public static Windows.MainWindow MainWindow = null;
@@ -24,7 +24,7 @@ namespace VTCManager_Client.Controllers
         /// </returns>
         public static List<Models.ControllerStatus> BootInit()
         {
-            LogController.Write(LOGPREFIX + "Starting boot initialization...");
+            LogController.Write(LogPrefix + "Starting boot initialization...");
 
             //get the loadingwindow to change the status label
             Application.Current.Dispatcher.Invoke(() =>
@@ -57,7 +57,9 @@ namespace VTCManager_Client.Controllers
             List<Models.ControllerStatus> apiInitStatusList = API.MainAPIController.Init();
             if (apiInitStatusList.Contains(Models.ControllerStatus.VTCMServerInoperational))
             {
-                ShowErrorWindow("VTCManager API", "The VTCManager server is currently not available. Please check your internet connection or check the VisualCable Collective status page (https://status.vcc-online.eu/) for further information.");
+                ShowErrorWindow("VTCManager API", 
+                    "The VTCManager server is currently not available. Please check your internet connection or check the VisualCable Collective status page " +
+                    "(https://status.vcc-online.eu/) for further information.");
             }
 
             // installs the telemetry DLL if not already installed
@@ -103,7 +105,7 @@ namespace VTCManager_Client.Controllers
 
             Initialize(nameof(GameLogController), GameLogController.Init(), GameLogController.InitErrorMessage);
 
-            LogController.Write(LOGPREFIX + "Boot initialization finished.");
+            LogController.Write(LogPrefix + "Boot initialization finished.");
             return apiInitStatusList;
         }
 
@@ -118,20 +120,27 @@ namespace VTCManager_Client.Controllers
         private static void Initialize(string controllerName, Models.ControllerStatus controllerStatus, string initErrorMessage, bool showErrorWindowOnError = false, bool shutDownOnError = false)
         {
             //Logging
-            LogController.Write(LOGPREFIX + "Initialization of " + controllerName + " returned " + controllerStatus, LogController.LogType.Debug);
+            LogController.Write($"{LogPrefix}Initialization of {controllerName} returned {controllerStatus}", LogController.LogType.Debug);
 
             if (controllerStatus == Models.ControllerStatus.OK)
             {
                 return;
             }
 
+            switch (controllerStatus)
+            {
+                case Models.ControllerStatus.FatalErrorIEM:
+                    LogController.Write($"{LogPrefix}Initialization of {}controllerName returned " + controllerStatus + " | Error: " + initErrorMessage, LogController.LogType.Error);
+                    break;
+            }
+
             if (controllerStatus == Models.ControllerStatus.FatalErrorIEM)
             {
-                LogController.Write(LOGPREFIX + "Initialization of " + controllerName + " returned " + controllerStatus + " | Error: " + initErrorMessage, LogController.LogType.Error);
+                LogController.Write(LogPrefix + "Initialization of " + controllerName + " returned " + controllerStatus + " | Error: " + initErrorMessage, LogController.LogType.Error);
             }
             else
             {
-                LogController.Write(LOGPREFIX + "Initialization of " + controllerName + " returned " + controllerStatus, LogController.LogType.Error);
+                LogController.Write(LogPrefix + "Initialization of " + controllerName + " returned " + controllerStatus, LogController.LogType.Error);
             }
 
 
