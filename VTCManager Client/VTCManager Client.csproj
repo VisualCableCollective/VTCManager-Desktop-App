@@ -175,6 +175,7 @@
     <Compile Include="Controllers\PluginInstaller.cs" />
     <Compile Include="Controllers\StorageController.cs" />
     <Compile Include="Controllers\TelemetryController.cs" />
+    <Compile Include="Controllers\AppThemeController.cs" />
     <Compile Include="Controllers\UpdateController.cs" />
     <Compile Include="Models\API\VTCManager\AuthTokenResponse.cs" />
     <Compile Include="Models\API\VTCManager\StatusResponse.cs" />
@@ -285,6 +286,7 @@
     <Content Include="Resources\Files\scs-telemetry.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Images\UI\Backgrounds\autumn.jpg" />
     <Content Include="Resources\Images\UI\Icons\dashboard_icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -372,6 +374,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\DLLs\CefSharp\" />
+    <Folder Include="Resources\Images\UI\TruckWallpapers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VTCManager.Plugins.Clock\VTCManager.Plugins.Clock.csproj">

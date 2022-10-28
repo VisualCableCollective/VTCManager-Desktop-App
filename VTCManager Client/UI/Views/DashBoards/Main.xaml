@@ -28,7 +28,7 @@
     </Page.Resources>
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="pack://application:,,,/Resources/Images/UI/Backgrounds/Default.jpg" Opacity="0.75"/>
+            <ImageBrush ImageSource="{Binding BackgroundImageSource, Mode=OneWay}" Opacity="0.65"/>
         </Grid.Background>
         <Grid Margin="10">
             <Grid.RowDefinitions>
@@ -37,7 +37,7 @@
             </Grid.RowDefinitions>
             <Border VerticalAlignment="Top" Grid.Row="0" Grid.Column="1" CornerRadius="20" Margin="5" x:Name="NoGameRunningInfoPanel" MinHeight="143" Visibility="Visible">
                 <Border.Background>
-                    <ImageBrush ImageSource="pack://application:,,,/Resources/Images/UI/Backgrounds/NoGameRunning.png" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Bottom" Opacity="0.6" Viewport="0,0,1,1.4"/>
+                    <ImageBrush ImageSource="pack://application:,,,/Resources/Images/UI/Backgrounds/NoGameRunning.png" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Bottom" Opacity="1" Viewport="0,0,1,1.4"/>
                 </Border.Background>
                 <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid.RowDefinitions>

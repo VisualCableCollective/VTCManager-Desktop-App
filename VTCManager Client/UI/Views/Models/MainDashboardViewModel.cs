@@ -8,6 +8,19 @@ namespace VTCManager_Client.UI.Views.Models
 {
     public class MainDashboardViewModel : INotifyPropertyChanged
     {
+        public ImageSource BackgroundImageSource
+        {
+            get => _backgroundImageSource;
+            set
+            {
+                if (value == _backgroundImageSource)
+                    return;
+                _backgroundImageSource = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private ImageSource _backgroundImageSource;
+
         public uint WidgetsCornerRadius
         {
             get { return 20; }

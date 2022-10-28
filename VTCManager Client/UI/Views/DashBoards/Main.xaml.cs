@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
+using VTCManager_Client.Controllers;
 
 namespace VTCManager_Client.Views.DashBoards
 {
@@ -22,8 +23,11 @@ namespace VTCManager_Client.Views.DashBoards
         private bool DashboardModeGameRunning = false;
         private ImageSource TruckIconWithFreight;
         private ImageSource TruckIconNoFreight;
+
         public Main()
         {
+            viewModel.BackgroundImageSource = (ImageSource)new ImageSourceConverter().ConvertFromString(AppThemeController.GetDashboardBackground());
+
             DataContext = viewModel;
             InitializeComponent();
 
