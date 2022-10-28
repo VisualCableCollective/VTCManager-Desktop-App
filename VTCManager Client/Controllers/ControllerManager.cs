@@ -130,7 +130,7 @@ namespace VTCManager_Client.Controllers
             switch (controllerStatus)
             {
                 case Models.ControllerStatus.FatalErrorIEM:
-                    LogController.Write($"{LogPrefix}Initialization of {}controllerName returned " + controllerStatus + " | Error: " + initErrorMessage, LogController.LogType.Error);
+                    LogController.Write($"{LogPrefix}Initialization of {controllerName} returned " + controllerStatus + " | Error: " + initErrorMessage, LogController.LogType.Error);
                     break;
             }
 
