@@ -63,6 +63,10 @@ namespace VTCManager_Client.Controllers
                     LargeImageKey = "big-image",
                     SmallImageKey = "vtcmanager_logo",
                     SmallImageText = DefaultSmallImageText,
+                },
+                Buttons = new Button[]
+                {
+                    new Button() {Label = "Get VTCManager", Url = "https://vtcmanager.eu/"}
                 }
             };
             switch (CurrentRPCStatus)
@@ -174,6 +178,12 @@ namespace VTCManager_Client.Controllers
                 default:
                     return;
             }
+
+            rpc.Buttons = new Button[]
+            {
+                new Button() {Label = "Get VTCManager", Url = "https://vtcmanager.eu/"}
+            };
+
             _CurrentRPCStatus = rpc_status;
             DiscordRPCClient.SetPresence(rpc);
             LogController.Write(LogPrefix + "Updated RPC", LogController.LogType.Debug);
