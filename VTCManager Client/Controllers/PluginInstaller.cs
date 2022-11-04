@@ -51,7 +51,7 @@ namespace VTCManager_Client.Controllers
                     String SteamLibraryConfigPath = SteamInstallPath + SteamLibraryConfigFile;
                     if (File.Exists(SteamLibraryConfigPath))
                     {
-                        LogController.Write(LogPrefix + "Found Steam Library Configuration File in '" + SteamLibraryConfigPath + "'. Looking for ganes...");
+                        LogController.Write(LogPrefix + "Found Steam Library Configuration File in '" + SteamLibraryConfigPath + "'. Looking for games...");
                         string testFile = File.ReadAllText(SteamLibraryConfigPath);
                         VdfDeserializer deserializer = new VdfDeserializer();
                         List<string> SteamLibraries = new List<string>();
