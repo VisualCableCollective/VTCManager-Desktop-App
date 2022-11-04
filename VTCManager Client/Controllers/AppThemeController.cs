@@ -20,14 +20,23 @@ namespace VTCManager_Client.Controllers
         {
             switch (CurrentTheme)
             {
-                case Theme.Default:
-                    return "pack://application:,,,/Resources/Images/UI/Backgrounds/Default.jpg";
-
                 case Theme.Autumn:
-                    return "pack://application:,,,/Resources/Images/UI/Backgrounds/autumn.jpg";
+                    return "pack://application:,,,/Resources/Images/UI/Backgrounds/Autumn.jpg";
 
                 default:
                     return "pack://application:,,,/Resources/Images/UI/Backgrounds/Default.jpg";
+            }
+        }
+
+        public static string GetNoGameRunningImage()
+        {
+            switch (CurrentTheme)
+            {
+                case Theme.Autumn:
+                    return "pack://application:,,,/Resources/Images/UI/TruckWallpapers/Autumn.png";
+
+                default:
+                    return "pack://application:,,,/Resources/Images/UI/TruckWallpapers/Default.png";
             }
         }
     }

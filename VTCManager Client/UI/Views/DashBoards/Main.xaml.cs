@@ -27,6 +27,7 @@ namespace VTCManager_Client.Views.DashBoards
         public Main()
         {
             viewModel.BackgroundImageSource = (ImageSource)new ImageSourceConverter().ConvertFromString(AppThemeController.GetDashboardBackground());
+            viewModel.NoGameRunningImageSource = (ImageSource)new ImageSourceConverter().ConvertFromString(AppThemeController.GetNoGameRunningImage());
 
             DataContext = viewModel;
             InitializeComponent();

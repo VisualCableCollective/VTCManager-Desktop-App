@@ -21,6 +21,19 @@ namespace VTCManager_Client.UI.Views.Models
         }
         private ImageSource _backgroundImageSource;
 
+        public ImageSource NoGameRunningImageSource
+        {
+            get => _noGameRunningImageSource;
+            set
+            {
+                if (value == _noGameRunningImageSource)
+                    return;
+                _noGameRunningImageSource = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private ImageSource _noGameRunningImageSource;
+
         public uint WidgetsCornerRadius
         {
             get { return 20; }

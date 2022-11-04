@@ -35,18 +35,20 @@
                 <RowDefinition Height="Auto" MinHeight="143"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Border VerticalAlignment="Top" Grid.Row="0" Grid.Column="1" CornerRadius="20" Margin="5" x:Name="NoGameRunningInfoPanel" MinHeight="143" Visibility="Visible">
-                <Border.Background>
-                    <ImageBrush ImageSource="pack://application:,,,/Resources/Images/UI/Backgrounds/NoGameRunning.png" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Bottom" Opacity="1" Viewport="0,0,1,1.4"/>
-                </Border.Background>
-                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="No Game Running" FontWeight="DemiBold" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
-                    <Label Grid.Row="1" Content="Start Euro Truck Simulator 2 or American Truck Simulator to start the tracker." FontSize="16" HorizontalContentAlignment="Center" VerticalAlignment="Center" Padding="0"/>
-                </Grid>
+            <Border VerticalAlignment="Top" Grid.Row="0" Grid.Column="1" CornerRadius="20" Margin="5" x:Name="NoGameRunningInfoPanel" MinHeight="143" Visibility="Visible" Background="Black">
+                <Border CornerRadius="20">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding NoGameRunningImageSource, Mode=OneWay}" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Bottom" Opacity="0.6" Viewport="0,0,1,1.4" />
+                    </Border.Background>
+                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="No Game Running" FontWeight="DemiBold" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+                        <Label Grid.Row="1" Content="Start Euro Truck Simulator 2 or American Truck Simulator to start the tracker." FontSize="16" HorizontalContentAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+                    </Grid>
+                </Border>
             </Border>
             <Border Height="248" VerticalAlignment="Top" Grid.Row="0" Grid.Column="1" CornerRadius="30" Margin="5" x:Name="GameRunningInfoPanel" Visibility="Collapsed">
                 <Border.Background>

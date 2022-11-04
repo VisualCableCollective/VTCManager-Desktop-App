@@ -36,7 +36,7 @@
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>127</ApplicationRevision>
-    <ApplicationVersion>1.5.3.%2a</ApplicationVersion>
+    <ApplicationVersion>1.5.4.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -280,13 +280,15 @@
     <Resource Include="Resources\Images\UI\Backgrounds\Default.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Images\UI\Backgrounds\NoGameRunning.png">
+    <Resource Include="Resources\Images\UI\TruckWallpapers\Default.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Content Include="Resources\Files\scs-telemetry.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\Images\UI\Backgrounds\autumn.jpg" />
+    <Resource Include="Resources\Images\UI\Backgrounds\Autumn.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Resources\Images\UI\Icons\dashboard_icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -294,6 +296,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\SVGs\exclamation-white.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\UI\TruckWallpapers\Autumn.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Content Include="Resources\SVGs\exclamation-white.svg" />
@@ -374,7 +379,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\DLLs\CefSharp\" />
-    <Folder Include="Resources\Images\UI\TruckWallpapers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VTCManager.Plugins.Clock\VTCManager.Plugins.Clock.csproj">
