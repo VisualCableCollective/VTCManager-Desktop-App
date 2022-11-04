@@ -264,9 +264,20 @@ namespace VTCManager_Client.Controllers.API
                     MessageBox.Show("The server returned status code " + status_code + " and the response:\n" + response_string, "Warning: Couldn't convert response to uint", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
-                if(StorageController.Config.User.Job != null)
+
+                if (job_id == 0)
                 {
-                    if (job_id == StorageController.Config.User.Job.ID && job_id != 0)
+                    LogController.Write(LogPrefix + "-------------- Additional Information --------------", LogController.LogType.Warning);
+                    LogController.Write(LogPrefix + "Server response: " + response_string, LogController.LogType.Warning);
+                    LogController.Write(LogPrefix + "Server status: " + status_code, LogController.LogType.Warning);
+                    LogController.Write(LogPrefix + "----------------------------------------------------", LogController.LogType.Warning);
+                    MessageBox.Show("The job couldn't be started. Additional information is available in the log file.", "Warning: Job not started", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (StorageController.Config.User.Job != null)
+                {
+                    if (job_id == StorageController.Config.User.Job.ID)
                     {
                         NotificationController.Notificate(NotificationController.NotificationType.JobStarted, "Job Continued");
                         return;
