@@ -320,6 +320,12 @@ namespace VTCManager_Client.Controllers.API
 
         public static void JobDelivered()
         {
+            if (StorageController.Config.User.Job.ID == 0)
+            {
+                LogController.Write(LogPrefix + "JobDelivered event has been rejected, because the current Job.ID was 0.", LogController.LogType.Warning);
+                return;
+            }
+
             LogController.Write(LogPrefix + "The job has been delivered. Sending data to the server...");
             Dictionary<string, string> postParameters;
             try
