@@ -7,17 +7,17 @@
     {
         public static readonly string AppName = "VTCManager";
         public static readonly string Author = "The VisualCable Collective";
-        public static readonly string VersionId = "1.5.4";
+        public static readonly string VersionId = "1.5.5";
         public static readonly string Version = $"v{VersionId} Public Beta";
         public static readonly string DiscordClientID = "659036297561767948";
 
         #region UpdateInfo
-        public static readonly string UpdatePublishedDate = "November 04, 2022";
+        public static readonly string UpdatePublishedDate = "November 07, 2022";
 
         //Changelog
-        public static readonly string CLNewFeaturesList = "- Introducing the brand new autumn theme. The dashboard now shows new images. (Thanks to @Atom#9723)";
-        public static readonly string CLAdditionalImprovementsList = "- Added a 'Get VTCManager' button to the Discord RPC.";
-        public static readonly string CLSecurityAndBugFixesList = "- Fixed an issue that started a job without a warning, if the server returned an invalid response.\n- Additional security patches, bug fixes and performance improvements.";
+        public static readonly string CLNewFeaturesList = "";
+        public static readonly string CLAdditionalImprovementsList = "";
+        public static readonly string CLSecurityAndBugFixesList = "Fixed an issue, that caused a not user-friendly error message, when starting a new job without being a member of a company.\nFixed an issue, that showed an error message that the job couldn't be finished properly, even though everything was fine.";
         #endregion
 
         /// <summary>
