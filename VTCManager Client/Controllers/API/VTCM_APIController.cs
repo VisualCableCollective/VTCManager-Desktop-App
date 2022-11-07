@@ -247,16 +247,38 @@ namespace VTCManager_Client.Controllers.API
                 response.TryGetValue("response", out string response_string);
                 if (status_code != "200")
                 {
-                    LogController.Write(LogPrefix + "The server returned status code " + status_code + " and the response:\n" + response_string, LogController.LogType.Warning);
-                    MessageBox.Show("The server returned status code " + status_code + " and the response:\n" + response_string, "Warning: Couldn't send job data to the server", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    // ToDo: better warning handling
+                    LogController.Write(LogPrefix + "-------------- Additional Information --------------", LogController.LogType.Error);
+                    LogController.Write(LogPrefix + "Server response: " + response_string, LogController.LogType.Error);
+                    LogController.Write(LogPrefix + "Server status: " + status_code, LogController.LogType.Error);
+                    LogController.Write(LogPrefix + "----------------------------------------------------", LogController.LogType.Error);
+                    MessageBox.Show("The job couldn't be started due to an unknown error. Additional information is available in the log file.", "Error: Job not started", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
+                }
+
+                var jsonResponse = JsonConvert.DeserializeObject<dynamic>(response_string);
+
+                if (jsonResponse.success == false)
+                {
+                    if (jsonResponse.reason == "User needs to be member of a company")
+                    {
+                        LogController.Write(LogPrefix + "Job couldn't be started, because the user is not a member of a company.", LogController.LogType.Warning);
+                        MessageBox.Show("You have to be a member of a company to start a job. You can create or join a company on the website (https://vtcmanager.eu/).", "Warning: Job not started", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    } 
+                    else
+                    {
+                        LogController.Write(LogPrefix + "-------------- Additional Information --------------", LogController.LogType.Error);
+                        LogController.Write(LogPrefix + "Server response: " + response_string, LogController.LogType.Error);
+                        LogController.Write(LogPrefix + "Server status: " + status_code, LogController.LogType.Error);
+                        LogController.Write(LogPrefix + "----------------------------------------------------", LogController.LogType.Error);
+                        MessageBox.Show("The job couldn't be started due to an unknown error. Additional information is available in the log file.", "Error: Job not started", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
 
                 uint job_id = 0;
                 try
                 {
-                    job_id = Convert.ToUInt32(JsonConvert.DeserializeObject<dynamic>(response_string).id);
+                    job_id = Convert.ToUInt32(jsonResponse.id);
                 }
                 catch (Exception ex)
                 {
@@ -267,11 +289,11 @@ namespace VTCManager_Client.Controllers.API
 
                 if (job_id == 0)
                 {
-                    LogController.Write(LogPrefix + "-------------- Additional Information --------------", LogController.LogType.Warning);
-                    LogController.Write(LogPrefix + "Server response: " + response_string, LogController.LogType.Warning);
-                    LogController.Write(LogPrefix + "Server status: " + status_code, LogController.LogType.Warning);
-                    LogController.Write(LogPrefix + "----------------------------------------------------", LogController.LogType.Warning);
-                    MessageBox.Show("The job couldn't be started. Additional information is available in the log file.", "Warning: Job not started", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    LogController.Write(LogPrefix + "-------------- Additional Information --------------", LogController.LogType.Error);
+                    LogController.Write(LogPrefix + "Server response: " + response_string, LogController.LogType.Error);
+                    LogController.Write(LogPrefix + "Server status: " + status_code, LogController.LogType.Error);
+                    LogController.Write(LogPrefix + "----------------------------------------------------", LogController.LogType.Error);
+                    MessageBox.Show("The job couldn't be started properly. Additional information is available in the log file.", "Error: Job not started", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
