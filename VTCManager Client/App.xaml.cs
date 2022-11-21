@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
+using VTCManager.Logging;
+using VTCManager.Models.Enums;
 
 namespace VTCManager_Client
 {
@@ -105,8 +107,8 @@ namespace VTCManager_Client
             }
             catch (Exception ex)
             {
-                Controllers.LogController.Write(LOGPREFIX + "Error while showing the currently active window: " + ex.Message,
-                    Controllers.LogController.LogType.Error);
+                LogController.Write(LOGPREFIX + "Error while showing the currently active window: " + ex.Message,
+                    LogController.LogType.Error);
             }
         }
 
@@ -163,7 +165,7 @@ namespace VTCManager_Client
         /// If <see cref="AppInfo.SilentAutoStartMode"/> is <see langword="true"/> the <see cref="Windows.MainWindow"/> won't be visible.
         /// </summary>
         /// <param name="AppInitResults"></param>
-        public void LaunchMainWindow(List<Models.ControllerStatus> appInitResults)
+        public void LaunchMainWindow(List<ControllerStatus> appInitResults)
         {
             if (_mainWindow != null)
             {

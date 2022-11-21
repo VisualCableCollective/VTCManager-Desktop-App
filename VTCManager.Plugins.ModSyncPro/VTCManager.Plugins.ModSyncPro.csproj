@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{73C656C1-D541-4D74-A3BF-CCD9CC903BA0}</ProjectGuid>
+    <ProjectGuid>{E62E42EC-C7B6-4A6E-B5BA-7B8CCC51A6D1}</ProjectGuid>
     <OutputType>library</OutputType>
-    <RootNamespace>VTCManager.Plugins.PluginBase</RootNamespace>
-    <AssemblyName>VTCManager.Plugins.PluginBase</AssemblyName>
+    <RootNamespace>VTCManager.Plugins.ModSyncPro</RootNamespace>
+    <AssemblyName>VTCManager.Plugins.ModSyncPro</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -48,9 +48,17 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPluginInfo.cs" />
-    <Compile Include="Models\PluginType.cs" />
-    <Compile Include="Models\SidebarPluginInfo.cs" />
+    <Page Include="ModSyncProPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="PluginInfo.cs" />
+    <Compile Include="ModSyncProPage.xaml.cs">
+      <DependentUpon>ModSyncProPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -72,6 +80,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VTCManager.PluginBase\VTCManager.Plugins.PluginBase.csproj">
+      <Project>{73c656c1-d541-4d74-a3bf-ccd9cc903ba0}</Project>
+      <Name>VTCManager.Plugins.PluginBase</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

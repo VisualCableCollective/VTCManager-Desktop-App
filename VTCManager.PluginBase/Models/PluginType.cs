@@ -8,6 +8,11 @@ namespace VTCManager.Plugins.PluginBase
 {
     public enum PluginType
     {
-        Widget
+        Widget,
+
+        /// <summary>
+        /// Represents a plugin that can have a custom UI page.
+        /// </summary>
+        Ui
     }
 }

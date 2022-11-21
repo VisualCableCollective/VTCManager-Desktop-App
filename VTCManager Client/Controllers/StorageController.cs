@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Timers;
+using VTCManager.Models.Enums;
 
 namespace VTCManager_Client.Controllers
 {
@@ -12,11 +13,11 @@ namespace VTCManager_Client.Controllers
         public static string InitErrorMessage = "";
 
         private static bool _initDone = false;
-        public static Models.ControllerStatus Init()
+        public static ControllerStatus Init()
         {
             if (_initDone)
             {
-                return Models.ControllerStatus.InitAlreadyDone;
+                return ControllerStatus.InitAlreadyDone;
             }
 
             if (!Directory.Exists(Models.Folder.AppDataFolder))
@@ -28,7 +29,7 @@ namespace VTCManager_Client.Controllers
                 catch (Exception ex)
                 {
                     InitErrorMessage = "Couldn't create AppDataFolder. Aborting...\nDetailed Information: " + ex.Message;
-                    return Models.ControllerStatus.FatalErrorIEM;
+                    return ControllerStatus.FatalErrorIEM;
                 }
             }
             //Data File
@@ -42,7 +43,7 @@ namespace VTCManager_Client.Controllers
                 catch (Exception ex)
                 {
                     InitErrorMessage = "Couldn't create data file. Aborting...\nDetailed Information: " + ex.Message;
-                    return Models.ControllerStatus.FatalErrorIEM;
+                    return ControllerStatus.FatalErrorIEM;
                 }
                 Config = new Models.Config();
             }
@@ -55,7 +56,7 @@ namespace VTCManager_Client.Controllers
                 catch (Exception ex)
                 {
                     InitErrorMessage = "Couldn't open data file. Aborting...\nDetailed Information: " + ex.Message;
-                    return Models.ControllerStatus.FatalErrorIEM;
+                    return ControllerStatus.FatalErrorIEM;
                 }
                 string DataFileContent;
                 StreamReader reader = new StreamReader(DataFileStream);
@@ -88,7 +89,7 @@ namespace VTCManager_Client.Controllers
             _autoSaveTimer.Start();
 
             _initDone = true;
-            return Models.ControllerStatus.OK;
+            return ControllerStatus.OK;
         }
 
         private static void AutoSaveTimer_Elapsed(object sender, ElapsedEventArgs e)

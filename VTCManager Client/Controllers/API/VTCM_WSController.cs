@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PusherClient;
+using VTCManager.Logging;
+using VTCManager.Models.Enums;
 
 namespace VTCManager_Client.Controllers.API
 {
@@ -12,7 +14,7 @@ namespace VTCManager_Client.Controllers.API
         public static Pusher client = null;
         private static readonly string LogPrefix = "[" + nameof(VTCM_WSController) + "] ";
         private static bool InitDone = false;
-        public static Models.ControllerStatus Init()
+        public static ControllerStatus Init()
         {
             client = new Pusher(AppInfo.VTCMAPI_WSAppKey, new PusherOptions()
             {
@@ -25,7 +27,7 @@ namespace VTCManager_Client.Controllers.API
             client.Error += Client_Error;
 
             if (!AppInfo.EnableWebsockets)
-                return Models.ControllerStatus.OK;
+                return ControllerStatus.OK;
 
             ConnectionState connectionState;
 
@@ -36,15 +38,15 @@ namespace VTCManager_Client.Controllers.API
             }
             catch
             {
-                return Models.ControllerStatus.VTCMServerInoperational;
+                return ControllerStatus.VTCMServerInoperational;
             }
 
             if (connectionState == ConnectionState.ConnectionFailed)
-                return Models.ControllerStatus.VTCMServerInoperational;
+                return ControllerStatus.VTCMServerInoperational;
 
             InitDone = true;
 
-            return Models.ControllerStatus.OK;
+            return ControllerStatus.OK;
         }
 
         #region Client Events

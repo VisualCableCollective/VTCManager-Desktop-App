@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Threading;
+using VTCManager.Logging;
+using VTCManager.Models.Enums;
 
 namespace VTCManager_Client.Controllers
 {
@@ -22,7 +24,7 @@ namespace VTCManager_Client.Controllers
         /// <returns>
         /// Information, warnings, and non-critical errors returned by the controllers.
         /// </returns>
-        public static List<Models.ControllerStatus> BootInit()
+        public static List<ControllerStatus> BootInit()
         {
             LogController.Write(LogPrefix + "Starting boot initialization...");
 
@@ -54,8 +56,8 @@ namespace VTCManager_Client.Controllers
                             LoadingWindow.ChangeStatusText("Connecting to the server");
                         }));
 
-            List<Models.ControllerStatus> apiInitStatusList = API.MainAPIController.Init();
-            if (apiInitStatusList.Contains(Models.ControllerStatus.VTCMServerInoperational))
+            List<ControllerStatus> apiInitStatusList = API.MainAPIController.Init();
+            if (apiInitStatusList.Contains(ControllerStatus.VTCMServerInoperational))
             {
                 ShowErrorWindow("VTCManager API", 
                     "The VTCManager server is currently not available. Please check your internet connection or check the VisualCable Collective status page " +
@@ -117,24 +119,24 @@ namespace VTCManager_Client.Controllers
         /// <param name="initErrorMessageVariable">String, where the error message of the Init() function can be found.</param>
         /// <param name="showErrorWindowOnError">If true, the error window is displayed in the event of an error.</param>
         /// <param name="shutDownIfInitFails">Shuts down the application if an error occurs.</param>
-        private static void Initialize(string controllerName, Models.ControllerStatus controllerStatus, string initErrorMessage, bool showErrorWindowOnError = false, bool shutDownOnError = false)
+        private static void Initialize(string controllerName, ControllerStatus controllerStatus, string initErrorMessage, bool showErrorWindowOnError = false, bool shutDownOnError = false)
         {
             //Logging
             LogController.Write($"{LogPrefix}Initialization of {controllerName} returned {controllerStatus}", LogController.LogType.Debug);
 
-            if (controllerStatus == Models.ControllerStatus.OK)
+            if (controllerStatus == ControllerStatus.OK)
             {
                 return;
             }
 
             switch (controllerStatus)
             {
-                case Models.ControllerStatus.FatalErrorIEM:
+                case ControllerStatus.FatalErrorIEM:
                     LogController.Write($"{LogPrefix}Initialization of {controllerName} returned " + controllerStatus + " | Error: " + initErrorMessage, LogController.LogType.Error);
                     break;
             }
 
-            if (controllerStatus == Models.ControllerStatus.FatalErrorIEM)
+            if (controllerStatus == ControllerStatus.FatalErrorIEM)
             {
                 LogController.Write(LogPrefix + "Initialization of " + controllerName + " returned " + controllerStatus + " | Error: " + initErrorMessage, LogController.LogType.Error);
             }
@@ -150,7 +152,7 @@ namespace VTCManager_Client.Controllers
                 return;
             }
 
-            if (controllerStatus == Models.ControllerStatus.FatalErrorIEM)
+            if (controllerStatus == ControllerStatus.FatalErrorIEM)
             {
                 ShowErrorWindow("Initialization Error: " + controllerName, initErrorMessage, shutDownOnError);
             }

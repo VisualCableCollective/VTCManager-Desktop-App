@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using VTCManager.Models.Enums;
 
-namespace VTCManager_Client.Controllers
+namespace VTCManager.Logging
 {
     public static class LogController
     {
@@ -20,7 +21,7 @@ namespace VTCManager_Client.Controllers
 
         private static bool InitDone = false;
 
-        public static Models.ControllerStatus Init()
+        public static ControllerStatus Init()
         {
             LogFileFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\VTCManager\";
             if (!Directory.Exists(LogFileFolderPath))
@@ -32,7 +33,7 @@ namespace VTCManager_Client.Controllers
                 catch (Exception ex)
                 {
                     InitErrorMessage = "Couldn't create LogFileFolder. Aborting...\nDetailed Information: " + ex.Message;
-                    return Models.ControllerStatus.FatalErrorIEM;
+                    return ControllerStatus.FatalErrorIEM;
                 }
             }
             else
@@ -61,10 +62,10 @@ namespace VTCManager_Client.Controllers
             catch (Exception ex)
             {
                 InitErrorMessage = "Couldn't create LogFile. Aborting...\nDetailed Information: " + ex.Message;
-                return Models.ControllerStatus.FatalErrorIEM;
+                return ControllerStatus.FatalErrorIEM;
             }
             InitDone = true;
-            return Models.ControllerStatus.OK;
+            return ControllerStatus.OK;
         }
 
         public static void Write(string Message, LogType logType = LogType.Info)
@@ -82,8 +83,8 @@ namespace VTCManager_Client.Controllers
                     consoleColor = ConsoleColor.Yellow;
                     break;
                 case LogType.Debug:
-                    if (!AppInfo.DebugMode)
-                        return;
+                    //if (!AppInfo.DebugMode)
+                    //    return;
                     ltype = "DEBUG";
                     consoleColor = ConsoleColor.Gray;
                     break;

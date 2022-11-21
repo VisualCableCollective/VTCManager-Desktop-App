@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Globalization;
 using System.ComponentModel;
+using VTCManager.Models.Enums;
+using VTCManager.Logging;
 
 namespace VTCManager_Client.Controllers
 {
@@ -17,10 +19,10 @@ namespace VTCManager_Client.Controllers
         private static String ETSFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Euro Truck Simulator 2\";
         private static String ETSLogFilePath;
 
-        public static Models.ControllerStatus Init()
+        public static ControllerStatus Init()
         {
             if (InitDone)
-                return Models.ControllerStatus.InitAlreadyDone;
+                return ControllerStatus.InitAlreadyDone;
             ETSLogFilePath = ETSFolder + "game.log.txt";
 
             SetGameLanguageCodeInConfig();
@@ -35,7 +37,7 @@ namespace VTCManager_Client.Controllers
             }
 
             InitDone = true;
-            return Models.ControllerStatus.OK;
+            return ControllerStatus.OK;
         }
 
         public static void SetGameLanguageCodeInConfig()
@@ -80,11 +82,11 @@ namespace VTCManager_Client.Controllers
             return "";
         }
 
-        public static Models.ControllerStatus ShutDown()
+        public static ControllerStatus ShutDown()
         {
             if (!InitDone)
-                return Models.ControllerStatus.InitNotDone;
-            return Models.ControllerStatus.OK;
+                return ControllerStatus.InitNotDone;
+            return ControllerStatus.OK;
         }
     }
 }

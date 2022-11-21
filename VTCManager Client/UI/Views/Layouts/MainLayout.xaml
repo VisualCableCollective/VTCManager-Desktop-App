@@ -85,6 +85,7 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
             <Image Name="CloseSideBarButton" Source="pack://application:,,,/Resources/Images/UI/Icons/clear-white.png" Height="30" HorizontalAlignment="Right" Cursor="Hand" VerticalAlignment="Top" ToolTip="Close Sidebar" Opacity="0.7" MouseDown="CloseSideBarButton_OnMouseDown">
                 <Image.Triggers>
@@ -133,6 +134,18 @@
                     <Image Grid.Column="0" Source="pack://application:,,,/Resources/Images/UI/Icons/settings_icon.png" Height="30"/>
                     <Viewbox Grid.Column="1" HorizontalAlignment="Left">
                         <Label Content="Settings" FontSize="50"/>
+                    </Viewbox>
+                </Grid>
+            </Border>
+            <Border Grid.Row="3" Opacity="0.7" Name="SBModSyncItem" MouseEnter="SideBarItems_MouseEnter" MouseLeave="SideBarItems_MouseLeave" Cursor="Hand" Background="Transparent" MouseDown="SBModSyncItem_MouseDown">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="pack://application:,,,/Resources/Images/UI/Icons/rotate-white.png" Height="20"/>
+                    <Viewbox Grid.Column="1" HorizontalAlignment="Left">
+                        <Label Content="Mod Sync" FontSize="50"/>
                     </Viewbox>
                 </Grid>
             </Border>
