@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using VTCManager.Logging;
 
 namespace VTCManager_Client.Windows
 {
@@ -8,7 +9,7 @@ namespace VTCManager_Client.Windows
     {
         public ErrorWindow(string Title = null, string Details = "", bool ShutDown = true)
         {
-            Controllers.LogController.Write("hi new erro win: " + Title);
+            LogController.Write("hi new erro win: " + Title);
             InitializeComponent();
             if (Title != null)
                 TitleTB.Text += ": " + Title;

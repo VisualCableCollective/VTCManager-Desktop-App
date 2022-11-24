@@ -8,6 +8,8 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
+using VTCManager.Logging;
+using VTCManager.Models.Enums;
 
 namespace VTCManager_Client.Windows
 {
@@ -33,7 +35,7 @@ namespace VTCManager_Client.Windows
 
             if (AppInfo.SilentAutoStartMode)
             {
-                Controllers.LogController.Write("Starting in silent mode");
+                LogController.Write("Starting in silent mode");
                 this.Hide();
                 VCCLogoIntroPlayer_MediaEnded(null, null);
                 return;
@@ -102,7 +104,7 @@ namespace VTCManager_Client.Windows
                     // make this async so the window doesn't freeze
                     Task.Run(() =>
                     {
-                        List<Models.ControllerStatus> app_init_result = Controllers.ControllerManager.BootInit();
+                        List<ControllerStatus> app_init_result = Controllers.ControllerManager.BootInit();
                         // we need the dispatcher because the window requires an STATHREAD
                         Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal,
                             new Action(() =>
@@ -119,7 +121,7 @@ namespace VTCManager_Client.Windows
         {
             if (IgnoreCloseEvent)
                 return;
-            Controllers.LogController.Write("Shutting down (user closed loading window)...");
+            LogController.Write("Shutting down (user closed loading window)...");
             Controllers.ControllerManager.ShutDown();
             Environment.Exit(0);
         }

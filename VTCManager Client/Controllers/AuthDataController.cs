@@ -2,6 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using VTCManager.Logging;
 using VTCManager.Models.Enums;
 
 namespace VTCManager_Client.Controllers

@@ -2,6 +2,7 @@
 using SCSSdkClient.Object;
 using System;
 using System.Windows;
+using VTCManager.Logging;
 
 namespace VTCManager_Client.Controllers
 {
