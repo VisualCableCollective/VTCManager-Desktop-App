@@ -137,7 +137,7 @@
                     </Viewbox>
                 </Grid>
             </Border>
-            <Border Grid.Row="3" Opacity="0.7" Name="SBModSyncItem" MouseEnter="SideBarItems_MouseEnter" MouseLeave="SideBarItems_MouseLeave" Cursor="Hand" Background="Transparent" MouseDown="SBModSyncItem_MouseDown">
+            <Border Visibility="Hidden" Grid.Row="3" Opacity="0.7" Name="SBModSyncItem" MouseEnter="SideBarItems_MouseEnter" MouseLeave="SideBarItems_MouseLeave" Cursor="Hand" Background="Transparent" MouseDown="SBModSyncItem_MouseDown">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="60"/>
