@@ -275,19 +275,17 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\DLLs\SCSSdkClient.dll" />
     <Resource Include="Resources\Images\UI\Backgrounds\Default.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\UI\TruckWallpapers\Default.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="Resources\Files\scs-telemetry.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Resources\DLLs\SCSSdkClient.dll" />
     <Resource Include="Resources\Images\UI\Backgrounds\Autumn.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Content Include="Resources\Files\scs-telemetry.dll" />
     <Content Include="Resources\Images\UI\Icons\dashboard_icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -339,7 +337,6 @@
     <Content Include="Resources\Images\vtcmanager_logo_old.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SCSSdkClient.dll" />
     <Content Include="vtcmanager_logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -38,45 +38,52 @@ This plug-in stores it's data inside a Memory Mapped File, or "Shared Memory". T
 
 Rev Numbers shows big changes on the shared memory and sometimes on the C# object. That means Rev 10 wont work with Rev 9. Doesn't matter which side is not updated. Sub Versions that you can see in changelog.md should work with small errors or completely without. The C# object is mostly not changed. Only if needed, because of new values (most of the cases) or structure changes (less the case). If this occurs i will notice that. (See changelog.md. If you directly access the shared memory you will find an overview about the changes here.)
 
-### Plugin for 1.41/SDK1.13
+### Plugin for 1.46/SDK1.14
 
 Lower SDK Version means there are less values / values that are zero. To get an overview which values that are look at the list at the middle of this document.
 Note to the SDK Version: SDK 1.13 is not the same like the sdk version of ETS2 or ATS. Both games have an own SDK version. See list under ATS.
+A version number with an asterisk (e.g. 1.46*) indicates that this version is currently in open beta.
 
 ### ETS2
 
-|Game Version|SDK Version|Plugin State|
-|------------|-----------|------------|
-|1.26 and before|1.12 and before|Not Tested, could work with errors|
-|1.27 - 1.34 |1.13       | Should work|
-|1.35        |1.14       | Should work|
-|1.36        |1.15       | Should work|
-| - 1.40     |1.16       | Should work|
-|1.41        |1.17       | Works, Test Version|
+| Game Version    | SDK Version     | Plugin State                       |
+| --------------- | --------------- | ---------------------------------- |
+| 1.26 and before | 1.12 and before | Not Tested, could work with errors |
+| 1.27 - 1.34     | 1.13            | Should work                        |
+| 1.35            | 1.14            | Should work                        |
+| 1.36            | 1.15            | Should work                        |
+| - 1.40          | 1.16            | Should work                        |
+| 1.41 - 1.44     | 1.17            | Should work                        |
+| 1.45 - 1.46     | 1.18            | Works, Test Version                |
+
 
 ### ATS
 
-|Game Version|SDK Version|Plugin State|
-|------------|-----------|------------|
-|1.34 and before|1.0     | Should work|
-|1.35        |1.01       | Should work|
-|1.36        |1.02       | Should work|
-| - 1.40     |1.03       | Should work|
-|1.41        |1.04       | Works, Test Version|
+| Game Version    | SDK Version | Plugin State        |
+| --------------- | ----------- | ------------------- |
+| 1.34 and before | 1.0         | Should work         |
+| 1.35            | 1.01        | Should work         |
+| 1.36            | 1.02        | Should work         |
+| - 1.40          | 1.03        | Should work         |
+| 1.41 - 1.44     | 1.04        | Should work         |
+| 1.45 - 1.46     | 1.05        | Works, Test Version |
+
 
 ### SDK VERSION AND GAME SDK VERSION
 
-|SDK VERSION|ETS2 SDK Version|ATS SDK VERSION|
-|-----------|----------------|---------------|
-|1_1        |1.07            | -             |
-|1_2        |1.08            | -             |
-|1_4        |1.10            | -             |
-|1_5        |1.12            | -             |
-|1_9        |1.13            |1.00           |
-|1_10       |1.14            |1.01           |
-|1_11       |1.15            |1.02           |
-|1_12       |1.16            |1.03           |
-|1_13       |1.17            |1.04           |
+| SDK VERSION | ETS2 SDK Version | ATS SDK VERSION |
+| ----------- | ---------------- | --------------- |
+| 1_1         | 1.07             | -               |
+| 1_2         | 1.08             | -               |
+| 1_4         | 1.10             | -               |
+| 1_5         | 1.12             | -               |
+| 1_9         | 1.13             | 1.00            |
+| 1_10        | 1.14             | 1.01            |
+| 1_11        | 1.15             | 1.02            |
+| 1_12        | 1.16             | 1.03            |
+| 1_13        | 1.17             | 1.04            |
+| 1_14        | 1.18             | 1.05            |
+
 
 
 ### Telemetry fields and the c# object
@@ -94,6 +101,7 @@ New stuff is marked with the <ins>inserted</ins> Tag.
 │    ├── Telemetry Timestamp (<mark>not the in-game time</mark>, only for usage in code, see documentation for more information #todo add link) (<mark>now ulong</mark>)
 │    ├── Simulation Timestamp
 │    ├── Render Timestamp
+│    ├── <ins>Multiplayer Time Offset</ins> (1.18/1.05/1.45)
 │    ├── Paused, game state
 │    ├── SCSGame identifier as enum, currently ets2/ats/unknown
 │    ├── GameVersion and Game Telemetry Version (major.minor)
@@ -148,10 +156,10 @@ New stuff is marked with the <ins>inserted</ins> Tag.
 │    │    ├── <strong>Current Values (Values that change a lot)</strong>:
 │    │    │    ├── Electric Enabled
 │    │    │    ├── Engine Enabled
-│    │    │    ├── <ins>LiftAxle</ins> (1.17/1.04/1.41)
-│    │    │    ├── <ins>LiftAxleIndicator</ins> (1.17/1.04/1.41)
-│    │    │    ├── <ins>TrailerLiftAxle</ins> (1.17/1.04/1.41)
-│    │    │    ├── <ins>TrailerLiftAxleIndicator</ins> (1.17/1.04/1.41)
+│    │    │    ├── LiftAxle (1.17/1.04/1.41)
+│    │    │    ├── LiftAxleIndicator (1.17/1.04/1.41)
+│    │    │    ├── TrailerLiftAxle (1.17/1.04/1.41)
+│    │    │    ├── TrailerLiftAxleIndicator (1.17/1.04/1.41)
 │    │    │    ├── <strong>Motor Values</strong>:
 │    │    │    │    ├── <strong>Gear Values</strong>:
 │    │    │    │    │    ├── HShifterSlot
@@ -210,7 +218,7 @@ New stuff is marked with the <ins>inserted</ins> Tag.
 │    │    │    │    ├── Beacon
 │    │    │    │    ├── Brake
 │    │    │    │    ├── Reverse
-│    │    │    │    └── <ins>HazardWarningLights</ins> (1.17/1.04/1.41)
+│    │    │    │    └── HazardWarningLights (1.17/1.04/1.41)
 │    │    │    ├── <strong>Wheels</strong>:
 │    │    │    │    ├── Substance
 │    │    │    │    ├── SuspDeflection
@@ -264,6 +272,7 @@ New stuff is marked with the <ins>inserted</ins> Tag.
 │    │    │    ├── Cargo (1.14/1.01/1.35)
 │    │    │    ├── Wheels
 │    │    │    └── Chassis
+│    │    │    └── <ins>Body</ins> (1.18/1.05/1.45)
 │    │    ├── Chassis (code)
 │    │    ├── Id (code)
 │    │    ├── Name
@@ -316,7 +325,7 @@ New stuff is marked with the <ins>inserted</ins> Tag.
 │    │    └── Speed Limit
 │    ├── <strong>SpecialEvents</strong>:
 │    │    ├── On Job
-│    │    ├── Job Cancelled (1.14/1.01/1.35) (may not work atm?)
+│    │    ├── Job Cancelled (1.14/1.01/1.35)
 │    │    ├── Job Delivered (1.14/1.01/1.35)
 │    │    ├── Fined (1.14/1.01/1.35)
 │    │    ├── Tollgate (1.14/1.01/1.35)

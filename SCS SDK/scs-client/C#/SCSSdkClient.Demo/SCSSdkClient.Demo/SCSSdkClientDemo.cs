@@ -5,8 +5,10 @@ using Newtonsoft.Json;
 using SCSSdkClient.Object;
 
 namespace SCSSdkClient.Demo {
+
     /// <inheritdoc />
     public partial class SCSSdkClientDemo : Form {
+
         /// <summary>
         ///     The SCSSdkTelemetry object
         /// </summary>
@@ -31,7 +33,6 @@ namespace SCSSdkClient.Demo {
             Telemetry.RefuelEnd += TelemetryRefuelEnd;
             Telemetry.RefuelPayed += TelemetryRefuelPayed;
 
-
             if (Telemetry.Error != null) {
                 lbGeneral.Text =
                     "General info:\r\nFailed to open memory map " +
@@ -45,47 +46,32 @@ namespace SCSSdkClient.Demo {
             l_updateRate.Text = Telemetry.UpdateInterval + "ms";
         }
 
-        private void TelemetryOnJobStarted(object sender, EventArgs e) =>
-            MessageBox.Show("Just started job OR loaded game with active.");
+        private void SCSSdkClientDemo_FormClosing(object sender, FormClosingEventArgs e) {
+            Telemetry.pause(); // that line make it possible, but not every application wants to ask the user to quit, need to see if i can change that, when not use the try catch and IGNORE it (nothing changed )
+            if (MessageBox.Show("Are you sure you want to quit?", "My Application", MessageBoxButtons.YesNo) ==
+                DialogResult.No) {
+                e.Cancel = true;
+                Telemetry.resume();
+                return;
+            }
 
-        private void TelemetryJobCancelled(object sender, EventArgs e) =>
-            MessageBox.Show("Job Cancelled");
-
-        private void TelemetryJobDelivered(object sender, EventArgs e) =>
-            MessageBox.Show("Job Delivered");
-
-        private void TelemetryFined(object sender, EventArgs e) =>
-            MessageBox.Show("Fined");
-
-        private void TelemetryTollgate(object sender, EventArgs e) =>
-            MessageBox.Show("Tollgate");
-
-        private void TelemetryFerry(object sender, EventArgs e) =>
-            MessageBox.Show("Ferry");
-
-        private void TelemetryTrain(object sender, EventArgs e) =>
-            MessageBox.Show("Train");
-        private void TelemetryRefuel(object sender, EventArgs e) => rtb_fuel.Invoke((MethodInvoker)(()=>rtb_fuel.BackColor = Color.Green)); 
-        private void TelemetryRefuelEnd(object sender, EventArgs e) =>  rtb_fuel.Invoke((MethodInvoker)(()=>rtb_fuel.BackColor = Color.Red));
-
-        private void TelemetryRefuelPayed(object sender, EventArgs e) {
-            MessageBox.Show("Fuel Payed: " + fuel);
+            Telemetry.Dispose();
         }
 
-
         private void Telemetry_Data(SCSTelemetry data, bool updated) {
-           if (!updated) return;
+            if (!updated)
+                return;
             try {
                 if (InvokeRequired) {
                     Invoke(new TelemetryData(Telemetry_Data), data, updated);
                     return;
                 }
 
-                l_updateRate.Text = Telemetry.UpdateInterval+ "ms";
+                l_updateRate.Text = Telemetry.UpdateInterval + "ms";
 
                 lbGeneral.Text = "General info:\n " +
                                  "\t SDK Running:\n" +
-                                 $"\t\t\t{data.SdkActive}\n"+
+                                 $"\t\t\t{data.SdkActive}\n" +
                                  "\tSDK Version:\n" +
                                  $"\t\t\t{data.DllVersion}\n" +
                                  "\tGame:\n " +
@@ -100,6 +86,8 @@ namespace SCSSdkClient.Demo {
                                  $"\t\t\t{data.SimulationTimestamp}\n" +
                                  "\tRender TimeStamp:\n" +
                                  $"\t\t\t{data.RenderTimestamp}\n" +
+                                 "\tMultiplayer Time Offset:\n" +
+                                 $"\t\t\t{data.MultiplayerTimeOffset}\n" +
                                  "\tGame Paused:\n" +
                                  $"\t\t\t{data.Paused}\n" +
                                  "\tOn Job:\n" +
@@ -117,7 +105,7 @@ namespace SCSSdkClient.Demo {
                                  "\tferry:\n" +
                                  $"\t\t\t{data.SpecialEventsValues.Ferry}\n" +
                                  "\ttrain:\n" +
-                                 $"\t\t\t{data.SpecialEventsValues.Train}\n"+
+                                 $"\t\t\t{data.SpecialEventsValues.Train}\n" +
                                  "\tRefuel Payed:\n" +
                                  $"\t\t\t{data.SpecialEventsValues.RefuelPayed}\n";
 
@@ -132,25 +120,41 @@ namespace SCSSdkClient.Demo {
                 navigation.Text = JsonConvert.SerializeObject(data.NavigationValues, Formatting.Indented);
                 substances.Text = JsonConvert.SerializeObject(data.Substances, Formatting.Indented);
                 gameplayevent.Text = JsonConvert.SerializeObject(data.GamePlay, Formatting.Indented);
-                rtb_fuel.Text = data.TruckValues.CurrentValues.DashboardValues.FuelValue.Amount + " "+ data.SpecialEventsValues.Refuel ;
-                fuel = data.GamePlay.RefuelEvent.Amount; 
-
+                rtb_fuel.Text = data.TruckValues.CurrentValues.DashboardValues.FuelValue.Amount + " " + data.SpecialEventsValues.Refuel;
+                fuel = data.GamePlay.RefuelEvent.Amount;
             } catch (Exception ex) {
                 // ignored atm i found no proper way to shut the telemetry down and down call this anymore when this or another thing is already disposed
                 Console.WriteLine("Telemetry was closed: " + ex);
             }
         }
 
-        private void SCSSdkClientDemo_FormClosing(object sender, FormClosingEventArgs e) {
-            Telemetry.pause(); // that line make it possible, but not every application wants to ask the user to quit, need to see if i can change that, when not use the try catch and IGNORE it (nothing changed )
-            if (MessageBox.Show("Are you sure you want to quit?", "My Application", MessageBoxButtons.YesNo) ==
-                DialogResult.No) {
-                e.Cancel = true;
-                Telemetry.resume();
-                return;
-            }
+        private void TelemetryFerry(object sender, EventArgs e) =>
+            MessageBox.Show("Ferry");
 
-            Telemetry.Dispose();
+        private void TelemetryFined(object sender, EventArgs e) =>
+            MessageBox.Show("Fined");
+
+        private void TelemetryJobCancelled(object sender, EventArgs e) =>
+            MessageBox.Show("Job Cancelled");
+
+        private void TelemetryJobDelivered(object sender, EventArgs e) =>
+            MessageBox.Show("Job Delivered");
+
+        private void TelemetryOnJobStarted(object sender, EventArgs e) =>
+                                                            MessageBox.Show("Just started job OR loaded game with active.");
+
+        private void TelemetryRefuel(object sender, EventArgs e) => rtb_fuel.Invoke((MethodInvoker)(() => rtb_fuel.BackColor = Color.Green));
+
+        private void TelemetryRefuelEnd(object sender, EventArgs e) => rtb_fuel.Invoke((MethodInvoker)(() => rtb_fuel.BackColor = Color.Red));
+
+        private void TelemetryRefuelPayed(object sender, EventArgs e) {
+            MessageBox.Show("Fuel Payed: " + fuel);
         }
+
+        private void TelemetryTollgate(object sender, EventArgs e) =>
+                                    MessageBox.Show("Tollgate");
+
+        private void TelemetryTrain(object sender, EventArgs e) =>
+            MessageBox.Show("Train");
     }
 }

@@ -1,11 +1,14 @@
 ﻿#pragma warning disable 1570
 
 namespace SCSSdkClient.Object {
+
     public partial class SCSTelemetry {
+
         /// <summary>
         ///     Telemetry specific channels which might be used by more than one game.
         /// </summary>
         public class Common {
+
             /// <summary>
             ///     initialise a Common object
             /// </summary>
@@ -16,19 +19,6 @@ namespace SCSSdkClient.Object {
 
             /// About: Scale
             /// Games which use real 1:1 maps will not provide this channel
-            
-            /// <summary>
-            ///     Scale applied to distance and time to compensate for the scale of the map(e.g. 1s of real time corresponds to
-            ///     local_scale minutes of simulated game time).
-            /// </summary>
-            /// <!---->
-            /// **INFORMATION**
-            /// <!---->
-            /// Games which use real 1:1 maps will not provide this channel.
-            /// <!---->
-            /// **INFORMATION**
-            /// <!---->
-            public float Scale { get; internal set; }
 
             /// <summary>
             ///     Absolute in-game time.
@@ -69,7 +59,20 @@ namespace SCSSdkClient.Object {
             /// NextRestStopTime == 04.01.0001 22:00 // Pseudocode
             /// </code>
             /// </example>
-            public Time NextRestStopTime => new Time {Value = (uint) ((int) GameTime.Value + NextRestStop.Value)};
+            public Time NextRestStopTime => new Time { Value = (uint)((int)GameTime.Value + NextRestStop.Value) };
+
+            /// <summary>
+            ///     Scale applied to distance and time to compensate for the scale of the map(e.g. 1s of real time corresponds to
+            ///     local_scale minutes of simulated game time).
+            /// </summary>
+            /// <!---->
+            /// **INFORMATION**
+            /// <!---->
+            /// Games which use real 1:1 maps will not provide this channel.
+            /// <!---->
+            /// **INFORMATION**
+            /// <!---->
+            public float Scale { get; internal set; }
         }
     }
 }
