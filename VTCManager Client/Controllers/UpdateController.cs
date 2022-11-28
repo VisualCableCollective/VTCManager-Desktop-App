@@ -257,10 +257,13 @@ namespace VTCManager_Client.Controllers
                 }
             }
 
-            // Update plugins later
-            StorageController.Config.ETS_Plugin_Installation_Tried = true;
-            StorageController.Config.ATS_Plugin_Installation_Tried = true;
-
+            // Force plugin update later
+            StorageController.Config.ETS_Plugin_Installation_Tried = false;
+            StorageController.Config.ATS_Plugin_Installation_Tried = false;
+            StorageController.Config.ETS_Plugin_Installed = false;
+            StorageController.Config.ATS_Plugin_Installed = false;
+            
+            // Update client version info
             StorageController.Config.last_deploy_version_used = ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
         }
     }
