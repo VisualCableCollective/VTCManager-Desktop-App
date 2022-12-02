@@ -35,7 +35,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>131</ApplicationRevision>
+    <ApplicationRevision>133</ApplicationRevision>
     <ApplicationVersion>1.5.6.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -168,7 +168,6 @@
     <Compile Include="Controllers\DiscordRPCController.cs" />
     <Compile Include="Controllers\GameLogController.cs" />
     <Compile Include="Controllers\HTTPRequestController.cs" />
-    <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\ControllerManager.cs" />
     <Compile Include="Controllers\ModalController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
@@ -276,20 +275,21 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\DLLs\SCSSdkClient.dll" />
     <Resource Include="Resources\Images\UI\Backgrounds\Default.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\UI\TruckWallpapers\Default.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="Resources\Files\scs-telemetry.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Resources\DLLs\SCSSdkClient.dll" />
     <Resource Include="Resources\Images\UI\Backgrounds\Autumn.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Content Include="Resources\Files\scs-telemetry.dll" />
     <Content Include="Resources\Images\UI\Icons\dashboard_icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\UI\Icons\rotate-white.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\UI\Icons\settings_icon.png">
@@ -337,7 +337,6 @@
     <Content Include="Resources\Images\vtcmanager_logo_old.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SCSSdkClient.dll" />
     <Content Include="vtcmanager_logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -381,19 +380,51 @@
     <Folder Include="Resources\DLLs\CefSharp\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VTCManager.Logging\VTCManager.Logging.csproj">
+      <Project>{e15c398c-e4f6-4b08-8009-57599eb87809}</Project>
+      <Name>VTCManager.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VTCManager.Models\VTCManager.Models.csproj">
+      <Project>{501CC4EE-6D83-41F2-9B24-83E0B9C7704D}</Project>
+      <Name>VTCManager.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VTCManager.Plugins.Clock\VTCManager.Plugins.Clock.csproj">
       <Project>{f50fa5e4-cb8b-4436-814d-e18d4cf09f08}</Project>
       <Name>VTCManager.Plugins.Clock</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VTCManager.Plugins.ModSyncPro\VTCManager.Plugins.ModSyncPro.csproj">
+      <Project>{e62e42ec-c7b6-4a6e-b5ba-7b8ccc51a6d1}</Project>
+      <Name>VTCManager.Plugins.ModSyncPro</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <PublishFile Include="Resources\DLLs\SCSSdkClient.dll">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Resources\Files\scs-telemetry.dll">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
     <PublishFile Include="SCSSdkClient">
       <Visible>False</Visible>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Exclude</PublishState>
+      <PublishState>Include</PublishState>
       <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>

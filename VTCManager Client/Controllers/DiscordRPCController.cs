@@ -2,6 +2,7 @@
 using DiscordRPC.Logging;
 using System;
 using System.Timers;
+using VTCManager.Logging;
 
 namespace VTCManager_Client.Controllers
 {

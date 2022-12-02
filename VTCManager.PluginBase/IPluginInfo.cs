@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+using System.Timers;
 
 namespace VTCManager.Plugins.PluginBase
 {
@@ -14,5 +10,11 @@ namespace VTCManager.Plugins.PluginBase
         public abstract PluginType PluginType { get; }
 
         public virtual Type WidgetControlType { get; } = null;
+
+        public virtual Type PageControlType { get; } = null;
+
+        public virtual SidebarPluginInfo SidebarPluginInfo { get; } = null;
+
+        public virtual Timer BackgroundWorker { get; } = null;
     }
 }

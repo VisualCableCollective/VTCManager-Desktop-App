@@ -1,5 +1,18 @@
 # Changelog
 
+## Rev 12, former Rev 11 Update 1
+
+Change version to 12, because of offset changes. This leads to a rev change and not just an update like it was before. 
+
+### Important Changes
+
+- added trailer wearBody, see changes on the telemetry. It is placed after the other wear-values in the trailer
+  
+### New Values
+
+- Trailer wear body
+- multiplayer time offset
+
 ## Rev 11 (coming early due to some changes)
 
 ### Important Changes

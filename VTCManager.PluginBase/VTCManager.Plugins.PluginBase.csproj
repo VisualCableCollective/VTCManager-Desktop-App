@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="IPluginInfo.cs" />
     <Compile Include="Models\PluginType.cs" />
+    <Compile Include="Models\SidebarPluginInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

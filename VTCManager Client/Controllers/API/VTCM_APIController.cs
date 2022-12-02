@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
+using VTCManager.Logging;
+using VTCManager.Models.Enums;
 
 namespace VTCManager_Client.Controllers.API
 {
@@ -22,7 +24,7 @@ namespace VTCManager_Client.Controllers.API
         private static Timer DataUpdateTimer = new Timer(5000);
 
         //only executed by the loading screen
-        public static Models.ControllerStatus Init()
+        public static ControllerStatus Init()
         {
             if (AppInfo.UseLocalServer)
             {
@@ -38,23 +40,23 @@ namespace VTCManager_Client.Controllers.API
 
             if (!IsServerOperational())
             {
-                return Models.ControllerStatus.VTCMServerInoperational;
+                return ControllerStatus.VTCMServerInoperational;
             }
 
             if (String.IsNullOrEmpty(AuthDataController.GetAPIToken()))
             {
-                return Models.ControllerStatus.VTCMShowLogin;
+                return ControllerStatus.VTCMShowLogin;
             }
             else
             {
                 // check if token is still valid
                 if (!IsAuthTokenValid()) {
-                    return Models.ControllerStatus.VTCMShowLoginTokenExpired;
+                    return ControllerStatus.VTCMShowLoginTokenExpired;
                 }
                 else
                 {
                     DataUpdateTimer.Start();
-                    return Models.ControllerStatus.OK;
+                    return ControllerStatus.OK;
                 }
             }
         }

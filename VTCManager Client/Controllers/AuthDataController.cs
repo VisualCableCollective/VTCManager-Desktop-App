@@ -2,6 +2,8 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using VTCManager.Logging;
+using VTCManager.Models.Enums;
 
 namespace VTCManager_Client.Controllers
 {
@@ -12,7 +14,7 @@ namespace VTCManager_Client.Controllers
         private static string ApiToken = null;
         private static bool IsFileOpen = false;
 
-        public static Models.ControllerStatus Init()
+        public static ControllerStatus Init()
         {
             AuthDataFilePath = Models.Folder.AppDataFolder + "adata.dat";
             if (!File.Exists(AuthDataFilePath))
@@ -24,7 +26,7 @@ namespace VTCManager_Client.Controllers
 
             if (IsOldStorageUsed()) ConvertOldStorageToNew();;
 
-            return Models.ControllerStatus.OK;
+            return ControllerStatus.OK;
         }
 
         private static void SaveData(string data)

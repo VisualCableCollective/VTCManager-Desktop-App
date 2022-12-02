@@ -7,6 +7,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using VdfParser;
+using VTCManager.Logging;
 
 namespace VTCManager_Client.Controllers
 {

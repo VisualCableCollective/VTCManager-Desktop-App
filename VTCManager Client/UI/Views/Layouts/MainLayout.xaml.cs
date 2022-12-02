@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
+using VTCManager.Plugins.ModSyncPro;
 
 namespace VTCManager_Client.Views.Layouts
 {
@@ -14,6 +15,7 @@ namespace VTCManager_Client.Views.Layouts
     {
         public DashBoards.Main maindash = null;
         private UI.Views.SettingsPage settingsPage = null;
+        private ModSyncProPage modSyncProPage = null;
         private string CurrentPage = "Dashboard";
         private bool isSideBarAnimationRunning = false;
         private bool wasNavItemClicked = false;
@@ -165,7 +167,14 @@ namespace VTCManager_Client.Views.Layouts
                 return;
             wasNavItemClicked = true;
             CurrentPage = "Settings";
-            SideBarItems_MouseLeave(SBDashboardItem, null); //Fixes item still visually active
+            if (CurrentPage == "Dashboard")
+            {
+                SideBarItems_MouseLeave(SBDashboardItem, null); //Fixes item still visually active
+            }
+            else
+            {
+                SideBarItems_MouseLeave(SBModSyncItem, null); //Fixes item still visually active
+            }
             SBSettingsItem.Opacity = 1;
             if (settingsPage == null)
                 settingsPage = new UI.Views.SettingsPage();
@@ -179,7 +188,14 @@ namespace VTCManager_Client.Views.Layouts
                 return;
             wasNavItemClicked = true;
             CurrentPage = "Dashboard";
-            SideBarItems_MouseLeave(SBSettingsItem, null); //Fixes item still visually active
+            if (CurrentPage == "Settings")
+            {
+                SideBarItems_MouseLeave(SBSettingsItem, null); //Fixes item still visually active
+            }
+            else
+            {
+                SideBarItems_MouseLeave(SBModSyncItem, null); //Fixes item still visually active
+            }
             SBDashboardItem.Opacity = 1;
             PageContent.Navigate(maindash);
             CloseSideBar();
@@ -229,6 +245,26 @@ namespace VTCManager_Client.Views.Layouts
                     }
                 }));
             }
+        }
+
+        private void SBModSyncItem_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (wasNavItemClicked)
+                return;
+            wasNavItemClicked = true;
+            if (CurrentPage == "Settings")
+            {
+                SideBarItems_MouseLeave(SBSettingsItem, null); //Fixes item still visually active
+            } else
+            {
+                SideBarItems_MouseLeave(SBDashboardItem, null); //Fixes item still visually active
+            }
+            CurrentPage = "ModSyncPro";
+            SBModSyncItem.Opacity = 1;
+            if (modSyncProPage == null)
+                modSyncProPage = new ModSyncProPage();
+            PageContent.Navigate(modSyncProPage);
+            CloseSideBar();
         }
     }
 }

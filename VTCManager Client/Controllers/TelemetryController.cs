@@ -2,6 +2,7 @@
 using SCSSdkClient.Object;
 using System;
 using System.Windows;
+using VTCManager.Logging;
 
 namespace VTCManager_Client.Controllers
 {
@@ -42,8 +43,8 @@ namespace VTCManager_Client.Controllers
 
             if (Telemetry.Error != null)
             {
-                LogController.Write(LogPrefix + "The following telemetry error occured: " + Telemetry.Error.StackTrace, LogController.LogType.Warning);
-                MessageBox.Show("The following telemetry error occured: " + Telemetry.Error.StackTrace, "Telemetry Controller", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                LogController.Write(LogPrefix + "The following telemetry error occurred: " + Telemetry.Error.StackTrace, LogController.LogType.Warning);
+                MessageBox.Show("The following telemetry error occurred: " + Telemetry.Error.StackTrace, "Telemetry Controller", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
 
             _InitDone = true;

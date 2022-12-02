@@ -17,7 +17,7 @@
         //Changelog
         public static readonly string CLNewFeaturesList = "";
         public static readonly string CLAdditionalImprovementsList = "";
-        public static readonly string CLSecurityAndBugFixesList = "Fixed an issue, that caused a not user-friendly error message, when starting a new job without being a member of a company.\nFixed an issue, that showed an error message that the job couldn't be finished properly, even though everything was fine.\n-Fixed an issue, that prevented the client from launching, when neither ETS or ATS is installed.";
+        public static readonly string CLSecurityAndBugFixesList = "-Fixed an issue, that prevented the client from launching, when neither ETS or ATS is installed.";
         #endregion
 
         /// <summary>

@@ -5,6 +5,8 @@ using System.Windows.Threading;
 using System.IO;
 using System.Diagnostics;
 using Microsoft.Win32;
+using VTCManager.Models.Enums;
+using VTCManager.Logging;
 
 namespace VTCManager_Client.Controllers
 {
@@ -14,13 +16,13 @@ namespace VTCManager_Client.Controllers
         private static bool InitDone = false;
         public static string InitErrorMessage = null;
         private static string LogPrefix = "[Updater] ";
-        public static Models.ControllerStatus Init(Windows.LoadingWindow loadingWindow)
+        public static ControllerStatus Init(Windows.LoadingWindow loadingWindow)
         {
             UpdateController.LoadingWindow = loadingWindow;
             if (!CheckAndInstallUpdate())
             {
                 InitErrorMessage = "Couldn't check for updates or install new updates for the VTCManager client. The application will now be closed.";
-                return Models.ControllerStatus.FatalError;
+                return ControllerStatus.FatalError;
             }
 
             if (ApplicationDeployment.IsNetworkDeployed)
@@ -31,7 +33,7 @@ namespace VTCManager_Client.Controllers
 
             InitDone = true;
 
-            return Models.ControllerStatus.OK;
+            return ControllerStatus.OK;
         }
 
         private static bool CheckAndInstallUpdate()
@@ -255,10 +257,13 @@ namespace VTCManager_Client.Controllers
                 }
             }
 
-            // Update plugins later
-            StorageController.Config.ETS_Plugin_Installation_Tried = true;
-            StorageController.Config.ATS_Plugin_Installation_Tried = true;
-
+            // Force plugin update later
+            StorageController.Config.ETS_Plugin_Installation_Tried = false;
+            StorageController.Config.ATS_Plugin_Installation_Tried = false;
+            StorageController.Config.ETS_Plugin_Installed = false;
+            StorageController.Config.ATS_Plugin_Installed = false;
+            
+            // Update client version info
             StorageController.Config.last_deploy_version_used = ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
         }
     }

@@ -15,6 +15,8 @@ using System.Drawing;
 using Application = System.Windows.Forms.Application;
 using System.ComponentModel;
 using SCSSdkClient;
+using VTCManager.Models.Enums;
+using VTCManager.Logging;
 
 namespace VTCManager_Client.Windows
 {
@@ -35,7 +37,7 @@ namespace VTCManager_Client.Windows
 
         private App app;
 
-        public MainWindow(App _app, List<Models.ControllerStatus> app_init_result)
+        public MainWindow(App _app, List<ControllerStatus> app_init_result)
         {
             app = _app;
             InitializeComponent();
@@ -69,14 +71,14 @@ namespace VTCManager_Client.Windows
             NormalWindowWidth = this.ActualWidth;
 
             bool show_login = false;
-            foreach (Models.ControllerStatus info in app_init_result)
+            foreach (ControllerStatus info in app_init_result)
             {
                 switch (info)
                 {
-                    case Models.ControllerStatus.VTCMShowLoginTokenExpired:
+                    case ControllerStatus.VTCMShowLoginTokenExpired:
                         show_login = true;
                         break;
-                    case Models.ControllerStatus.VTCMShowLogin:
+                    case ControllerStatus.VTCMShowLogin:
                         show_login = true;
                         break;
                     default:
@@ -120,7 +122,7 @@ namespace VTCManager_Client.Windows
         private void ExitApplication(object sender, EventArgs e)
         {
             TrayIcon.Visible = false; // hide it because it doesn't auto hide after shutdown of the app
-            Controllers.LogController.Write("Shutting down (user closed main window)...");
+            LogController.Write("Shutting down (user closed main window)...");
             Controllers.ControllerManager.ShutDown();
             Environment.Exit(0);
         }

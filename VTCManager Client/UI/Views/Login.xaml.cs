@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
+using VTCManager.Logging;
 using VTCManager_Client.Controllers;
 
 namespace VTCManager_Client.Views
@@ -110,7 +111,7 @@ namespace VTCManager_Client.Views
                         }
                         else
                         {
-                            Controllers.LogController.Write(LogPrefix + "Getting the auth token failed. Code: 1");
+                            LogController.Write(LogPrefix + "Getting the auth token failed. Code: 1");
                             LoginWebBrowser.Visibility = Visibility.Visible;
                             MessageBox.Show("Oh no. An error occurred while signing in.", "Error: Can't get auth token", MessageBoxButton.OK, MessageBoxImage.Warning);
                             LoginWebBrowser.GetBrowser().MainFrame.LoadUrl(VTCMServerHost + "auth/vcc/desktop-client/redirect");
@@ -119,7 +120,7 @@ namespace VTCManager_Client.Views
                     }
                     catch(Exception ex)
                     {
-                        Controllers.LogController.Write(LogPrefix + "Getting the auth token failed. Code: 2 Exception: " + ex.Message);
+                        LogController.Write(LogPrefix + "Getting the auth token failed. Code: 2 Exception: " + ex.Message);
                         LoginWebBrowser.Visibility = Visibility.Visible;
                         MessageBox.Show("Oh no. An error occurred while signing in.", "Error: Can't get auth token", MessageBoxButton.OK, MessageBoxImage.Warning);
                         LoginWebBrowser.GetBrowser().MainFrame.LoadUrl(VTCMServerHost + "auth/vcc/desktop-client/redirect");
@@ -136,7 +137,7 @@ namespace VTCManager_Client.Views
             Thread.Sleep(500);
             if (!Controllers.API.VTCM_APIController.IsAuthTokenValid())
             {
-                Controllers.LogController.Write(LogPrefix + "Checking the auth token failed. Couldn't get user data.");
+                LogController.Write(LogPrefix + "Checking the auth token failed. Couldn't get user data.");
                 LoginWebBrowser.Visibility = Visibility.Visible;
                 MessageBox.Show("Oh no. An error occurred while signing in.", "Error: AuthToken Invalid", MessageBoxButton.OK,MessageBoxImage.Warning);
                 LoginWebBrowser.GetBrowser().MainFrame.LoadUrl(VTCMServerHost + "auth/vcc/desktop-client/redirect");
