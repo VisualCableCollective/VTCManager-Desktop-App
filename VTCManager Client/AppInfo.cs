@@ -12,12 +12,12 @@
         public static readonly string DiscordClientID = "659036297561767948";
 
         #region UpdateInfo
-        public static readonly string UpdatePublishedDate = "November 07, 2022";
+        public static readonly string UpdatePublishedDate = "December 2, 2022";
 
         //Changelog
         public static readonly string CLNewFeaturesList = "";
         public static readonly string CLAdditionalImprovementsList = "";
-        public static readonly string CLSecurityAndBugFixesList = "- The internal telemetry system has been updated to support the latest SDK version and fix some bugs.";
+        public static readonly string CLSecurityAndBugFixesList = "-Fixed an issue, that prevented the client from launching, when neither ETS or ATS is installed.";
         #endregion
 
         /// <summary>

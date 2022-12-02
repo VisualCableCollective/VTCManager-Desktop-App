@@ -32,7 +32,7 @@ namespace VTCManager_Client.Controllers
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                String SteamInstallPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Valve\Steam\", "InstallPath", null).ToString();
+                String SteamInstallPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Valve\Steam\", "InstallPath", null)?.ToString();
                 if (!String.IsNullOrEmpty(SteamInstallPath))
                 {
                     LogController.Write(LogPrefix + "Found Steam Installation in '" + SteamInstallPath + "'.");
